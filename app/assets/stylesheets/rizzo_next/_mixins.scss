@@ -137,3 +137,124 @@ $base-font-size: 14 !default;
     margin-top: 65px;
   }
 }
+
+// -----------------------------------------------------------------------------
+// CSS Arrow
+// -----------------------------------------------------------------------------
+
+@mixin css-arrow($side: top, $size: 20px, $offset: 0) {
+  &:after {
+    @include size($size);
+  }
+  @if $side == top {
+    &:after {
+      bottom: auto;
+      left: $offset;
+      top: -(0.7 * $size);
+    }
+  }
+  @if $side == right {
+    &:after {
+      left: auto;
+      right: -(0.65 * $size);
+      top: $offset;
+    }
+  }
+  @if $side == bottom {
+    &:after {
+      bottom: -(0.6 * $size);
+      left: $offset;
+      top: auto;
+    }
+  }
+  @if $side == left {
+    &:after {
+      left: -(0.6 * $size);
+      right: auto;
+      top: $offset;
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Centralised CSS Arrow
+// -----------------------------------------------------------------------------
+
+@mixin css-arrow-central($side: top, $size: 28px, $offset: 0) {
+  @include css-arrow($side, $size, $offset);
+  @if $side == top {
+    &:after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  @if $side == bottom {
+    &:after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  @if $side == right {
+    &:after {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+  @if $side == left {
+    &:after {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Size
+// -----------------------------------------------------------------------------
+
+
+@mixin size($size) {
+  @if length($size) == 1 {
+    @if $size == auto {
+      width:  $size;
+      height: $size;
+    }
+
+    @else if unitless($size) {
+      width:  $size + px;
+      height: $size + px;
+    }
+
+    @else if not(unitless($size)) {
+      width:  $size;
+      height: $size;
+    }
+  }
+
+  // Width x Height
+  @if length($size) == 2 {
+    $width:  nth($size, 1);
+    $height: nth($size, 2);
+
+    @if $width == auto {
+      width: $width;
+    }
+    @else if not(unitless($width)) {
+      width: $width;
+    }
+    @else if unitless($width) {
+      width: $width + px;
+    }
+
+    @if $height == auto {
+      height: $height;
+    }
+    @else if not(unitless($height)) {
+      height: $height;
+    }
+    @else if unitless($height) {
+      height: $height + px;
+    }
+  }
+}
+
