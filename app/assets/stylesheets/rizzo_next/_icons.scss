@@ -114,3 +114,12 @@
 .icon--custom-2 {
   background-position: 50% 100%;
 }
+
+.picker__nav--prev,
+.icon--chevron-left--before:before, .icon--chevron-left--after:after,
+.icon--chevron-left { background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2232%22%20height%3D%22232%22%20viewBox%3D%220%200%2032%20232%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M20.5%20149.5L8%20137l3.334-3.332L20.5%20124.5l3.334%203.334L14.666%20137l9.168%209.168L20.5%20149.5%22%20fill%3D%22%23206FAC%22%2F%3E%3Cpath%20d%3D%22M20.5%20109.5L8%2097l3.334-3.332L20.5%2084.5l3.334%203.334L14.666%2097l9.168%209.168L20.5%20109.5%22%20fill%3D%22%23fff%22%2F%3E%3Cpath%20d%3D%22M20.5%2069.5L8%2057l3.334-3.332L20.5%2044.5l3.334%203.334L14.666%2057l9.168%209.168L20.5%2069.5%22%20fill%3D%22%2367737B%22%2F%3E%3Cpath%20d%3D%22M20.5%2029.5L8%2017l3.334-3.332L20.5%204.5l3.334%203.334L14.666%2017l9.168%209.168L20.5%2029.5%22%20fill%3D%22%233A434E%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; }
+
+.picker__nav--next,
+.icon--chevron-right--before:before, .icon--chevron-right--after:after,
+.icon--chevron-right { background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2232%22%20height%3D%22232%22%20viewBox%3D%220%200%2032%20232%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M11.336%20123.5l12.5%2012.5-3.334%203.332-9.166%209.168-3.334-3.334L17.17%20136l-9.168-9.168%203.334-3.332%22%20fill%3D%22%23206FAC%22%2F%3E%3Cpath%20d%3D%22M11.336%2083.5l12.5%2012.5-3.334%203.332-9.166%209.168-3.334-3.334L17.17%2096l-9.168-9.168%203.334-3.332%22%20fill%3D%22%23fff%22%2F%3E%3Cpath%20d%3D%22M11.336%2043.5l12.5%2012.5-3.334%203.332-9.166%209.168-3.334-3.334L17.17%2056l-9.168-9.168%203.334-3.332%22%20fill%3D%22%2367737B%22%2F%3E%3Cpath%20d%3D%22M11.336%203.5l12.5%2012.5-3.334%203.332-9.166%209.168-3.334-3.334L17.17%2016%208.002%206.832%2011.336%203.5%22%20fill%3D%22%233A434E%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; }
+

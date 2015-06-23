@@ -47,8 +47,9 @@ $pickerWidth: 320px;
 .picker__month,
 .picker__year {
   font-size: 20px;
-  @extend %inline-block;
+  display: inline-block;
   font-weight: bold;
+  color: $darkgray;
 }
 
 .picker__header {
@@ -127,6 +128,7 @@ $pickerWidth: 320px;
   text-align: center;
   border: 1px solid #d7dee3;
   cursor: pointer;
+  color: $darkgray;
 }
 
 .picker__day--selected,
