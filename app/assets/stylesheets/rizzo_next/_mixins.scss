@@ -75,7 +75,7 @@ $base-font-size: 14 !default;
 @mixin author-image($mobile) {
   display: inline-block;
   width: 12vw;
-  margin-right: 5px;
+  margin-right: $spacing;
   border-radius: 60px;
   vertical-align: middle;
   max-width: 50px;
@@ -99,7 +99,7 @@ $base-font-size: 14 !default;
 }
 
 @mixin author-name($mobile) {
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   font: {
     weight: $semibold;
     size: 4vw;
