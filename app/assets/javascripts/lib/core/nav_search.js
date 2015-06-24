@@ -2,6 +2,8 @@ define([ "jquery", "autocomplete" ], function($, Autocomplete) {
 
   "use strict";
 
+  var savedSearchTerm = "";
+
   function NavSearch() {
 
     var $el = $(".js-primary-search");
@@ -26,6 +28,7 @@ define([ "jquery", "autocomplete" ], function($, Autocomplete) {
         item: "nav__item nav__submenu__item"
       },
       fetch: function(searchTerm, callback) {
+        savedSearchTerm = searchTerm;
         $.ajax({
           url: "//www.lonelyplanet.com/search.json?q=" + searchTerm,
           dataType: "json",
@@ -66,6 +69,11 @@ define([ "jquery", "autocomplete" ], function($, Autocomplete) {
       category: "search",
       action: "autocomplete",
       label: url
+    });
+
+    window.lp.fs.log({
+      autocompleteTerm: savedSearchTerm,
+      autocompleteURL: url
     });
 
     window.location = url;
