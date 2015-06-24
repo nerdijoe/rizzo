@@ -1,0 +1,32 @@
+@mixin h1(){
+  margin: 0 0 $gutter * 2;
+  padding: 0;
+
+  font-family: $sans-serif;
+  font-size: 5rem;
+  font-weight: 100;
+
+  color: $h2-color;
+
+  line-height: 1.8;
+  text-align: center;
+
+  &:after {
+    display: block;
+    content: "";
+
+    margin: 0 auto 24px;
+
+    width: 3rem;
+
+    border-bottom: .2rem solid $h2-secondary-color;
+  }
+}
+
+@mixin h2(){
+
+}
+
+@mixin h3(){
+
+}
