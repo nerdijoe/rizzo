@@ -1,71 +1,52 @@
 @mixin segment() {
   margin: 0;
-  padding: $gutter 0 $gutter - $spacing;
+  padding: ($gutter*2) 0 ($gutter*2 - $spacing);
 
   &--grey {
     background-color: $color-lightgrey;
   }
 
-  &--border-bottom {
-    margin-left: auto;
-    margin-right: auto;
+  &--border-bottom:after {
+    box-sizing: content-box;
 
-    //padding: 0 ($gutter/2);
+    display: block;
+    content: "";
 
-    &:after {
-      box-sizing: content-box;
+    position: relative;
+    bottom: -$gutter*2 + $spacing;
 
-      display: block;
-      content: "";
+    margin: 0 ($gutter*0.5);
 
-      position: relative;
-      bottom: -$gutter*1 + $spacing;
+    max-width: $max-width;
+    height: 0;
 
-      margin: 0 ($gutter*0.5);
+    border-bottom: 1px solid #e4e4e4;
 
-      max-width: $max-width;
-      height: 0;
+    @media (min-width: $min-720){
+      margin: 0 ($gutter*1);
 
-      border-bottom: 1px solid #e4e4e4;
+      bottom: -$gutter*3 + $spacing;
+    }
 
-      @media (min-width: $min-720){
-        margin: 0 ($gutter*1);
+    @media (min-width: $min-1080){
+      margin: 0 ($gutter*2);
 
-        bottom: -$gutter*2 + $spacing;
-      }
+      bottom: -$gutter*3.5 + $spacing;
+    }
 
-      @media (min-width: $min-1080){
-        margin: 0 ($gutter*2);
+    @media (min-width: $min-1290){
+      margin: 0 auto;
 
-        bottom: -$gutter*3 + $spacing;
-      }
+      max-width: $max-width - $gutter * 4;
     }
   }
 
   @media (min-width: $min-720){
-    padding: $gutter*2 0 ($gutter*2) - $spacing;
+    padding: ($gutter*3) 0 ($gutter*3 - $spacing);
   }
 
   @media (min-width: $min-1080){
-    padding: $gutter*3 0 ($gutter*3) - $spacing;
-  }
-
-  &--short {
-    @media (min-width: $min-720){
-      padding-bottom: 0;
-    }
-  }
-
-  &--slim {
-    padding-bottom: 0;
-
-    @media (min-width: $min-720){
-      padding-top: 0;
-    }
-
-    @media (min-width: $min-1080){
-      padding-bottom: $gutter * 1.5;
-    }
+    padding: ($gutter*3.5) 0 ($gutter*3.5 - $spacing);
   }
 }
 
