@@ -3,23 +3,6 @@
 a {
   color: $color-primary;
   text-decoration: none;
-
-  transition: color 300ms, border 300ms, background 300ms;
-
-  &:after,
-  &:before {
-    transition: color 300ms, border 300ms, background 300ms;
-  }
-
-  &:hover {
-    color: $color-primary + 30;
-    transition: color 0ms, border 0ms, background 0ms;
-
-    &:after,
-    &:before {
-      transition: color 0ms, border 0ms, background 0ms;
-    }
-  }
 }
 
 .more {

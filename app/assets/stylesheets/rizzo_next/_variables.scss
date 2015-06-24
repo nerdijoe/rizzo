@@ -50,6 +50,7 @@ $animation-speed: .4s;
 $animation-speed-ui: .8s;
 
 // Custom break points (Mobile first)
+$min-1290: #{(1290 * 0.0625)}em;
 $min-1200: #{(1200 * 0.0625)}em;
 $min-1080: #{(1080 * 0.0625)}em;
 $min-960: #{(960 * 0.0625)}em;
@@ -62,6 +63,7 @@ $min-480: #{(480 * 0.0625)}em;
 $min-360: #{(360 * 0.0625)}em;
 
 // Custom break points
+$max-1290: #{(1289 * 0.0625)}em;
 $max-1200: #{(1199 * 0.0625)}em;
 $max-1080: #{(1079 * 0.0625)}em;
 $max-960: #{(959 * 0.0625)}em;
