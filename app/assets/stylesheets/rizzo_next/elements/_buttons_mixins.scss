@@ -23,6 +23,10 @@
 
   transition: color 500ms, border 500ms, background 500ms;
 
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
   [class*="icon-"] {
     display: inline-block;
 
