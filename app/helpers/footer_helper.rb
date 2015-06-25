@@ -91,7 +91,8 @@ module FooterHelper
       ['es', 'Espa&#241;ol'],
       ['it', 'Italiano'],
       ['ru', '&#x420;&#x443;&#x441;&#x441;&#x43A;&#x438;&#x439;'],
-      ['br', 'Portugu&ecirc;s']
+      ['br', 'Portugu&ecirc;s'],
+      ['cz', 'Czech']
     ]
   end
 
