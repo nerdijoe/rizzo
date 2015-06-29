@@ -26,8 +26,3 @@ else if(document.getElementsByTagName("body").length>0)document.getElementsByTag
         googletag.cmd.push((function(key, value) {return function() {googletag.pubads().setTargeting(key, value); } })(sp[0], sp[1]) );
     }
 </script>
-
-<script type='text/javascript'>
-var crtg_split = crtg_content.split(';');
-for (var i=1;i<crtg_split.length;i++){ googletag.pubads().setTargeting ("" + (crtg_split[i-1].split('='))[0] + "", "" + (crtg_split[i-1].split('='))[1] + "");}
-</script>
