@@ -162,6 +162,26 @@ dropdown_components:
           - :title: 'b2'
           - :title: 'c3'
 
+  -
+    :styleguide_title: "Select multiple field"
+    :id: "input_id"
+    :name: "text_name"
+    :label: "Select label"
+    :options:
+      - :title: 'one'
+      - :title: 'two'
+      - :title: 'three'
+      - :title: 'four'
+      - :title: 'five'
+      - :title: 'six'
+      - :title: 'seven'
+      - :title: 'eight'
+      - :title: 'nine'
+      - :title: 'ten'
+    :data:
+      :key: "value"
+      :super: "man"
+
 slider_components:
   -
     :title: "Price slider"
