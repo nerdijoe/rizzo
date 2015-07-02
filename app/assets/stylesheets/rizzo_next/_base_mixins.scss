@@ -20,7 +20,7 @@
     max-width: $max-width;
     height: 0;
 
-    border-bottom: 1px solid #e4e4e4;
+    border-bottom: .1rem solid $color-border;
 
     @media (min-width: $min-720){
       margin: 0 ($gutter*1);
