@@ -1,9 +1,4 @@
-@mixin more() {
-  font-size: 1.3rem;
-  line-height: 0.5;
-  font-weight: 600;
-  text-transform: uppercase;
-
+@mixin link-transition(){
   transition-property: color, border, background;
   transition-duration: .3s;
 
@@ -14,13 +9,25 @@
   }
 
   &:hover {
-    color: $color-primary + 30;
     transition-duration: 0ms;
 
     &:after,
     &:before {
       transition-duration: 0ms;
     }
+  }
+}
+
+@mixin more() {
+  font-size: 1.3rem;
+  line-height: 1;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  @include link-transition();
+
+  &:hover {
+    color: $color-primary + 30;
   }
 
   [class*="icon-"] {
