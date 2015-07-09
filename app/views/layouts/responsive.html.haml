@@ -8,6 +8,9 @@
   %script#tmpl-preloader{ type: 'text/html' }
     = ui_component('preloader')
 
+  - if destinations_next_cookie?
+    = ui_component('alert', properties: {type: "warning",title: "Dear alpha tester, ",message: "you've left the new experience."})
+    
   = render 'layouts/custom/pre_header', third_party: false
   .wrapper.js-wrapper
     - unless @no_nav
