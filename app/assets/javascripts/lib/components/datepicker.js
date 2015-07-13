@@ -35,7 +35,9 @@ define([ "jquery", "picker", "pickerDate", "pickerLegacy" ], function($) {
         today = [],
         tomorrow = [],
         d = new Date(),
-        inOpts, outOpts;
+        inOpts, outOpts,
+        forwards = this.config.forwards === true,
+        backwards = this.config.backwards === true;
 
     this.inDate = $(this.config.target).find(this.config.startSelector);
     this.outDate = $(this.config.target).find(this.config.endSelector);
@@ -61,10 +63,10 @@ define([ "jquery", "picker", "pickerDate", "pickerLegacy" ], function($) {
       }
     };
 
-    if (this.config.backwards) {
+    if (!forwards && backwards) {
       inOpts.max = today;
       outOpts.max = today;
-    } else {
+    } else if ((forwards && !backwards) || (!forwards && !backwards)) {
       inOpts.min = today;
       outOpts.min = tomorrow;
     }
