@@ -6,14 +6,6 @@
 
 .autocomplete
   position: relative
-  input, textarea
-    background-image: url("#{image_path('shared/spinner.gif')}")
-    background-repeat: no-repeat
-    background-position: right 5px top 11px
-    background-size: 0
-  &.is-loading 
-    input, textarea
-      background-size: 40px
 
 .autocomplete__results
   +z-layer(middle)
