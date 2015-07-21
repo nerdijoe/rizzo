@@ -12,7 +12,6 @@ define([ "jquery", "picker", "pickerDate", "pickerLegacy" ], function($) {
     callbacks: {},
     dateFormat: "d mmm yyyy",
     dateFormatLabel: "yyyy/mm/dd",
-    listener: "#js-row--content",
     target: "#js-row--content",
     startSelector: "#js-av-start",
     endSelector: "#js-av-end",
@@ -20,13 +19,9 @@ define([ "jquery", "picker", "pickerDate", "pickerLegacy" ], function($) {
     endLabelSelector: ".js-av-end-label"
   };
 
-  // @args = {}
-  // el: {string} selector for parent element
-  // listener: {string} selector for the listener
   function Datepicker(args) {
     this.config = $.extend({}, defaults, args);
 
-    this.$listener = $(this.config.listener);
     this.init();
   }
 
@@ -35,10 +30,13 @@ define([ "jquery", "picker", "pickerDate", "pickerLegacy" ], function($) {
         today = [],
         tomorrow = [],
         d = new Date(),
-        inOpts, outOpts;
+        inOpts, outOpts,
+        forwards = this.config.forwards === true,
+        backwards = this.config.backwards === true;
 
-    this.inDate = $(this.config.target).find(this.config.startSelector);
-    this.outDate = $(this.config.target).find(this.config.endSelector);
+    this.target = $(this.config.target);
+    this.inDate = this.target.find(this.config.startSelector);
+    this.outDate = this.target.find(this.config.endSelector);
     this.inLabel = $(this.config.startLabelSelector);
     this.outLabel = $(this.config.endLabelSelector);
     this.firstTime = !!this.inDate.val();
@@ -49,6 +47,8 @@ define([ "jquery", "picker", "pickerDate", "pickerLegacy" ], function($) {
 
     inOpts = {
       format: this.config.dateFormat,
+      selectMonths: this.config.selectMonths,
+      selectYears: this.config.selectYears,
       onSet: function() {
         _this._dateSelected(this.get("select", _this.config.dateFormatLabel), "start");
       }
@@ -56,15 +56,17 @@ define([ "jquery", "picker", "pickerDate", "pickerLegacy" ], function($) {
 
     outOpts = {
       format: this.config.dateFormat,
+      selectMonths: this.config.selectMonths,
+      selectYears: this.config.selectYears,
       onSet: function() {
         _this._dateSelected(this.get("select", _this.config.dateFormatLabel), "end");
       }
     };
 
-    if (this.config.backwards) {
+    if (!forwards && backwards) {
       inOpts.max = today;
       outOpts.max = today;
-    } else {
+    } else if ((forwards && !backwards) || (!forwards && !backwards)) {
       inOpts.min = today;
       outOpts.min = tomorrow;
     }

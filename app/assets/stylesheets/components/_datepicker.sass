@@ -8,7 +8,7 @@ $pickerWidth: 320px
   clear: both
 
 .picker__frame
-  @extend %transition--slower
+  @extend %transition--base
   @extend %rounded-corners
   top: 0
   left: 0
@@ -23,6 +23,7 @@ $pickerWidth: 320px
     @extend %fly-out-shadow
 
 .picker__box
+  @extend %rounded-corners
   padding: 10px
   text-align: center
   border: 1px solid $subduedgray
@@ -45,7 +46,29 @@ $pickerWidth: 320px
 
 .picker__header
   position: relative
-  padding: 8px 0 10px
+  padding: 8px 30px 10px
+
+.picker__select--month,
+.picker__select--year
+  +font-size(20px)
+  border: none
+  outline: none
+  background-color: transparent
+  appearance: none
+  user-select: none
+  cursor: pointer
+  color: $body-copy
+
+.picker__select--month
+  min-width: 50%
+  direction: rtl
+
+  & + .picker__year,
+  & + .picker__select--year
+    margin-left: 5px
+
+.picker__select--year
+  font-weight: bold
 
 .picker__nav--prev,
 .picker__nav--next
@@ -90,9 +113,10 @@ $pickerWidth: 320px
   border-spacing: 4px
   width: 100%
 
-.picker__weekday
+.picker__weekday,
   +font-size(12px)
   font-weight: bold
+  line-height: 1.5em
   text-transform: uppercase
   opacity: .5
 
@@ -116,7 +140,7 @@ $pickerWidth: 320px
 
 .picker__day--outfocus,
 .picker__day--disabled
-  border: none
+  border: 1px solid transparent
   opacity: 0.25
 
 .picker__day--disabled
@@ -125,16 +149,29 @@ $pickerWidth: 320px
   cursor: default
 
 .picker__footer
-  margin-top: 10px
-  display: none
+  margin-top: 4px
+  height: 20px
+
+.picker__button--clear,
+.picker__button--today
+  @extend %transition--base
+  +font-size(12px)
+  font-weight: bold
+  text-transform: uppercase
+  opacity: .5
+  border: none
+  background: transparent
+  color: $body-copy
+
+  &:hover
+    opacity: 1
+    cursor: pointer
 
 .picker__button--clear
-  display: none
+  float: right
 
 .picker__button--today
-  border: 1px solid rgba(255,255,255,0.2)
-  width: 95%
-  margin: 0 auto
+  float: left
 
 // -----------------------------------------------------------------------------
 // Datepickers with an arrow above (icon classes to be defined in JS)
