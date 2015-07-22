@@ -16,7 +16,8 @@ define([
   "lib/core/feature_detect",
   "lib/core/place_title_nav",
   "lib/core/cookie_compliance",
-  "lib/core/adblock_checker",
+  "lib/core/advertising",
+  "lib/core/block_checker",
   "lib/components/toggle_active",
   "lib/components/select_group_manager"
 
