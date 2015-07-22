@@ -2,7 +2,7 @@ define(function() {
 
   "use strict";
 
-  if (window.lp.isAdblockActive == true){
+  if (window.lp.isAdblockActive === true){
 
     window.lp.analytics.api.trackEvent({
       category: "advertising",
