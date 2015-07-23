@@ -9,8 +9,7 @@ define(function() {
       action: "loaded-with-adblock",
       label: window.location.pathname
     });
-  }
-  else {
+  } else {
     window.lp.analytics.api.trackEvent({
       category: "advertising",
       action: "loaded-without-adblock",
