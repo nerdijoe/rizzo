@@ -4,6 +4,18 @@ module Rizzo
   module UrlValidator
     class InvalidUrl < StandardError; end
 
+    VALID_HOSTS = [
+                    "www.lonelyplanet.com",
+                    "www.lonelyplanet.in",
+                    "www.lonelyplanet.de",
+                    "www.lonelyplanet.fr",
+                    "www.lonelyplanet.es",
+                    "www.lonelyplanetitalia.it",
+                    "www.lonelyplanet.ru",
+                    "www.lonelyplanetbrasil.com.br",
+                    "www.lonelyplanet.cz"
+                  ]
+
     def self.validate(url = "")
       target = Addressable::URI.heuristic_parse(url)
       target.path = "/#{target.path}" unless target.path[0] == '/'
@@ -19,8 +31,7 @@ module Rizzo
     private
 
     def self.whitelisted_hosts(url)
-      hosts = YAML.load_file(Rails.root.join('app/data/lib/url_validator.yml'))[:hosts]
-      hosts.include?(url) ? url : nil
+      url if VALID_HOSTS.include?(url)
     end
   end
 end
