@@ -11,7 +11,8 @@ module Rizzo
       target.scheme = ENV['APP_SCHEME'] || ((target.scheme == 'http' || target.scheme == 'https') ? target.scheme : 'http')
       target.port = target.scheme == 'https' ? 443 : 80
       target.to_s
-    rescue
+    rescue => e
+      Airbrake.notify(e) if defined?(Airbrake)
       raise InvalidUrl
     end
 
