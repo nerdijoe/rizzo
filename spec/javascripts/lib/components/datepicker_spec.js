@@ -75,11 +75,41 @@ define([ "jquery", "public/assets/javascripts/lib/components/datepicker.js" ], f
         expect(sibling.find(".picker__day")).toHaveClass("picker__day--disabled");
       });
 
-      describe("Choosing dates", function(){
+      it("can allow searching for any date", function() {
+        var cell, nextCell, prevCell;
 
-        var expected, selected, stubDate;
+        new Datepicker({
+          forwards: true,
+          backwards: true,
+          target: ".js-standard"
+        });
 
-        beforeEach(function(){
+        $("#js-av-start").trigger("focus");
+
+        cell = $(".picker--opened .picker__day--today").closest("td");
+
+        if (cell.next().length) {
+          nextCell = cell.next();
+        } else {
+          nextCell = cell.parent().next().children().first();
+        }
+
+        expect(nextCell.find(".picker__day")).not.toHaveClass("picker__day--disabled");
+
+        if (cell.prev().length) {
+          prevCell = cell.next();
+        } else {
+          prevCell = cell.parent().prev().children().first();
+        }
+
+        expect(prevCell.find(".picker__day")).not.toHaveClass("picker__day--disabled");
+      });
+
+      describe("Choosing dates", function() {
+
+        var selected, stubDate;
+
+        beforeEach(function() {
           stubDate = new Date();
           stubDate.setMonth(stubDate.getMonth() + 1);
           stubDate.setDate("20");
