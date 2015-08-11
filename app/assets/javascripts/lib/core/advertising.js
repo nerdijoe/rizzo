@@ -1,1 +1,0 @@
-window.lp.isAdblockActive = false;
