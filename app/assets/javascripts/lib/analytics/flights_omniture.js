@@ -11,7 +11,8 @@ define([ "jquery" ], function($) {
 
     this.initHandlers();
 
-    window.s.pageName = "bookings services : flights";
+    if (!window.s.pageName)
+      window.s.pageName = "bookings services : flights";
     window.s.channel = "bookings services";
     window.s.eVar2 = "bookings services";
     window.s.eVar4 = "flights";
