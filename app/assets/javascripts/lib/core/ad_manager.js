@@ -61,6 +61,10 @@ define([ "jquery", "lib/core/ad_sizes", "lib/core/ad_unit" ], function($, adSize
   AdManager.prototype._adCallback = function($adunit) {
     var unit = $adunit.data("adUnit"), currentUnit;
 
+    if ($adunit.closest(".row--sponsored").length) {
+      $(".row--sponsored").show();
+    }
+
     if (!unit) {
       currentUnit = new AdUnit($adunit);
       $adunit.data("adUnit", currentUnit);
