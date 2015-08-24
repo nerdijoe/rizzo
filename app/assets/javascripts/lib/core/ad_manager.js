@@ -62,7 +62,7 @@ define([ "jquery", "lib/core/ad_sizes", "lib/core/ad_unit" ], function($, adSize
     var unit = $adunit.data("adUnit"), currentUnit;
 
     if ($adunit.closest(".row--sponsored").length) {
-      $(".row--sponsored").removeClass("is-closed").addClass("is-open");
+      $(".row--sponsored").addClass("is-open");
     }
 
     if (!unit) {
