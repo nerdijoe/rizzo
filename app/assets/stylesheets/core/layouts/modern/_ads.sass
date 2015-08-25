@@ -3,17 +3,16 @@
 // ----------------------------------------------------------------------------
 
 .row--sponsored
-  overflow: hidden
-  min-height: 0
-  height: 0
   padding: 0
-  @extend %transition--base
+  height: 0
+  min-height: 0
+  overflow: hidden
 
   &.is-open
+    height: auto
     min-height: 60px
     +respond-to(728)
       min-height: 100px
-
 
 // ----------------------------------------------------------------------------
 // Site leaderboard
