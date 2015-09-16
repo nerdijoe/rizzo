@@ -85,6 +85,10 @@
     time: function(x){!!window.performance && !!window.performance.now && this.buffer.push({e: x, t: this.now()})}
   };
 
+  // Alias for utag_data required by Tealium
+
+  window.utag_data = window.lp.analytics.utag_data;
+
 = yield :head_js
 
 = render 'layouts/partials/inline_js/load_css'
