@@ -50,14 +50,21 @@ $pickerWidth: 320px
 
 .picker__select--month,
 .picker__select--year
+  @extend %transition--base
   +font-size(20px)
-  border: none
+  padding-bottom: 2px
+  border-width: 0 0 1px 0
+  border-style: solid
+  border-color: #d7dee3
   outline: none
   background-color: transparent
   appearance: none
   user-select: none
   cursor: pointer
   color: $body-copy
+
+  &:hover
+    border-color: $titlegray
 
 .picker__select--month
   min-width: 50%
