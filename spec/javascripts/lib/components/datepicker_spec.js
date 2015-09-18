@@ -1,4 +1,7 @@
-define([ "jquery", "public/assets/javascripts/lib/components/datepicker.js" ], function($, Datepicker) {
+define([
+  "jquery",
+  "public/assets/javascripts/lib/components/datepicker.js"
+], function($, Datepicker) {
 
   "use strict";
 
@@ -58,7 +61,7 @@ define([ "jquery", "public/assets/javascripts/lib/components/datepicker.js" ], f
         var cell, sibling;
 
         new Datepicker({
-          backwards: true,
+          pickPast: true,
           target: ".js-standard"
         });
 
@@ -79,8 +82,8 @@ define([ "jquery", "public/assets/javascripts/lib/components/datepicker.js" ], f
         var cell, nextCell, prevCell;
 
         new Datepicker({
-          forwards: true,
-          backwards: true,
+          pickFuture: true,
+          pickPast: true,
           target: ".js-standard"
         });
 
@@ -116,6 +119,20 @@ define([ "jquery", "public/assets/javascripts/lib/components/datepicker.js" ], f
 
           new Datepicker({ target: ".js-standard" });
           $("#js-av-start").data("pickadate").set("select", stubDate);
+        });
+
+        it("selecting a 'start' date opens the 'end' date calendar only once", function() {
+          var $start = $("#js-av-start"),
+              $end = $("#js-av-end");
+
+          $start.trigger("change");
+
+          expect($end).toHaveClass("picker__input--active");
+
+          $end.pickadate("picker").close();
+          $start.trigger("change");
+
+          expect($end).not.toHaveClass("picker__input--active");
         });
 
         it("selecting an 'end' date before the selected 'start' date updates the 'start' date to the day before", function() {
