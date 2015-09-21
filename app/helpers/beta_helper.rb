@@ -1,8 +1,7 @@
 # BETA
 module BetaHelper
   def place?
-    presenter ||= nil
-    presenter.is_a?(PlacePresenter) if presenter
+    presenter.is_a?(PlacePresenter) if defined?(presenter)
   end
   alias_method :is_place?, :place?
 
