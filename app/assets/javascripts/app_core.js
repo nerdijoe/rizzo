@@ -45,6 +45,22 @@ define([
       });
     }
 
+    // BETA
+    $(document).on("click", ".js-beta-link", function(e) {
+      if (window.lp.fs) {
+        window.lp.fs.log({
+          d: JSON.stringify({
+            name: "beta registration",
+            referrer: window.location.href
+          })
+        });
+      }
+      document.cookie = [ "_v", "split-12-destinations-next" ].join("=");
+      window.location.reload();
+
+      e.preventDefault();
+    });
+
     // Navigation tracking
     $("#js-primary-nav").on("click", ".js-nav-item", function() {
       window.s.linkstacker($(this).text());
