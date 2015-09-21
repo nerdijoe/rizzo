@@ -2,6 +2,7 @@ define([
   "jquery",
   "flamsteed",
   "lib/core/ad_manager",
+  "lib/utils/local_store",
 
   "sCode",
   "trackjs",
@@ -21,7 +22,7 @@ define([
   "lib/components/toggle_active",
   "lib/components/select_group_manager"
 
-], function($, Flamsteed, AdManager) {
+], function($, Flamsteed, AdManager, LocalStore) {
 
   "use strict";
 
@@ -47,6 +48,8 @@ define([
 
     // BETA
     $(document).on("click", ".js-beta-link", function(e) {
+      var ls = new LocalStore();
+
       if (window.lp.fs) {
         window.lp.fs.log({
           d: JSON.stringify({
@@ -55,7 +58,7 @@ define([
           })
         });
       }
-      document.cookie = [ "_v", "split-12-destinations-next" ].join("=");
+      ls.setCookie("_v", "split-12-destinations-next", 14);
       window.location.reload();
 
       e.preventDefault();
