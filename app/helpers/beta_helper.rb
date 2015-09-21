@@ -1,7 +1,10 @@
+require 'pry'
+
 # BETA
 module BetaHelper
   def place?
-    presenter && presenter.is_a?(PlacePresenter)
+    presenter ||= nil
+    presenter.is_a?(PlacePresenter) if presenter
   end
   alias_method :is_place?, :place?
 
