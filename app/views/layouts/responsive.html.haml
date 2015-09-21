@@ -9,7 +9,9 @@
     = ui_component('preloader')
   
   - if is_place? && show_beta_banner
-    = ui_component('alert', properties: { type: "warning", title: "", message: "Explore our new destinations experience. <a href='/' class='js-beta-link'>Switch to Beta.</a>" })
+    = ui_component('alert', properties: { type: "warning", title: "", message: "Explore our new destinations experience. <a href='#' class='js-beta-link'>Switch to Beta.</a>" })
+  - elsif destinations_next_cookie?
+    = ui_component('alert', properties: { type: "warning",title: "Dear alpha tester, ",message: "you've left the new experience." })
     
   = render 'layouts/custom/pre_header', third_party: false
   .wrapper.js-wrapper

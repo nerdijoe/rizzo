@@ -1,5 +1,3 @@
-require 'pry'
-
 # BETA
 module BetaHelper
   def place?
