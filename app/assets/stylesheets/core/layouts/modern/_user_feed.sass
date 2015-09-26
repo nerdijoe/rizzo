@@ -4,7 +4,7 @@
 //
 // ----------------------------------------------------------------------------
 
-.user-feed,
+.user-feed
   left: -200px
   cursor: default
   width: 360px
@@ -51,7 +51,7 @@
   .ie8 &
     display: none
 
-.user-feed__content__unread-count
+.user-feed__content__unread-counter
   font-weight: normal
   color: $grey-highlight
 
@@ -61,6 +61,7 @@
   &.is-active
     display: block
   .activity-list__item
+    @extend %transition--base
     +font-size(14)
     position: relative
     margin: 0
@@ -68,7 +69,7 @@
     cursor: pointer
     font-weight: normal
     color: $titlegray
-    &.is-highlighted
+    &.is-unread
       background: mix($linkblue, #fff, 3%)
     &:hover
       background: mix($linkblue, #fff, 10%)
@@ -110,3 +111,44 @@
   padding: 30px 0
   text-align: center
   color: $lightgray
+
+.user-feed__popup
+  @extend %rounded-corners
+  @extend %transition--slower
+  @extend %fly-out-shadow
+  +z-layer(modal)
+  position: fixed
+  bottom: -150px
+  left: 0
+  display: block
+  box-sizing: border-box
+  border: 2px solid #297CBB
+  background: white
+  width: 94%
+  margin: 0 3%
+  transition-timing-function: cubic-bezier(.16,.3,.08,1.48)
+
+  +respond-to(wide-view)
+    left: 15px
+    width: 350px
+    margin: 0
+
+.user-feed__popup__close
+  @extend %transition--base
+  +size(20px)
+  position: absolute
+  top: -8px
+  right: -8px
+  border-radius: 50px
+  background-color: mix($red, white, 85%)
+  background-size: 12px
+  background-position: 4px -26px // because .icon--white is not accurate enough in this case
+  cursor: pointer
+
+  +respond-to(wide-view)
+    opacity: 0
+    .user-feed__popup:hover &
+      opacity: 1
+
+  &:hover
+    background-color: $red

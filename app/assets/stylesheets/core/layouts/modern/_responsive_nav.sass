@@ -38,8 +38,10 @@ $responsive-nav-width: 240px
       box-shadow: none
 
 .nav--offscreen__title
+  @extend %truncate-text
   +font-size(20)
   +vertically-center(50)
+  max-width: 160px
   vertical-align: top
   color: white
   font-weight: bold
