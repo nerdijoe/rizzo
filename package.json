@@ -8,6 +8,7 @@
     "grunt-contrib-connect": "latest",
     "grunt-contrib-copy": "latest",
     "grunt-contrib-jasmine": "0.8.x",
+    "jasmine-ajax": "3.x",
     "grunt-contrib-jshint": "latest",
     "grunt-contrib-watch": "latest",
     "grunt-grunticon": "latest",
