@@ -48,7 +48,9 @@ module JsHelper
   def js_closure(opts, &blk)
     config = yield blk
     keys = config.configurations.keys
-    output = keys.reduce("#{config.root_namespace} = #{config.root_namespace} || {};") {|out, k| "#{out} #{k} = #{config.configurations[k].to_json};"}
+
+    output = 'function extend(a,b){a=a||{};for(var c in b)"object"==typeof b[c]?a[c]=extend(a[c],b[c]):a[c]=b[c];return a}'
+    output << keys.reduce("#{config.root_namespace} = #{config.root_namespace} || {};") {|out, k| "#{out} extend(#{k}, #{config.configurations[k].to_json});"}
     javascript_tag output
   end
 
