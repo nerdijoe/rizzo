@@ -2,7 +2,9 @@
 module BetaHelper
   # Look for a place presenter from Waldorf
   def place?
-    presenter.is_a?(PlacePresenter) if defined?(presenter)
+    return false unless place_presenter_defined?
+    return false unless respond_to? :presenter
+    presenter.is_a?(PlacePresenter)
   end
   alias_method :is_place?, :place?
 
@@ -16,5 +18,11 @@ module BetaHelper
     # Uncomment this for production launch
     # prng = Random.new(Time.now.to_i)
     # prng.rand < 0.0025
+  end
+
+  private
+
+  def place_presenter_defined?
+    defined? PlacePresenter
   end
 end
