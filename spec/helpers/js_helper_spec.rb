@@ -44,7 +44,7 @@ describe JsHelper do
       helper.configure_js('foo', {:bar=>'bizz'})
       helper.configure_js('bot', {:lot=>'op'})
       helper.js_configuration.should match(/script/)
-      helper.js_configuration.should eq "<script>\n//<![CDATA[\nfunction extend(a,b){a=a||{};for(var c in b)\"object\"==typeof b[c]?a[c]=extend(a[c],b[c]):a[c]=b[c];return a}window.lp = window.lp || {}; extend(window.lp.foo, {\"bar\":\"bizz\"}); extend(window.lp.bot, {\"lot\":\"op\"});\n//]]>\n</script>"
+      helper.js_configuration.should eq "<script>\n//<![CDATA[\nwindow.lp = window.lp || {}; window.lp.foo = {\"bar\":\"bizz\"}; window.lp.bot = {\"lot\":\"op\"};\n//]]>\n</script>"
     end
 
   end
