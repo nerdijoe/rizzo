@@ -1,45 +1,44 @@
 .nav__item.nav__item--user.nav__submenu__trigger.js-user-signed-in
-  %img.nav__item--user-avatar.js-user-avatar{ data: { src: "{{avatar}}"} }
-  %span.notification-badge.notification-badge--unread-messages.wv--inline-block.is-hidden.js-unread-feed-count 0
+  %img.nav__item--user-avatar.js-user-avatar{ data: { src: "{{avatar}}"}, title: "", alt: "{{username}}" }
+  %span.notification-badge.notification-badge--unread-messages.wv--inline-block.js-user-feed__unread-counter.is-hidden
   %span.wv--hidden.nav--offscreen__title {{username}}
 
   .user-feed.nav__submenu.js-user-feed
-    .user-feed__container.nav--stacked.nav__submenu__content.icon--tapered-arrow-up--after.icon--white--after.icon--white--bordered
-      .user-feed__header.js-user-feed-header
+    .user-feed__container.nav--stacked.nav__submenu__content.icon--tapered-arrow-up--after.icon--white--after.icon--white--bordered{ title: ""}
+      .user-feed__header
         .user-feed__username {{username}}
         .user-feed__email {{email}}
         .user-feed__buttons
-          %a.split--right.icon--settings.icon--body-grey.js-user-settings{ href: "https://www.lonelyplanet.com/thorntree/forums/settings"}
+          %a.split--right.icon--settings.icon--body-grey{ href: "https://www.lonelyplanet.com/thorntree/forums/settings", title: "Forum settings"}
 
           .grid-wrapper--10
 
             .col--one-half
-              %a.btn.btn--linkblue.btn--small.btn--full-width.js-user-profile{ href: "https://www.lonelyplanet.com/thorntree/profiles/{{profileSlug}}"} View Profile
+              %a.btn.btn--linkblue.btn--small.btn--full-width{ href: "https://www.lonelyplanet.com/thorntree/profiles/{{profileSlug}}"} View Profile
             
             .col--one-half
-              %a.btn.btn--linkblue.btn--small.btn--outline.btn--full-width.js-user-sign_out{ href: "https://auth.lonelyplanet.com/users/sign_out"} Sign Out
+              %a.btn.btn--linkblue.btn--small.btn--outline.btn--full-width{ href: "https://auth.lonelyplanet.com/users/sign_out"} Sign Out
 
-      .user-feed__content.js-user-feed-content
+      .user-feed__content
         .nav__tabs
           .grid-wrapper--0
             .col--one-half
-              %a.btn.btn--large.btn--white.nav__tabs__btn.js-tab-trigger.is-active{ href: "#js-user-feed-activities-list"}
+              %a.btn.btn--large.btn--white.nav__tabs__btn.js-tab-trigger.is-active{ href: "#user-feed-activities"}
                 Recent activity
-                %span.user-feed__content__unread-count.js-unread-activities-count
+                %span.user-feed__content__unread-counter.js-user-feed__activities__unread-counter
               
             .col--one-half
-              %a.btn.btn--large.btn--white.nav__tabs__btn.js-tab-trigger{ href: "#js-user-feed-messages-list"}
+              %a.btn.btn--large.btn--white.nav__tabs__btn.js-tab-trigger{ href: "#user-feed-messages"}
                 Messages
-                %span.user-feed__content__unread-count.js-unread-messages-count
+                %span.user-feed__content__unread-counter.js-user-feed__messages__unread-counter
 
         .nav__tabs__content.js-tabs-content
-          %ul.user-feed__list.is-active#js-user-feed-activities-list
+          %ul#user-feed-activities.user-feed__list.js-user-feed__activities.is-active
             %li.activity-list__item--empty You have no recent activity.
 
-          %ul.user-feed__list#js-user-feed-messages-list
+          %ul#user-feed-messages.user-feed__list.js-user-feed__messages
             %li.activity-list__item--empty You have no private messages.
-
-            %li.user-feed__footer.user-feed__buttons.js-user-feed-footer.is-hidden
+            %li.user-feed__footer.user-feed__buttons.js-user-feed__messages__footer.is-hidden
               %a.btn.btn--linkblue.btn--full-width{ href: "https://www.lonelyplanet.com/thorntree/profiles/{{profileSlug}}/messages"} See all messages
             
 

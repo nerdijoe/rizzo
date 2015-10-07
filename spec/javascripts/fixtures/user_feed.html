@@ -1,28 +1,193 @@
-<div class="js-unread-feed-count is-hidden"></div>
-<div class="js-user-signed-in"></div>
+<!-- User Feed flyout -->
+<div class="js-user-signed-in">
 
-<div class="js-user-feed">
+  <div class="js-user-feed__unread-counter is-hidden"></div>
 
-  <div class="js-user-feed-content">
-    <span class="js-unread-activities-count"></span>
-    <span class="js-unread-messages-count"></span>
-    
+  <div class="js-user-feed">
+
+    <a class="js-tab-trigger is-active" href="#user-feed-activities">
+      Recent activity <span class="js-user-feed__activities__unread-counter"></span>
+    </a>
+
+    <a class="js-tab-trigger" href="#user-feed-messages">
+      Messages <span class="js-user-feed__messages__unread-counter"></span>
+    </a>
+
     <div class="js-tabs-content">
 
-      <ul id="js-user-feed-activities-list">
-        <li class="js-user-feed-item">
-          <a class="js-user-feed-item-target-link" href="bar/foo">link</a>
-        </li>
+      <ul id="#user-feed-activities" class="js-user-feed__activities is-active">
+        <li>No activities</li>
       </ul>
 
-      <ul id="js-user-feed-messages-list">
-        <li class="js-user-feed-footer is-hidden">footer</li>
+      <ul id="#user-feed-messages" class="js-user-feed__messages">
+        <li>No messages</li>
+        <li class="js-user-feed__messages__footer is-hidden">
+          See all messages
+        </li>
       </ul>
 
     </div>
   </div>
 </div>
 
-<div class="js-responsive-messages">
+<!-- Messages menu item in mobile side nav -->
+<div class="js-user-feed__messages__unread-counter">
   <span>Messages</span>
 </div>
+
+<!-- Popups context-->
+<div id="js-row--content"></div>
+
+<!-- Sample responses -->
+<script id="sample-response-1" type="application/json">
+  {
+    "activities":[
+      {
+        "timestamp":"2015-01-05T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Foo</a></li>"
+      },
+      {
+        "timestamp":"2015-01-04T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Foo</a></li>"
+      },
+      {
+        "timestamp":"2015-01-03T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Foo</a></li>"
+      },
+      {
+        "timestamp":"2015-01-02T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Foo</a></li>"
+      },
+      {
+        "timestamp":"2015-01-01T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Foo</a></li>"
+      }
+    ],
+    "messages":[
+      {
+        "timestamp":"2015-01-05T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item is-unread'><a class='js-user-feed__item__link' href='/foo'>Foo</a></li>"
+      },
+      {
+        "timestamp":"2015-01-04T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item is-unread'><a class='js-user-feed__item__link' href='/foo'>Foo</a></li>"
+      },
+      {
+        "timestamp":"2015-01-03T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item is-unread'><a class='js-user-feed__item__link' href='/foo'>Foo</a></li>"
+      },
+      {
+        "timestamp":"2015-01-02T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Foo</a></li>"
+      },
+      {
+        "timestamp":"2015-01-01T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Foo</a></li>"
+      }
+    ],
+    "unreadMessagesCount": 3,
+    "popupsMode": 2
+  }
+</script>
+
+<script id="sample-response-2" type="application/json">
+  {
+    "activities":[
+      {
+        "timestamp":"2015-01-07T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Bar</a></li>"
+      },
+      {
+        "timestamp":"2015-01-06T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Bar</a></li>"
+      },
+      {
+        "timestamp":"2015-01-03T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Foo</a></li>"
+      },
+      {
+        "timestamp":"2015-01-02T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Foo</a></li>"
+      },
+      {
+        "timestamp":"2015-01-01T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Foo</a></li>"
+      }
+    ],
+    "messages":[
+      {
+        "timestamp":"2015-01-06T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item is-unread'><a class='js-user-feed__item__link' href='/foo'>Foo</a></li>"
+      },
+      {
+        "timestamp":"2015-01-05T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item is-unread'><a class='js-user-feed__item__link' href='/foo'>Foo</a></li>"
+      },
+      {
+        "timestamp":"2015-01-04T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item is-unread'><a class='js-user-feed__item__link' href='/foo'>Foo</a></li>"
+      },
+      {
+        "timestamp":"2015-01-03T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item is-unread'><a class='js-user-feed__item__link' href='/foo'>Bar</a></li>"
+      },
+      {
+        "timestamp":"2015-01-02T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Foo</a></li>"
+      }
+    ],
+    "unreadMessagesCount": 4,
+    "popupsMode": 2    
+  }
+</script>
+
+<script id="sample-response-3" type="application/json">
+  {
+    "activities":[
+      {
+        "timestamp":"2015-01-08T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Bar</a></li>"
+      },
+      {
+        "timestamp":"2015-01-07T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Bar</a></li>"
+      },
+      {
+        "timestamp":"2015-01-06T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Bar</a></li>"
+      },
+      {
+        "timestamp":"2015-01-03T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Foo</a></li>"
+      },
+      {
+        "timestamp":"2015-01-02T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Foo</a></li>"
+      }
+    ],
+    "messages":[
+      {
+        "timestamp":"2015-01-07T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item is-unread'><a class='js-user-feed__item__link' href='/foo'>Bar</a></li>"
+      },
+      {
+        "timestamp":"2015-01-06T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item is-unread'><a class='js-user-feed__item__link' href='/foo'>Bar</a></li>"
+      },
+      {
+        "timestamp":"2015-01-05T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item is-unread'><a class='js-user-feed__item__link' href='/foo'>Bar</a></li>"
+      },
+      {
+        "timestamp":"2015-01-04T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item is-unread'><a class='js-user-feed__item__link' href='/foo'>Foo</a></li>"
+      },
+      {
+        "timestamp":"2015-01-03T00:00:00.000Z",
+        "text":"<li class='js-user-feed__item is-unread'><a class='js-user-feed__item__link' href='/foo'>Bar</a></li>"
+      }
+    ],
+    "unreadMessagesCount": 5,
+    "popupsMode": 2    
+  }
+</script>

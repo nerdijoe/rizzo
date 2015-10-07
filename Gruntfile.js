@@ -147,10 +147,9 @@ module.exports = function(grunt) {
         options: {
           host: "http://127.0.0.1:8888/",
           helpers: [
-            "./spec/javascripts/helpers/bind_polyfill.js",
             "./vendor/assets/javascripts/jquery/dist/jquery.js",
-            "./spec/javascripts/helpers/jasmine-jquery.js",
-            "./spec/javascripts/helpers/SpecHelper.js"
+            "node_modules/jasmine-ajax/lib/mock-ajax.js",
+            "./spec/javascripts/helpers/**/*.js"
           ],
           template: require("grunt-template-jasmine-requirejs"),
           specs: "./public/assets/javascripts/spec/**/*_spec.js",
