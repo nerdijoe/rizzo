@@ -178,14 +178,16 @@ define([
               expect(unreadCounter.$el).toHaveText("4");
             });
 
-            it("shows popups for new items", function() {
+            it("shows popups for new items that are not self-activity", function() {
               jasmine.clock().tick(3 * popupTimers.renderDelay + 1);
-              expect($(popups.selector)).toHaveLength(3);
+              // Waits for three new but pops only two.
+              // One of three is own-activity.
+              expect($(popups.selector)).toHaveLength(2);
             });
 
             it("adds close button to each popup", function() {
               jasmine.clock().tick(3 * popupTimers.renderDelay + 1);
-              expect($("." + popups.$close.attr("class").split(" ")[0])).toHaveLength(3);
+              expect($("." + popups.$close.attr("class").split(" ")[0])).toHaveLength(2);
             });
 
             it("removes popups after defined time", function() {
