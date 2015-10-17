@@ -1,27 +1,35 @@
-// ------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 //
-// Timeago config with responsive strings
+// jquery-timeago wrapper with responsive strings
 //
-// ------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 
-define([ "jquery", "lib/utils/debounce", "jtimeago" ], function($, debounce) {
+define([
+  "jquery",
+  "lib/utils/debounce",
+  "jqueryTimeago"
+], function($, debounce) {
 
   "use strict";
 
-  var defaults = {
+  var MONTH_NAMES = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+  ],
+
+  defaults = {
+    els: {
+      responsive: ".js-timeago",
+      full: ".js-timeago-full"
+    },
     context: "#js-row--content",
     breakpoint: 600,
-    refreshMillis: 3000,
-    selectors: {
-      full: ".js-timeago-full",
-      responsive: ".js-timeago",
-    }
-  },
+    refreshMillis: 10000,
+  };
 
-  MONTH_NAMES = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
-
-  function TimeAgo(args) {
+  function Timeago(args) {
     this.config = $.extend({}, defaults, args);
+
     this.strings = {
       full: {
         suffixAgo: null,
@@ -53,57 +61,100 @@ define([ "jquery", "lib/utils/debounce", "jtimeago" ], function($, debounce) {
       }
     };
 
-    this.$fullTimeagos = $(this.config.selectors.full, this.config.context);
-    this.$responsiveTimeagos = $(this.config.selectors.responsive, this.config.context);
-
-    (this.$fullTimeagos.length || this.$responsiveTimeagos.length) && this.init();
+    this.init();
   }
 
-  TimeAgo.prototype.init = function() {
-    // Disable original refresh function in order to use selector-based strings.
+  //---------------------------------------------------------------------------
+  // Initialization
+  //---------------------------------------------------------------------------
+
+  Timeago.prototype.init = function() {
+    // Disable original refresh function
+    // in order to use selector-based strings.
     $.timeago.settings.refreshMillis = 0;
 
-    this.updateAll();
-    this.setCustomRefresh();
+    if (this._findEls()) {
+      this.update();
+      this._defineInterval();
+    }
+
+    this.listen();
   };
 
-  TimeAgo.prototype.updateAll = function() {
-    this.$fullTimeagos.length && this.updateFull();
-    this.$responsiveTimeagos.length && this.updateResponsive();
+  Timeago.prototype.listen = function() {
+    $(window).on("resize", debounce(this._updateResponsives.bind(this), 300));
   };
 
-  TimeAgo.prototype.updateFull = function() {
-    $.timeago.settings.strings = this.strings.full;
-    this.$fullTimeagos.timeago("updateFromDOM");
+  //---------------------------------------------------------------------------
+  // Functionality
+  //---------------------------------------------------------------------------
+
+  Timeago.prototype.refresh = function() {
+    this.dispose();
+
+    if (this._findEls()) {
+      this.update();
+      this._defineInterval();
+    }
   };
 
-  TimeAgo.prototype.updateResponsive = function() {
-    $.timeago.settings.strings = this._isAboveBreakpoint() ? this.strings.full : this.strings.short;
-    this.$responsiveTimeagos.timeago("updateFromDOM");
+  Timeago.prototype.update = function() {
+    this._updateFulls();
+    this._updateResponsives();
   };
 
-  TimeAgo.prototype.setCustomRefresh = function() {
-    // Refresh all on interval
-    setInterval(this.updateAll.bind(this), this.config.refreshMillis);
-    // Refresh responsive strings on window resize
-    this.$responsiveTimeagos.length && $(window).resize(debounce(this.updateResponsive.bind(this), 300));
+  Timeago.prototype.dispose = function() {
+    clearInterval(this._interval);
   };
 
   // -------------------------------------------------------------------------
-  // Private
+  // Private functions
   // -------------------------------------------------------------------------
 
-  TimeAgo.prototype._getMonthName = function(number, distanceMillis) {
+  Timeago.prototype._updateFulls = function() {
+    this._bindStrings("full", this.els.$fulls);
+  };
+
+  Timeago.prototype._updateResponsives = function() {
+    var type = this._isMobile() ? "short" : "full";
+    this._bindStrings(type, this.els.$responsives);
+  };
+
+  Timeago.prototype._defineInterval = function() {
+    if (this.config.refreshMillis > 0) {
+      this._interval = setInterval(
+        this.update.bind(this),
+        this.config.refreshMillis
+      );
+    }
+  };
+
+  Timeago.prototype._bindStrings = function(type, $els) {
+    if ($els.length) {
+      $.timeago.settings.strings = this.strings[type];
+      $els.timeago("updateFromDOM");
+    }
+  };
+
+  Timeago.prototype._findEls = function() {
+    this.els = {
+      $fulls: $(this.config.els.full, this.config.context),
+      $responsives: $(this.config.els.responsive, this.config.context)
+    };
+    return !!(this.els.$fulls.length || this.els.$responsives.length);
+  };
+
+  Timeago.prototype._getMonthName = function(number, distanceMillis) {
     return MONTH_NAMES[new Date(Date.now() - distanceMillis).getMonth()];
   };
 
-  TimeAgo.prototype._getFullYear = function(number, distanceMillis) {
+  Timeago.prototype._getFullYear = function(number, distanceMillis) {
     return new Date(Date.now() - distanceMillis).getFullYear().toString();
   };
 
-  TimeAgo.prototype._isAboveBreakpoint = function() {
-    return document.documentElement.clientWidth >= this.config.breakpoint;
+  Timeago.prototype._isMobile = function() {
+    return window.innerWidth < this.config.breakpoint;
   };
 
-  return TimeAgo;
+  return Timeago;
 });
