@@ -29,6 +29,7 @@ define([
   Content.prototype.init = function() {
     this.activities = new Activities({ item: this.config.item });
     this.messages = new Messages();
+    this.timeago = new Timeago({ context: this.$context });
 
     this.listen();
   };
@@ -40,7 +41,7 @@ define([
   Content.prototype.update = function(data) {
     this.activities.update(data);
     this.messages.update(data);
-    this.timeago = new Timeago({ context: this.$context });
+    this.timeago.refresh();
   };
 
   Content.prototype.getLatest = function() {

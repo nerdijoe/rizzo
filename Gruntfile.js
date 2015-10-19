@@ -162,7 +162,7 @@ module.exports = function(grunt) {
                 hogan: "./vendor/assets/javascripts/hogan/dist/hogan-3.0.0.amd",
                 jplugs: "./vendor/assets/javascripts/jquery-plugins",
                 jquery: "./vendor/assets/javascripts/jquery/dist/jquery",
-                jtimeago: "./vendor/assets/javascripts/jquery-timeago/jquery.timeago",
+                jqueryTimeago: "./vendor/assets/javascripts/jquery-timeago/jquery.timeago",
                 sailthru: "./vendor/assets/javascripts/sailthru/v1",
                 sCode: "./vendor/assets/javascripts/omniture/s_code",
                 trackjs: "./vendor/assets/javascripts/trackjs/trackjs",
