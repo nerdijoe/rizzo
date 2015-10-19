@@ -4,6 +4,17 @@ $base-font-size: 14 !default;
   @return $value / ($value * 0 + 1);
 }
 
+@mixin clearfix {
+  &:before, &:after {
+    content: "";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+  zoom: 1;
+}
+
 @mixin respond-to($screen-width) {
   @media only screen and (min-width : $screen-width + 0px) {
     @content;
@@ -64,7 +75,7 @@ $base-font-size: 14 !default;
 @mixin author-image($mobile) {
   display: inline-block;
   width: 12vw;
-  margin-right: 5px;
+  margin-right: $spacing;
   border-radius: 60px;
   vertical-align: middle;
   max-width: 50px;
@@ -88,7 +99,7 @@ $base-font-size: 14 !default;
 }
 
 @mixin author-name($mobile) {
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   font: {
     weight: $semibold;
     size: 4vw;
@@ -115,3 +126,135 @@ $base-font-size: 14 !default;
     font-size: 14px;
   }
 }
+
+@mixin see-more-link {
+  position: relative;
+  margin-top: 40px;
+  text-align: center;
+  font-size: 14px;
+
+  @include respond-to($mobile-breakpoint) {
+    margin-top: 65px;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// CSS Arrow
+// -----------------------------------------------------------------------------
+
+@mixin css-arrow($side: top, $size: 20px, $offset: 0) {
+  &:after {
+    @include size($size);
+  }
+  @if $side == top {
+    &:after {
+      bottom: auto;
+      left: $offset;
+      top: -(0.7 * $size);
+    }
+  }
+  @if $side == right {
+    &:after {
+      left: auto;
+      right: -(0.65 * $size);
+      top: $offset;
+    }
+  }
+  @if $side == bottom {
+    &:after {
+      bottom: -(0.6 * $size);
+      left: $offset;
+      top: auto;
+    }
+  }
+  @if $side == left {
+    &:after {
+      left: -(0.6 * $size);
+      right: auto;
+      top: $offset;
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Centralised CSS Arrow
+// -----------------------------------------------------------------------------
+
+@mixin css-arrow-central($side: top, $size: 28px, $offset: 0) {
+  @include css-arrow($side, $size, $offset);
+  @if $side == top {
+    &:after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  @if $side == bottom {
+    &:after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  @if $side == right {
+    &:after {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+  @if $side == left {
+    &:after {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Size
+// -----------------------------------------------------------------------------
+
+
+@mixin size($size) {
+  @if length($size) == 1 {
+    @if $size == auto {
+      width:  $size;
+      height: $size;
+    }
+
+    @else if unitless($size) {
+      width:  $size + px;
+      height: $size + px;
+    }
+
+    @else if not(unitless($size)) {
+      width:  $size;
+      height: $size;
+    }
+  }
+
+  // Width x Height
+  @if length($size) == 2 {
+    $width:  nth($size, 1);
+    $height: nth($size, 2);
+
+    @if $width == auto {
+      width: $width;
+    }
+    @else if not(unitless($width)) {
+      width: $width;
+    }
+    @else if unitless($width) {
+      width: $width + px;
+    }
+
+    @if $height == auto {
+      height: $height;
+    }
+    @else if not(unitless($height)) {
+      height: $height;
+    }
+    @else if unitless($height) {
+      height: $height + px;
+    }
+  }
+}
+

@@ -48,3 +48,12 @@ grunt ci
 
 It should look like...
 ![](http://d.pr/i/jSY4+)
+
+##Run tests
+```shell
+grunt ci
+grunt jshint
+grunt jscs
+bundle exec rspec
+bundle exec cucumber
+

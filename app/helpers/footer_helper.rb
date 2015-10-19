@@ -84,14 +84,15 @@ module FooterHelper
 
   def language_options
     [
-      ['en', 'English'],
-      ['in', 'English (India)'],
-      ['de', 'Deutsch'],
-      ['fr', 'Fran&#231;ais'],
-      ['es', 'Espa&#241;ol'],
-      ['it', 'Italiano'],
-      ['ru', '&#x420;&#x443;&#x441;&#x441;&#x43A;&#x438;&#x439;'],
-      ['br', 'Portugu&ecirc;s']
+      ["www.lonelyplanet.com", "English"],
+      ["www.lonelyplanet.in", "English (India)"],
+      ["www.lonelyplanet.de", "Deutsch"],
+      ["www.lonelyplanet.fr", "Fran&#231;ais"],
+      ["www.lonelyplanet.es", "Espa&#241;ol"],
+      ["www.lonelyplanetitalia.it", "Italiano"],
+      ["www.lonelyplanet.ru", "&#x420;&#x443;&#x441;&#x441;&#x43A;&#x438;&#x439;"],
+      ["www.lonelyplanetbrasil.com.br", "Portugu&ecirc;s"],
+      ["www.lonelyplanet.cz", "&#268;esky"]
     ]
   end
 

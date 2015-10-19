@@ -57,12 +57,6 @@ define([ "jquery", "nouislider/jquery.nouislider" ], function($) {
 
   RangeSlider.prototype._getMaxRangeValue = function(data) {
     var maxValue = data.capLevel || data.range.split(",")[1];
-
-    // If this is a duration, we need to turn the max value into the hours equivalent of the max day
-    if (data.unit === "hours") {
-      maxValue = Math.floor(maxValue / 24) * 24;
-    }
-
     return parseInt(maxValue, 10);
   };
 

@@ -1,4 +1,8 @@
-- responsive_items = properties[:responsive_items]
+:ruby
+  custom_title = properties[:custom_title]
+  responsive_items = properties[:responsive_items]
+  items = responsive_items || properties[:items]
+  current_item = (items.find {|i| i[:current]} || items.first)[:title]
 
 .nav--secondary__container
   -# The secondary navigation for small screens
@@ -6,13 +10,11 @@
     .grid-wrapper--0
       .col--one-half
         .nav--secondary__col.nav--secondary__title.copy--h4
-          - if !!responsive_items
-            = (responsive_items.find {|i| i[:current]} || responsive_items.first)[:title]
-          - else
-            = (properties[:items].find {|i| i[:current]} || properties[:items].first)[:title]
+          = !!custom_title ? custom_title.html_safe : current_item
+
       .col--one-half
         %a.nav--secondary__other-toggle.nav--secondary__col.js-toggle-active{ data: { toggle_target: ".js-secondary-nav-other-menu", toggle_me: "true" } }
-          Other sections
+          = !!custom_title ? "Sections" : "Other sections"
           %span.nav--secondary__other-toggle--icon.icon--chevron-down.icon--body-grey
           %span.nav--secondary__other-toggle--icon.icon--chevron-up.icon--body-grey
 

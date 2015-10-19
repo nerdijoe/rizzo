@@ -1,3 +1,15 @@
+.icon--add--before:before, .icon--add--after:after,
+.icon--add { background-image: url('png/add.png'); background-repeat: no-repeat; }
+
+.icon--arrow-down--before:before, .icon--arrow-down--after:after,
+.icon--arrow-down { background-image: url('png/arrow-down.png'); background-repeat: no-repeat; }
+
+.icon--article--before:before, .icon--article--after:after,
+.icon--article { background-image: url('png/article.png'); background-repeat: no-repeat; }
+
+.icon--article--line--before:before, .icon--article--line--after:after,
+.icon--article--line { background-image: url('png/article--line.png'); background-repeat: no-repeat; }
+
 .icon--bold--before:before, .icon--bold--after:after,
 .icon--bold { background-image: url('png/bold.png'); background-repeat: no-repeat; }
 
@@ -7,8 +19,14 @@
 .icon--by--before:before, .icon--by--after:after,
 .icon--by { background-image: url('png/by.png'); background-repeat: no-repeat; }
 
+.icon--calendar--before:before, .icon--calendar--after:after,
+.icon--calendar { background-image: url('png/calendar.png'); background-repeat: no-repeat; }
+
 .icon--cc--before:before, .icon--cc--after:after,
 .icon--cc { background-image: url('png/cc.png'); background-repeat: no-repeat; }
+
+.icon--comment--line--before:before, .icon--comment--line--after:after,
+.icon--comment--line { background-image: url('png/comment--line.png'); background-repeat: no-repeat; }
 
 .picker__nav--prev,
 .icon--chevron-left--before:before, .icon--chevron-left--after:after,
@@ -18,8 +36,17 @@
 .icon--chevron-right--before:before, .icon--chevron-right--after:after,
 .icon--chevron-right { background-image: url('png/chevron-right.png'); background-repeat: no-repeat; }
 
+.icon--comment--before:before, .icon--comment--after:after,
+.icon--comment { background-image: url('png/comment.png'); background-repeat: no-repeat; }
+
 .icon--cross--before:before, .icon--cross--after:after,
 .icon--cross { background-image: url('png/cross.png'); background-repeat: no-repeat; }
+
+.icon--destination-flag--before:before, .icon--destination-flag--after:after,
+.icon--destination-flag { background-image: url('png/destination-flag.png'); background-repeat: no-repeat; }
+
+.icon--envelope--before:before, .icon--envelope--after:after,
+.icon--envelope { background-image: url('png/envelope.png'); background-repeat: no-repeat; }
 
 .icon--entertainment--before:before, .icon--entertainment--after:after,
 .icon--entertainment { background-image: url('png/entertainment.png'); background-repeat: no-repeat; }
@@ -33,8 +60,14 @@
 .icon--google-plus--before:before, .icon--google-plus--after:after,
 .icon--google-plus { background-image: url('png/google-plus.png'); background-repeat: no-repeat; }
 
+.icon--grid-list--before:before, .icon--grid-list--after:after,
+.icon--grid-list { background-image: url('png/grid-list.png'); background-repeat: no-repeat; }
+
 .icon--hamburger--before:before, .icon--hamburger--after:after,
 .icon--hamburger { background-image: url('png/hamburger.png'); background-repeat: no-repeat; }
+
+.icon--information--before:before, .icon--information--after:after,
+.icon--information { background-image: url('png/information.png'); background-repeat: no-repeat; }
 
 .icon--ipad--before:before, .icon--ipad--after:after,
 .icon--ipad { background-image: url('png/ipad.png'); background-repeat: no-repeat; }
@@ -45,6 +78,9 @@
 .icon--link--before:before, .icon--link--after:after,
 .icon--link { background-image: url('png/link.png'); background-repeat: no-repeat; }
 
+.icon--loudspeaker--before:before, .icon--loudspeaker--after:after,
+.icon--loudspeaker { background-image: url('png/loudspeaker.png'); background-repeat: no-repeat; }
+
 .icon--lp-logo--before:before, .icon--lp-logo--after:after,
 .icon--lp-logo { background-image: url('png/lp-logo.png'); background-repeat: no-repeat; }
 
@@ -54,11 +90,20 @@
 .icon--nd--before:before, .icon--nd--after:after,
 .icon--nd { background-image: url('png/nd.png'); background-repeat: no-repeat; }
 
+.icon--no-comment--before:before, .icon--no-comment--after:after,
+.icon--no-comment { background-image: url('png/no-comment.png'); background-repeat: no-repeat; }
+
 .icon--pen--before:before, .icon--pen--after:after,
 .icon--pen { background-image: url('png/pen.png'); background-repeat: no-repeat; }
 
 .icon--pinterest--before:before, .icon--pinterest--after:after,
 .icon--pinterest { background-image: url('png/pinterest.png'); background-repeat: no-repeat; }
+
+.icon--place--pin--line--before:before, .icon--place--pin--line--after:after,
+.icon--place--pin--line { background-image: url('png/place--pin--line.png'); background-repeat: no-repeat; }
+
+.icon--print--before:before, .icon--print--after:after,
+.icon--print { background-image: url('png/print.png'); background-repeat: no-repeat; }
 
 .icon--quote--before:before, .icon--quote--after:after,
 .icon--quote { background-image: url('png/quote.png'); background-repeat: no-repeat; }
@@ -75,11 +120,23 @@
 .icon--search--before:before, .icon--search--after:after,
 .icon--search { background-image: url('png/search.png'); background-repeat: no-repeat; }
 
+.icon--settings--before:before, .icon--settings--after:after,
+.icon--settings { background-image: url('png/settings.png'); background-repeat: no-repeat; }
+
 .icon--shop-basket--before:before, .icon--shop-basket--after:after,
 .icon--shop-basket { background-image: url('png/shop-basket.png'); background-repeat: no-repeat; }
 
+.icon--sight--before:before, .icon--sight--after:after,
+.icon--sight { background-image: url('png/sight.png'); background-repeat: no-repeat; }
+
 .icon--stumbleupon--before:before, .icon--stumbleupon--after:after,
 .icon--stumbleupon { background-image: url('png/stumbleupon.png'); background-repeat: no-repeat; }
+
+.icon--tick--before:before, .icon--tick--after:after,
+.icon--tick { background-image: url('png/tick.png'); background-repeat: no-repeat; }
+
+.icon--time--before:before, .icon--time--after:after,
+.icon--time { background-image: url('png/time.png'); background-repeat: no-repeat; }
 
 .icon--top-choice--before:before, .icon--top-choice--after:after,
 .icon--top-choice { background-image: url('png/top-choice.png'); background-repeat: no-repeat; }
@@ -92,6 +149,9 @@
 
 .icon--twitter--before:before, .icon--twitter--after:after,
 .icon--twitter { background-image: url('png/twitter.png'); background-repeat: no-repeat; }
+
+.icon--user--before:before, .icon--user--after:after,
+.icon--user { background-image: url('png/user.png'); background-repeat: no-repeat; }
 
 .icon--youtube--before:before, .icon--youtube--after:after,
 .icon--youtube { background-image: url('png/youtube.png'); background-repeat: no-repeat; }

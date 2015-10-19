@@ -1,4 +1,7 @@
-define([ "jquery", "public/assets/javascripts/lib/components/datepicker.js" ], function($, Datepicker) {
+define([
+  "jquery",
+  "public/assets/javascripts/lib/components/datepicker.js"
+], function($, Datepicker) {
 
   "use strict";
 
@@ -58,7 +61,7 @@ define([ "jquery", "public/assets/javascripts/lib/components/datepicker.js" ], f
         var cell, sibling;
 
         new Datepicker({
-          backwards: true,
+          pickPast: true,
           target: ".js-standard"
         });
 
@@ -75,17 +78,61 @@ define([ "jquery", "public/assets/javascripts/lib/components/datepicker.js" ], f
         expect(sibling.find(".picker__day")).toHaveClass("picker__day--disabled");
       });
 
-      describe("Choosing dates", function(){
+      it("can allow searching for any date", function() {
+        var cell, nextCell, prevCell;
 
-        var expected, selected, stubDate;
+        new Datepicker({
+          pickFuture: true,
+          pickPast: true,
+          target: ".js-standard"
+        });
 
-        beforeEach(function(){
+        $("#js-av-start").trigger("focus");
+
+        cell = $(".picker--opened .picker__day--today").closest("td");
+
+        if (cell.next().length) {
+          nextCell = cell.next();
+        } else {
+          nextCell = cell.parent().next().children().first();
+        }
+
+        expect(nextCell.find(".picker__day")).not.toHaveClass("picker__day--disabled");
+
+        if (cell.prev().length) {
+          prevCell = cell.next();
+        } else {
+          prevCell = cell.parent().prev().children().first();
+        }
+
+        expect(prevCell.find(".picker__day")).not.toHaveClass("picker__day--disabled");
+      });
+
+      describe("Choosing dates", function() {
+
+        var selected, stubDate;
+
+        beforeEach(function() {
           stubDate = new Date();
           stubDate.setMonth(stubDate.getMonth() + 1);
           stubDate.setDate("20");
 
           new Datepicker({ target: ".js-standard" });
           $("#js-av-start").data("pickadate").set("select", stubDate);
+        });
+
+        it("selecting a 'start' date opens the 'end' date calendar only once", function() {
+          var $start = $("#js-av-start"),
+              $end = $("#js-av-end");
+
+          $start.trigger("change");
+
+          expect($end).toHaveClass("picker__input--active");
+
+          $end.pickadate("picker").close();
+          $start.trigger("change");
+
+          expect($end).not.toHaveClass("picker__input--active");
         });
 
         it("selecting an 'end' date before the selected 'start' date updates the 'start' date to the day before", function() {

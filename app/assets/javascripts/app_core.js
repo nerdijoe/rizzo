@@ -2,10 +2,13 @@ define([
   "jquery",
   "flamsteed",
   "lib/core/ad_manager",
+  "lib/utils/local_store",
 
   "sCode",
   "trackjs",
   "polyfills/xdr",
+  "polyfills/function_bind",
+  "polyfills/array_index_of",
   "lib/page/swipe",
   "lib/core/nav_search",
   "lib/page/scroll_perf",
@@ -13,12 +16,13 @@ define([
   "lib/core/shopping_cart",
   "lib/core/feature_detect",
   "lib/core/place_title_nav",
-  "polyfills/function_bind",
   "lib/core/cookie_compliance",
+  "lib/core/advertising",
+  "lib/core/block_checker",
   "lib/components/toggle_active",
   "lib/components/select_group_manager"
 
-], function($, Flamsteed, AdManager) {
+], function($, Flamsteed, AdManager, LocalStore) {
 
   "use strict";
 
@@ -41,6 +45,24 @@ define([
         window.Sailthru.setup({ domain: "horizon.lonelyplanet.com" });
       });
     }
+
+    // BETA
+    $(document).on("click", ".js-beta-link", function(e) {
+      var ls = new LocalStore();
+
+      if (window.lp.fs) {
+        window.lp.fs.log({
+          d: JSON.stringify({
+            name: "beta registration",
+            referrer: window.location.href
+          })
+        });
+      }
+      ls.setCookie("_v", "split-12-destinations-next", 14);
+      window.location.reload();
+
+      e.preventDefault();
+    });
 
     // Navigation tracking
     $("#js-primary-nav").on("click", ".js-nav-item", function() {

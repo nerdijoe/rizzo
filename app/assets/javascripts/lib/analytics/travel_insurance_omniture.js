@@ -3,8 +3,9 @@ require([ "jquery", "lib/analytics/analytics" ], function($, Analytics) {
   "use strict";
 
   var analytics = new Analytics();
-
-  analytics.trackView();
+  if (window.lp.hasOwnProperty("tracking") && window.lp.tracking.hasOwnProperty("eVar12") && window.lp.tracking.eVar12 !== "dest essential information") {
+    analytics.trackView();
+  }
 
   // Set up Omniture event handlers
 

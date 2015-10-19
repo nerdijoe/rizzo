@@ -17,6 +17,6 @@
             %p.vertical-nav__item-text.copy--h5= item_title
 
       - else
-        = item_title
+        %p.vertical-nav__item-text.copy--h5= item_title
         - if item[:count]
           %span{ class: 'nav--left__item__facet' }= "(#{item[:count]})"

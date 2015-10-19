@@ -17,8 +17,7 @@
     -
       :title: "Messages"
       :slug: "https://www.lonelyplanet.com/thorntree/profiles/{{profileSlug}}/messages"
-      :icon_class: "icon--envelope--before icon--white--before"
-      :extra_class: "js-responsive-messages"
+      :icon_class: "icon--envelope--before icon--white--before js-user-feed__messages__unread-counter"
     -
       :title: "Forum Activity"
       :slug: "https://www.lonelyplanet.com/thorntree/profiles/{{profileSlug}}/activities"

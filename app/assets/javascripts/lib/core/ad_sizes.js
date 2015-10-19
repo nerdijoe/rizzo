@@ -5,12 +5,12 @@ define(function() {
 
   return {
     billboard: [
-      { browser: [ 980, 0 ], ad_sizes: [ [ 970, 250 ], [ 970, 66 ], [ 728, 90 ] ] },
+      { browser: [ 980, 0 ], ad_sizes: [ [ 1001, 300 ], [ 970, 250 ], [ 970, 90 ], [ 970, 66 ], [ 728, 90 ] ] },
       { browser: [ 728, 0 ], ad_sizes: [ 728, 90 ] },
       { browser: [ 0, 0 ], ad_sizes: [ 320, 50 ] }
     ],
     leaderboard: [
-      { browser: [ 980, 0 ], ad_sizes: [ [ 1000, 300 ], [ 970, 250 ], [ 970, 66 ], [ 728, 90 ] ] },
+      { browser: [ 980, 0 ], ad_sizes: [ [ 1001, 300 ], [ 970, 250 ], [ 970, 90 ], [ 970, 66 ], [ 728, 90 ], [ 1, 1 ] ] },
       { browser: [ 728, 0 ], ad_sizes: [ 728, 90 ] },
       { browser: [ 0, 0 ], ad_sizes: [ 320, 50 ] }
     ],

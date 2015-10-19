@@ -39,6 +39,12 @@ input[type="submit"]
   .standout &
     background-color: #fff
 
+.input--select-multiple
+  padding: 0
+
+  option
+    padding: 5px 10px 2px
+
 .input--regular--dark
   box-sizing: border-box
   word-wrap: break-word
@@ -142,16 +148,6 @@ input[type="submit"]
     background-position: 0 -28px
     @if $is-ie
       background-position: 0 0
-  .is-loading + &
-    animation: pulse 1s ease infinite
-
-  @keyframes "pulse"
-    0%
-      opacity: 1
-    50%
-      opacity: 0.05
-    100%
-      opacity: 1
 
 .primary-search-autocomplete
   .autocomplete__results

@@ -32,4 +32,9 @@ module GlobalResourcesHelper
       end
     end
   end
+
+  def destinations_next_cookie?
+    cookies[:destinations_next_cookie]
+  end
+
 end
