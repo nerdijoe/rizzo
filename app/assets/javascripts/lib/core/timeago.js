@@ -7,7 +7,7 @@
 define([
   "jquery",
   "lib/utils/debounce",
-  "jqueryTimeago"
+  "jtimeago"
 ], function($, debounce) {
 
   "use strict";
