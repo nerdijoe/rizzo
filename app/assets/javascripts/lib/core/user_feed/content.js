@@ -56,7 +56,7 @@ define([
   //---------------------------------------------------------------------------
 
   Content.prototype.listen = function() {
-    $(document).on("click", this.config.item, this._handleClick.bind(this));
+    this.$context.on("click", this.config.item, this._handleClick.bind(this));
   };
 
   //---------------------------------------------------------------------------
@@ -64,8 +64,8 @@ define([
   //---------------------------------------------------------------------------
 
   Content.prototype._handleClick = function(event) {
-    var $target = $(event.target),
-        targetUrl = $target.find(this.config.itemLink).attr("href");
+    var $item = $(event.currentTarget),
+        targetUrl = $item.find(this.config.itemLink).attr("href");
 
     window.location.href = targetUrl;
   };
