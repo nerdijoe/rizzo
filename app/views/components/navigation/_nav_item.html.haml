@@ -15,8 +15,7 @@
   analytics_data = item.fetch(:analytics, {}).merge \
     lpa: {
       category: "Global Navigation Click",
-      action: item[:slug],
-      label: item[:title]
+      action: item[:title]
     }
 
 - if item[:slug]
