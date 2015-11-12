@@ -12,9 +12,10 @@ define([
   "./user_feed/fetcher",
   "./user_feed/content",
   "./user_feed/unread_counter",
-  "./user_feed/popups"
+  "./user_feed/popups",
+  "./user_feed/slide_in"
 ], function($, debounce, Tabs, Flyout, Fetcher,
-            Content, UnreadCounter, Popups) {
+            Content, UnreadCounter, Popups, SlideIn) {
 
   "use strict";
 
@@ -39,6 +40,7 @@ define([
     this.content = new Content({ context: this.$el });
     this.unreadCounter = new UnreadCounter();
     this.popups = new Popups();
+    this.slideIn = new SlideIn();
     this.fetcher = new Fetcher({
       ajax: {
         url: this.config.ajaxUrl,
@@ -53,10 +55,17 @@ define([
   //---------------------------------------------------------------------------
 
   UserFeed.prototype._handleUpdate = function(data) {
-    this._showPopups = this._canPopup(data.popupsMode);
+    this._showPopups = this._canShowModule("popups", data.popupsMode);
+    this._showSlideIn = this._canShowModule("slideIn", data.slideInMode);
 
     this.content.update(data);
     this.unreadCounter.update(this.content.messages.unreadCount);
+
+    if (this._showSlideIn) {
+      var action = this._isFirstRun ? "init" : "update";
+
+      this.slideIn[action](this.tabs.$container.html());
+    }
 
     if (this._showPopups && !this._isFirstRun) {
       this.popups.jumpOut(this.content.getLatest());
@@ -68,13 +77,15 @@ define([
   };
 
   UserFeed.prototype._handleFetcherState = function() {
-    this.fetcher.pause = this._showPopups ? false : this._isMobile();
+    var doPause = !(this._showPopups || this._showSlideIn) && this._isMobile();
+
+    this.fetcher.pause = doPause;
   };
 
-  UserFeed.prototype._canPopup = function(mode) {
+  UserFeed.prototype._canShowModule = function(name, mode) {
     var state = false;
 
-    if (window.lp.userFeed && window.lp.userFeed.popups &&
+    if (window.lp.userFeed && window.lp.userFeed[name] &&
         ((mode === 1 && !this._isMobile()) || mode === 2)) {
       state = true;
     }
