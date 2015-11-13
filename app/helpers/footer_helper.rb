@@ -20,7 +20,7 @@ module FooterHelper
       {title: 'eBooks', url: 'ebooks'},
       {title: 'Pictorial & gifts', url: 'pictorials-and-gifts'},
       {title: 'Phrasebooks', url: 'phrasebooks'},
-      {title: 'Activity guides', url: 'activity-guides'},
+      {title: 'Lonely Planet Kids', url: 'childrens-books'},
       {title: 'Special offers', url: 'special-offers'}
     ]
   end
