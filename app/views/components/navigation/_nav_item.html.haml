@@ -11,16 +11,18 @@
   ].join(" ")
 
   show_badge = defined?(submenu_item) && item[:badge]
+  item_analytics = item.fetch(:analytics, {})
 
-  analytics_data = item.fetch(:analytics, {}).merge \
-    lpa: {
-      category: "Global Navigation Click",
-      action: item[:title]
-    }
+  lpa_data = case
+             when (item_classes.include? "nav__item--primary")
+               item_analytics.merge lpa: { category: "Global Navigation Click", action: item[:title] }
+             else
+               item_analytics
+             end
 
 - if item[:slug]
 
-  %a.nav__item.js-nav-item{ class: [item_classes, active, item[:extra_class]], data: analytics_data, href: item[:slug], target: item[:target], itemprop: "url", aria: { label: active.present? ? "Current page" : nil } }<
+  %a.nav__item.js-nav-item{ class: [item_classes, active, item[:extra_class]], data: lpa_data, href: item[:slug], target: item[:target], itemprop: "url", aria: { label: active.present? ? "Current page" : nil } }<
 
     - if item[:image_url]
       %img{ class: "nav__submenu__item--image", src: item[:image_url], alt: item[:title] }
