@@ -14,7 +14,7 @@
   item_analytics = item.fetch(:analytics, {})
 
   lpa_data = case
-             when (item_classes.include? "nav__item--primary")
+             when defined?(global)
                item_analytics.merge lpa: { category: "Global Navigation Click", action: item[:title] }
              else
                item_analytics
