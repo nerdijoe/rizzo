@@ -35,10 +35,10 @@
     %nav.wv--nav--inline.nav--primary#js-nav--primary{ role: "navigation", aria: { label: "Global navigation" }, itemscope: "itemscope", itemtype: "http://schema.org/SiteNavigationElement" }
       - if nav_primary
         %h6.accessibility Global navigation
-        
+
         - primary_navigation_items(responsive).each do |item|
           - if item[:submenu]
             .nav__submenu__trigger.nav__item.nav__item--primary
-              = render "components/navigation/nav_item", item: item, active: false, primary: true, has_submenu: true
+              = render "components/navigation/nav_item", item: item, active: false, primary: true, has_submenu: true, global: true
           - else
-            = render "components/navigation/nav_item", item: item, active: false, primary: true
+            = render "components/navigation/nav_item", item: item, active: false, primary: true, global: true
