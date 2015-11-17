@@ -249,21 +249,21 @@ define([
           });
 
           it("is disabled if mode === 0", function() {
-            expect(instance._canPopup(0)).toBeFalsy();
+            expect(instance._canShowModule("popups", 0)).toBeFalsy();
           });
 
           it("is disabled if mode === 1 and the view has mobile width", function() {
             spyOn(instance, "_isMobile").and.returnValue(true);
-            expect(instance._canPopup(1)).toBeFalsy();
+            expect(instance._canShowModule("popups", 1)).toBeFalsy();
           });
 
           it("is enabled if mode === 1 and the view has desktop width", function() {
             spyOn(instance, "_isMobile").and.returnValue(false);
-            expect(instance._canPopup(1)).toBeTruthy();
+            expect(instance._canShowModule("popups", 1)).toBeTruthy();
           });
 
           it("is enabled if mode === 2", function() {
-            expect(instance._canPopup(2)).toBeTruthy();
+            expect(instance._canShowModule("popups", 2)).toBeTruthy();
           });
         });
 
@@ -275,8 +275,8 @@ define([
 
           it("is always disabled", function() {
             spyOn(instance, "_isMobile").and.returnValue(false);
-            expect(instance._canPopup(1)).toBeFalsy();
-            expect(instance._canPopup(2)).toBeFalsy();
+            expect(instance._canShowModule("popups", 1)).toBeFalsy();
+            expect(instance._canShowModule("popups", 2)).toBeFalsy();
           });
         });
       });
