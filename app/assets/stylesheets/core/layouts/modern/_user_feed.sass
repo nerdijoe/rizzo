@@ -10,12 +10,14 @@
   width: 360px
 
 .user-feed--slide-in
+  $width: 300px
+
   +z-layer(modal)
   position: fixed
-  right: 0
+  right: -$width
   bottom: 20px
   min-height: 390px
-  width: 300px
+  width: $width
   max-width: 100%
 
 .user-feed--slide-in__close
@@ -132,7 +134,7 @@
 
   .user-feed--slide-in &
     $slideInWidth: 300px
-    $offset: 3px
+    $slideInOffset: 3px
     $tabWidth: 36px
     $tabHeight: 40px
     $tabOffset: 2px
@@ -143,7 +145,7 @@
     +z-layer(middle)
     position: absolute
     bottom: 0
-    right: -$slideInWidth - $offset
+    right: - $slideInOffset
     display: block !important
     box-sizing: border-box
     width: 100%
@@ -181,7 +183,7 @@
 
     &.is-active
       +z-layer(modal)
-      transform: translate(-$slideInWidth - $offset, 0)
+      transform: translate(-$slideInWidth - $slideInOffset, 0)
 
       &:before
         left: 0
