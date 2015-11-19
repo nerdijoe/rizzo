@@ -13,8 +13,12 @@
   show_badge = defined?(submenu_item) && item[:badge]
   item_analytics = item.fetch(:analytics, {})
 
+  if (defined?(global) && defined?(has_submenu))
+    item[:submenu].each { |item| item[:global] = true }
+  end
+
   lpa_data = case
-             when defined?(global)
+             when defined?(global) && global
                item_analytics.merge lpa: { category: "Global Navigation Click", action: item[:title] }
              else
                item_analytics
