@@ -11,13 +11,9 @@ module BetaHelper
   # Show banner when ?beta=destinations-next is in the URL
   def show_beta_banner
     return 1.0 if params[:beta] == 'destinations-next'
-
-    # Remove this line for production launch
-    false
-
-    # Uncomment this for production launch
-    # prng = Random.new(Time.now.to_i)
-    # prng.rand < 0.0025
+    
+    prng = Random.new(Time.now.to_i)
+    prng.rand < 0.0025
   end
 
   private
