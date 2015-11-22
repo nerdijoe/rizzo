@@ -49,6 +49,7 @@ define([
     // BETA
     $(document).on("click", ".js-beta-link", function(e) {
       var ls = new LocalStore();
+      e.preventDefault();
 
       if (window.lp.fs) {
         window.lp.fs.log({
@@ -60,8 +61,6 @@ define([
       }
       ls.setCookie("_v", "split-12-destinations-next", 14);
       window.location.reload();
-
-      e.preventDefault();
     });
 
     // Navigation tracking
