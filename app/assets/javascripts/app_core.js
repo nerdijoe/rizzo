@@ -23,6 +23,7 @@ define([
   "lib/components/select_group_manager"
 
 ], function($, Flamsteed, AdManager, LocalStore) {
+  /* global utag */
 
   "use strict";
 
@@ -46,9 +47,22 @@ define([
       });
     }
 
-    // BETA
+    // TODO: BETA code
+    var ls = new LocalStore(),
+        $beta = $(".js-beta-link");
+
+    if ($beta.length) {
+      if (window.utag && window.utag.link) {
+        utag.link({
+          /* jshint ignore:start */
+          ga_event_category: "Destinations Next",
+          ga_event_action: "Banner Show"
+          /* jshint ignore:end */
+        });
+      }
+    }
+
     $(document).on("click", ".js-beta-link", function(e) {
-      var ls = new LocalStore();
       e.preventDefault();
 
       if (window.lp.fs) {
@@ -59,6 +73,16 @@ define([
           })
         });
       }
+
+      if (window.utag && window.utag.link) {
+        utag.link({
+          /* jshint ignore:start */
+          ga_event_category: "Destinations Next",
+          ga_event_action: "Beta Sign Up"
+          /* jshint ignore:end */
+        });
+      }
+
       ls.setCookie("_v", "split-12-destinations-next", 14);
       window.location.reload();
     });
