@@ -13,7 +13,7 @@ module BetaHelper
     return 1.0 if params[:beta] == 'destinations-next'
     
     prng = Random.new(Time.now.to_i)
-    prng.rand < 0.0025
+    prng.rand < 0.01
   end
 
   private
