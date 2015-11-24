@@ -21,8 +21,8 @@ describe BetaHelper do
     end
   end
 
-  describe '#place?' do
-    subject { instance.place? }
+  describe '#place_or_article?' do
+    subject { instance.place_or_article? }
 
     context 'when PlacePresenter is not defined' do
       before { allow(instance).to receive(:place_presenter_defined?).and_return(false) }
