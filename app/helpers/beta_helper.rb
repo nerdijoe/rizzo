@@ -12,8 +12,9 @@ module BetaHelper
   def show_beta_banner
     return 1.0 if params[:beta] == 'destinations-next'
 
-    prng = Random.new(Time.now.to_i)
-    prng.rand < 0.01
+    # prng = Random.new(Time.now.to_i)
+    # prng.rand < 0.01
+    false
   end
 
   private

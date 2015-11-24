@@ -49,14 +49,19 @@ define([
 
     // TODO: BETA code
     var ls = new LocalStore(),
-        $beta = $(".js-beta-link");
+        $bannerTmpl = $($("#tmpl-banner").html()),
+        numRand = Math.random(),
+        showBanner = numRand < 0.02;
 
-    if ($beta.length) {
+    if (showBanner) {
+      $bannerTmpl.appendTo(".beta-banner");
+
       if (window.utag && window.utag.link) {
         utag.link({
           /* jshint ignore:start */
           ga_event_category: "Destinations Next",
-          ga_event_action: "Banner Show"
+          ga_event_action: "Banner Show",
+          ga_event_label: window.location.pathname
           /* jshint ignore:end */
         });
       }
@@ -78,7 +83,8 @@ define([
         utag.link({
           /* jshint ignore:start */
           ga_event_category: "Destinations Next",
-          ga_event_action: "Beta Sign Up"
+          ga_event_action: "Beta Sign Up",
+          ga_event_label: window.location.pathname
           /* jshint ignore:end */
         });
       }
