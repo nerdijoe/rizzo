@@ -7,11 +7,11 @@
   = ui_component('lightbox')
   %script#tmpl-preloader{ type: 'text/html' }
     = ui_component('preloader')
-  - if is_place?
+  - if is_place_or_article?
     %script#tmpl-banner{ type: 'text/html' }
       = ui_component('alert', properties: { type: "beta", title: "", message: "Explore our new destinations experience. <a href='#' class='js-beta-link'>Switch to Beta.</a>" })
   .beta-banner
-    - if is_place? && show_beta_banner
+    - if is_place_or_article? && show_beta_banner
       = ui_component('alert', properties: { type: "beta", title: "", message: "Explore our new destinations experience. <a href='#' class='js-beta-link'>Switch to Beta.</a>" })
     - elsif destinations_next_cookie?
       = ui_component('alert', properties: { type: "beta",title: "Dear beta tester, ",message: "you've left the new experience." })
