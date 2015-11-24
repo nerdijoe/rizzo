@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe BetaHelper do
   PlacePresenter = Class.new unless defined? PlacePresenter
+  ArticlesShowPresenter = Class.new unless defined? ArticlesShowPresenter
 
   let(:klass) { Class.new.instance_eval { include BetaHelper } }
   let(:instance) { klass.new }
