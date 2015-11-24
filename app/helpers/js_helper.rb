@@ -35,6 +35,9 @@ module JsHelper
   def configure_js(namespace, config)
     # source url
     @js_config ||= Config.new(LP_DEFAULT_JS_NAMESPACE)
+
+    # Stop ads from loading in tests
+    config = {} if namespace == :ads && Rails.env.test?
     @js_config.add(namespace, config)
   end
 
