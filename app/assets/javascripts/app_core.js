@@ -51,7 +51,7 @@ define([
     var ls = new LocalStore(),
         $bannerTmpl = $($("#tmpl-banner").html()),
         numRand = Math.random(),
-        showBanner = numRand < 0.02;
+        showBanner = (numRand < 0.02 && $("#tmpl-banner").length);
 
     if (showBanner) {
       $bannerTmpl.appendTo(".beta-banner");
