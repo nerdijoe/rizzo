@@ -51,9 +51,9 @@ define([
     var ls = new LocalStore(),
         $bannerTmpl = $($("#tmpl-banner").html()),
         numRand = Math.random(),
-        showBanner = numRand < 0.02;
+        showBanner = (numRand < 0.10 && $("#tmpl-banner").length);
 
-    if (showBanner) {
+    if (showBanner && !$(".alert--beta").length) {
       $bannerTmpl.appendTo(".beta-banner");
 
       if (window.utag && window.utag.link) {
@@ -67,7 +67,7 @@ define([
       }
     }
 
-    $(document).on("click", ".js-beta-link", function(e) {
+    $(document).on("click", ".beta-banner", function(e) {
       e.preventDefault();
 
       if (window.lp.fs) {

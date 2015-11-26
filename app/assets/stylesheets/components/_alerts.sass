@@ -2,10 +2,7 @@
 // Alerts
 // -----------------------------------------------------------------------------
 
-// destinations next beta test opt-in/out banner
-.alert--beta
-  background: #3b444f
-  text-align: center
+// destinations next beta test opt-in/out bannerr
 
 .alert
   +font-size(14)
@@ -83,3 +80,9 @@
     .alert__inner
       &:before
         +icon-color(custom)
+
+.alert.alert--beta
+  background: $green
+  text-align: center
+  font-size: 1.7rem
+  padding: 40px 15px
