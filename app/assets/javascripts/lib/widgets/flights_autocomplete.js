@@ -66,7 +66,7 @@ define([
       fetch: this._fetchCountries,
       onItem: this._onSelectCity,
       templates: {
-        item: "<div class='{{isCity}}'>" + "<span class='autocomplete__place-name'>{{PlaceName}}</span>" + "<span class='autocomplete__country-name'>{{CountryName}}</span>" + "</div>",
+        item: "<div class='{{isCity}}'>" + "<span class='autocomplete_place-name'>{{PlaceName}}</span>" + "<span class='autocomplete_country-name'>{{CountryName}}</span>" + "</div>",
         value: "{{PlaceId}}"
       }
     });
@@ -76,7 +76,7 @@ define([
     $.ajax({
       type: "GET",
       dataType: "JSONP",
-      url: this.__buildUrl(searchTerm)
+      url: this._buildUrl(searchTerm)
     }).done(function(data) {
       var city, places;
       places = data.Places.filter(function(el) {
@@ -91,7 +91,7 @@ define([
     });
   };
 
-  FlightsWidgetAutocomplete.prototype.__buildUrl = function(searchTerm) {
+  FlightsWidgetAutocomplete.prototype._buildUrl = function(searchTerm) {
     return "http://partners.api.skyscanner.net/apiservices/xd/autosuggest/v1.0/" + ("" + this.countryCode + "/" + this.userCurrency + "/en-GB?query=" + searchTerm + "&apikey=" + this.API_KEY);
   };
 

@@ -73,10 +73,10 @@ define([
 
   FlightsWidget.prototype._checkErrorsAndProceed = function(e) {
     e.preventDefault();
-    if (this.__validateForm()) {
-      this.__proceed();
+    if (this._validateForm()) {
+      this._proceed();
     } else {
-      this.__showError();
+      this._showError();
     }
   };
 
@@ -85,7 +85,7 @@ define([
       this.$returnDate.prop("disabled", true).val("One Way");
     } else {
       this.$returnDate.removeProp("disabled");
-      this.__setDate(this.$returnDate, new Date(this.$departDate.val()), true);
+      this._setDate(this.$returnDate, new Date(this.$departDate.val()), true);
     }
   };
 
@@ -98,7 +98,7 @@ define([
     departDate = new Date(this.$departDate.val());
     returnDate = new Date(this.$returnDate.val());
     if (!this.oneWay() && departDate.getDate() > returnDate.getDate()) {
-      this.__setDate(this.$returnDate, departDate, true);
+      this._setDate(this.$returnDate, departDate, true);
     }
   };
 
@@ -106,23 +106,23 @@ define([
     calendar.pickadate({
       editable: false,
       format: "d mmm yyyy",
-      onStart: function() { this.__setDate(calendar, day, nextDay) }.bind(this)
+      onStart: function() { this._setDate(calendar, day, nextDay) }.bind(this)
     });
   };
 
-  FlightsWidget.prototype.__setDate = function(calendar, day, nextDay) {
-    var selectDay = nextDay ? this.__nextDay(day) : day;
+  FlightsWidget.prototype._setDate = function(calendar, day, nextDay) {
+    var selectDay = nextDay ? this._nextDay(day) : day;
     calendar.pickadate("set", {
       min: day,
       select: selectDay
     });
   };
 
-  FlightsWidget.prototype.__nextDay = function(day) {
+  FlightsWidget.prototype._nextDay = function(day) {
     return new Date(day.getTime() + 24 * 60 * 60 * 1000);
   };
 
-  FlightsWidget.prototype.__validateForm = function() {
+  FlightsWidget.prototype._validateForm = function() {
     return !this.$el.find(".input--text").filter(function() {
       return $(this).val() === "";
     }).each(function() {
@@ -132,7 +132,7 @@ define([
     }).length;
   };
 
-  FlightsWidget.prototype.__showError = function() {
+  FlightsWidget.prototype._showError = function() {
     this.$errorMsg.show();
     setTimeout(
       function() {
@@ -140,19 +140,19 @@ define([
       }.bind(this), 2000);
   };
 
-  FlightsWidget.prototype.__proceed = function() {
+  FlightsWidget.prototype._proceed = function() {
     this.googleAnalytics.track();
-    window.open(this.__buildUrl());
+    window.open(this._buildUrl());
   };
 
-  FlightsWidget.prototype.__buildUrl = function() {
+  FlightsWidget.prototype._buildUrl = function() {
     var departDate, returnDate, url;
-    departDate = this.__formatDate(new Date(this.$departDate.val()));
-    returnDate = this.oneWay() ? "" : this.__formatDate(new Date(this.$returnDate.val()));
+    departDate = this._formatDate(new Date(this.$departDate.val()));
+    returnDate = this.oneWay() ? "" : this._formatDate(new Date(this.$returnDate.val()));
     return url = "http://flights.lonelyplanet.com/Flights?" + ("&outboundDate=" + departDate + "&inboundDate=" + returnDate) + ("&originPlace=" + (this.$fromAirport.val() || this.$fromCity.val())) + ("&destinationPlace=" + (this.$toAirport.val() || this.$toCity.val())) + ("&adults=" + ($(".js-adult-num .js-select").val())) + ("&children=" + ($(".js-child-num .js-select").val())) + ("&infants=" + ($(".js-baby-num .js-select").val())) + ("&country=" + this.autocomplete.countryCode + "&currency=" + (this.$currency.val())) + "&locationSchema=sky&cabinClass=economy&searchcontrols=true";
   };
 
-  FlightsWidget.prototype.__formatDate = function(date) {
+  FlightsWidget.prototype._formatDate = function(date) {
     return date.toISOString().split("T")[0];
   };
 
