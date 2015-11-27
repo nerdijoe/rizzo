@@ -18,11 +18,7 @@ define([ "jquery", "data/countries2", "autocomplete", "lib/utils/local_store" ],
     this._fetchCountries  = this._fetchCountries.bind(this);
     this.localStore       = new LocalStore();
     this.getAndSetCurrency();
-    this.getCountryCode().done((function(_this) {
-      return function() {
-        return _this.getAndSetCurrency();
-      };
-    })(this));
+    this.getCountryCode().done(this.getAndSetCurrency.bind(this));
     this.setupAutocomplete(this.$fromCity);
     this.setupAutocomplete(this.$toCity);
   }
@@ -33,11 +29,9 @@ define([ "jquery", "data/countries2", "autocomplete", "lib/utils/local_store" ],
     return $.ajax({
       type: "GET",
       url: "http://www.lonelyplanet.com",
-      success: (function(_this) {
-        return function(data, textStatus, request) {
-          return _this.countryCode = request.getResponseHeader("X-GeoIP-CountryCode") || "US";
-        };
-      })(this)
+      success: function(data, textStatus, request) {
+          this.countryCode = request.getResponseHeader("X-GeoIP-CountryCode") || "US";
+        }.bind(this)
     });
   };
 
@@ -45,7 +39,7 @@ define([ "jquery", "data/countries2", "autocomplete", "lib/utils/local_store" ],
     if (!this.userCurrency) {
       this.userCurrency = this.localStore.getCookie("lpCurrency") || countries[this.countryCode];
       if (this.userCurrency) {
-        return this._userCurrencySelect();
+        this._userCurrencySelect();
       }
     }
   };
@@ -56,11 +50,11 @@ define([ "jquery", "data/countries2", "autocomplete", "lib/utils/local_store" ],
 
   FlightsWidgetAutocomplete.prototype._userCurrencySelect = function() {
     this.$currency.val(this.userCurrency);
-    return this.$currency.prev().html(" " + this.userCurrency + " ");
+    this.$currency.prev().html(" " + this.userCurrency + " ");
   };
 
   FlightsWidgetAutocomplete.prototype.setupAutocomplete = function($el) {
-    return new AutoComplete({
+    new AutoComplete({
       el: $el,
       threshold: 3,
       limit: 4,
@@ -74,7 +68,7 @@ define([ "jquery", "data/countries2", "autocomplete", "lib/utils/local_store" ],
   };
 
   FlightsWidgetAutocomplete.prototype._fetchCountries = function(searchTerm, callback) {
-    return $.ajax({
+    $.ajax({
       type: "GET",
       dataType: "JSONP",
       url: this.__buildUrl(searchTerm)
@@ -86,7 +80,7 @@ define([ "jquery", "data/countries2", "autocomplete", "lib/utils/local_store" ],
       city = "";
       $.each(places, function(i, place) {
         place.PlaceName += place.PlaceId === place.CityId ? " (Any)" : " (" + (place.PlaceId.slice(0, -4)) + ")";
-        return place.isCity = city === place.CityId ? "child" : (city = place.CityId, "parent");
+        place.isCity = city === place.CityId ? "child" : (city = place.CityId, "parent");
       });
       return callback(places);
     });
@@ -104,7 +98,7 @@ define([ "jquery", "data/countries2", "autocomplete", "lib/utils/local_store" ],
     isFrom = $item.parent().parent().parent().find("#js-from-city").length;
     fromTo = isFrom ? "from" : "to";
     this["$" + fromTo + "Airport"].val(selectedCode);
-    return this["$" + fromTo + "City"].val(selectedValue + ")");
+    this["$" + fromTo + "City"].val(selectedValue + ")");
   };
 
   return FlightsWidgetAutocomplete;

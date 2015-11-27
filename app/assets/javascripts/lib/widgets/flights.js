@@ -40,7 +40,7 @@ define([ "jquery", "lib/widgets/flights_autocomplete", "lib/analytics/flights", 
     today = new Date();
     this._startDate(this.$departDate, today);
     if (!this.oneWay()) {
-      return this._startDate(this.$returnDate, today, true);
+      this._startDate(this.$returnDate, today, true);
     }
   };
 
@@ -53,16 +53,13 @@ define([ "jquery", "lib/widgets/flights_autocomplete", "lib/analytics/flights", 
     this.$el.find("[type=radio]").on("change", this._selectTripType);
     this.$el.find(".input--text").on("focus", this._removeError);
     this.$el.find(".js-city-input").on("click", function() {
-      return this.select();
+      this.select();
     });
-    this.$el.find(".js-datepicker").on("click", (function(_this) {
-      return function() {
-        var $input;
-        $input = $(_this).closest(".input--regular--dark");
-        return _this._removeError.bind($input);
-      };
-    })(this));
-    return this.$departDate.on("change", this._updateReturnDate);
+    this.$el.find(".js-datepicker").on("click", function() {
+      var $input = $(this).closest(".input--regular--dark");
+      this._removeError.bind($input);
+    }.bind(this));
+    this.$departDate.on("change", this._updateReturnDate);
   };
 
   // -------------------------------------------------------------------------
@@ -72,23 +69,23 @@ define([ "jquery", "lib/widgets/flights_autocomplete", "lib/analytics/flights", 
   FlightsWidget.prototype._checkErrorsAndProceed = function(e) {
     e.preventDefault();
     if (this.__validateForm()) {
-      return this.__proceed();
+      this.__proceed();
     } else {
-      return this.__showError();
+      this.__showError();
     }
   };
 
   FlightsWidget.prototype._selectTripType = function() {
     if (this.oneWay()) {
-      return this.$returnDate.prop("disabled", true).val("One Way");
+      this.$returnDate.prop("disabled", true).val("One Way");
     } else {
       this.$returnDate.removeProp("disabled");
-      return this.__setDate(this.$returnDate, new Date(this.$departDate.val()), true);
+      this.__setDate(this.$returnDate, new Date(this.$departDate.val()), true);
     }
   };
 
   FlightsWidget.prototype._removeError = function() {
-    return $(this).removeClass("form--error");
+    $(this).removeClass("form--error");
   };
 
   FlightsWidget.prototype._updateReturnDate = function() {
@@ -96,26 +93,22 @@ define([ "jquery", "lib/widgets/flights_autocomplete", "lib/analytics/flights", 
     departDate = new Date(this.$departDate.val());
     returnDate = new Date(this.$returnDate.val());
     if (!this.oneWay() && departDate.getDate() > returnDate.getDate()) {
-      return this.__setDate(this.$returnDate, departDate, true);
+      this.__setDate(this.$returnDate, departDate, true);
     }
   };
 
   FlightsWidget.prototype._startDate = function(calendar, day, nextDay) {
-    return calendar.pickadate({
+    calendar.pickadate({
       editable: false,
       format: "d mmm yyyy",
-      onStart: (function(_this) {
-        return function() {
-          return _this.__setDate(calendar, day, nextDay);
-        };
-      })(this)
+      onStart: function() { this.__setDate(calendar, day, nextDay) }.bind(this)
     });
   };
 
   FlightsWidget.prototype.__setDate = function(calendar, day, nextDay) {
     var selectDay;
     selectDay = nextDay ? this.__nextDay(day) : day;
-    return calendar.pickadate("set", {
+    calendar.pickadate("set", {
       min: day,
       select: selectDay
     });
@@ -131,22 +124,21 @@ define([ "jquery", "lib/widgets/flights_autocomplete", "lib/analytics/flights", 
     }).each(function() {
       var $input;
       $input = $(this).hasClass("js-city-input") ? $(this) : $(this).closest(".input--regular--dark");
-      return $input.addClass("form--error");
+      $input.addClass("form--error");
     }).length;
   };
 
   FlightsWidget.prototype.__showError = function() {
     this.$errorMsg.show();
-    return setTimeout((function(_this) {
-      return function() {
-        return _this.$errorMsg.hide();
-      };
-    })(this), 2000);
+    setTimeout(
+      function() {
+        this.$errorMsg.hide();
+      }.bind(this), 2000);
   };
 
   FlightsWidget.prototype.__proceed = function() {
     this.googleAnalytics.track();
-    return window.open(this.__buildUrl());
+    window.open(this.__buildUrl());
   };
 
   FlightsWidget.prototype.__buildUrl = function() {
