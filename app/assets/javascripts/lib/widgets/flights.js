@@ -9,30 +9,30 @@ define([ "jquery", "lib/widgets/flights_autocomplete", "lib/analytics/flights", 
   "use strict";
 
   function FlightsWidget() {
-    this._updateReturnDate = this._updateReturnDate.bind(this);
-    this._selectTripType = this._selectTripType.bind(this);
+    this._updateReturnDate      = this._updateReturnDate.bind(this);
+    this._selectTripType        = this._selectTripType.bind(this);
     this._checkErrorsAndProceed = this._checkErrorsAndProceed.bind(this);
-    this.googleAnalytics = new GoogleAnalytics("#js-flights-form");
-    this.omniture = new Omniture("#js-flights-submit");
+    this.googleAnalytics        = new GoogleAnalytics("#js-flights-form");
+    this.omniture               = new Omniture("#js-flights-submit");
   }
 
   FlightsWidget.prototype.init = function() {
-    this.$el = $(".js-flights-widget");
-    this.$currency = this.$el.find(".js-currency-select .js-select");
-    this.$departDate = this.$el.find(".js-av-start");
-    this.$returnDate = this.$el.find(".js-av-end");
+    this.$el          = $(".js-flights-widget");
+    this.$currency    = this.$el.find(".js-currency-select .js-select");
+    this.$departDate  = this.$el.find(".js-av-start");
+    this.$returnDate  = this.$el.find(".js-av-end");
     this.$fromAirport = this.$el.find(".js-from-airport");
-    this.$fromCity = this.$el.find("#js-from-city");
-    this.$toAirport = this.$el.find(".js-to-airport");
-    this.$toCity = this.$el.find("#js-to-city");
-    this.$errorMsg = this.$el.find("#js-flights-submit .js-btn-error");
+    this.$fromCity    = this.$el.find("#js-from-city");
+    this.$toAirport   = this.$el.find(".js-to-airport");
+    this.$toCity      = this.$el.find("#js-to-city");
+    this.$errorMsg    = this.$el.find("#js-flights-submit .js-btn-error");
     this.oneWay = function() {
       return this.$el.find(".js-oneway-btn").prop("checked");
     };
     this.autocomplete = new FlightsAutocomplete(this.$currency, this.$fromAirport, this.$fromCity, this.$toAirport, this.$toCity);
     this.omniture.init();
     this.initDatePickers();
-    return this.listen();
+    this.listen();
   };
 
   FlightsWidget.prototype.initDatePickers = function() {
