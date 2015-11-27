@@ -4,11 +4,11 @@
 //
 // ------------------------------------------------------------------------------
 
-define(["jquery", "data/countries2", "autocomplete", "lib/utils/local_store"], function($, countries, AutoComplete, LocalStore) {
+define([ "jquery", "data/countries2", "autocomplete", "lib/utils/local_store" ], function($, countries, AutoComplete, LocalStore) {
 
   "use strict";
 
-  var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+  var __bind = function(fn, me) { return function() { return fn.apply(me, arguments); }; };
 
   function FlightsWidgetAutocomplete($currency, $fromAirport, $fromCity, $toAirport, $toCity) {
     this.$currency = $currency;
