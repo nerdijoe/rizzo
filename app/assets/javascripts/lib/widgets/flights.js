@@ -32,7 +32,9 @@ define([
     this.$toAirport   = this.$el.find(".js-to-airport");
     this.$toCity      = this.$el.find("#js-to-city");
     this.$errorMsg    = this.$el.find("#js-flights-submit .js-btn-error");
-    this.oneWay       = function() { this.$el.find(".js-oneway-btn").prop("checked") };
+    this.oneWay = function() {
+      return this.$el.find(".js-oneway-btn").prop("checked");
+    };
     this.autocomplete = new FlightsAutocomplete(this.$currency, this.$fromAirport, this.$fromCity, this.$toAirport, this.$toCity);
     this.omniture.init();
     this.initDatePickers();
