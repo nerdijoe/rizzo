@@ -106,7 +106,7 @@ define([
     calendar.pickadate({
       editable: false,
       format: "d mmm yyyy",
-      onStart: function() { this._setDate(calendar, day, nextDay) }.bind(this)
+      onStart: function() { this._setDate(calendar, day, nextDay); }.bind(this)
     });
   };
 
@@ -126,7 +126,7 @@ define([
     return !this.$el.find(".input--text").filter(function() {
       return $(this).val() === "";
     }).each(function() {
-      var $input
+      var $input;
       $input = $(this).hasClass("js-city-input") ? $(this) : $(this).closest(".input--regular--dark");
       $input.addClass("form--error");
     }).length;
