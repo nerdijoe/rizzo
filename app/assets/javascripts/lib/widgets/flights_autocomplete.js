@@ -8,16 +8,14 @@ define([ "jquery", "data/countries2", "autocomplete", "lib/utils/local_store" ],
 
   "use strict";
 
-  var __bind = function(fn, me) { return function() { return fn.apply(me, arguments); }; };
-
   function FlightsWidgetAutocomplete($currency, $fromAirport, $fromCity, $toAirport, $toCity) {
     this.$currency = $currency;
     this.$fromAirport = $fromAirport;
     this.$fromCity = $fromCity;
     this.$toAirport = $toAirport;
     this.$toCity = $toCity;
-    this._onSelectCity = __bind(this._onSelectCity, this);
-    this._fetchCountries = __bind(this._fetchCountries, this);
+    this._onSelectCity = this._onSelectCity.bind(this);
+    this._fetchCountries = this._fetchCountries.bind(this);
     this.localStore = new LocalStore();
     this.getAndSetCurrency();
     this.getCountryCode().done((function(_this) {

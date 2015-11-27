@@ -8,12 +8,10 @@ define([ "jquery", "lib/widgets/flights_autocomplete", "lib/analytics/flights", 
 
   "use strict";
 
-  var __bind = function(fn, me) { return function() { return fn.apply(me, arguments); }; };
-
   function FlightsWidget() {
-    this._updateReturnDate = __bind(this._updateReturnDate, this);
-    this._selectTripType = __bind(this._selectTripType, this);
-    this._checkErrorsAndProceed = __bind(this._checkErrorsAndProceed, this);
+    this._updateReturnDate = this._updateReturnDate.bind(this);
+    this._selectTripType = this._selectTripType.bind(this);
+    this._checkErrorsAndProceed = this._checkErrorsAndProceed.bind(this);
     this.googleAnalytics = new GoogleAnalytics("#js-flights-form");
     this.omniture = new Omniture("#js-flights-submit");
   }
