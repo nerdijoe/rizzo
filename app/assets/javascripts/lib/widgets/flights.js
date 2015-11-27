@@ -42,8 +42,7 @@ define([
   };
 
   FlightsWidget.prototype.initDatePickers = function() {
-    var today;
-    today = new Date();
+    var today = new Date();
     this._startDate(this.$departDate, today);
     if (!this.oneWay()) {
       this._startDate(this.$returnDate, today, true);
@@ -112,8 +111,7 @@ define([
   };
 
   FlightsWidget.prototype.__setDate = function(calendar, day, nextDay) {
-    var selectDay;
-    selectDay = nextDay ? this.__nextDay(day) : day;
+    var selectDay = nextDay ? this.__nextDay(day) : day;
     calendar.pickadate("set", {
       min: day,
       select: selectDay
@@ -128,7 +126,7 @@ define([
     return !this.$el.find(".input--text").filter(function() {
       return $(this).val() === "";
     }).each(function() {
-      var $input;
+      var $input
       $input = $(this).hasClass("js-city-input") ? $(this) : $(this).closest(".input--regular--dark");
       $input.addClass("form--error");
     }).length;
