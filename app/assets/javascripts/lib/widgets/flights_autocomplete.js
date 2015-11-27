@@ -4,7 +4,12 @@
 //
 // ------------------------------------------------------------------------------
 
-define([ "jquery", "data/countries2", "autocomplete", "lib/utils/local_store" ], function($, countries, AutoComplete, LocalStore) {
+define([
+  "jquery",
+  "data/countries2",
+  "autocomplete",
+  "lib/utils/local_store"
+], function($, countries, AutoComplete, LocalStore) {
 
   "use strict";
 

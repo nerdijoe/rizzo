@@ -4,7 +4,13 @@
 //
 // ------------------------------------------------------------------------------
 
-define([ "jquery", "lib/widgets/flights_autocomplete", "lib/analytics/flights", "lib/analytics/flights_omniture", "pickerDate" ], function($, FlightsAutocomplete, GoogleAnalytics, Omniture) {
+define([
+  "jquery",
+  "lib/widgets/flights_autocomplete",
+  "lib/analytics/flights",
+  "lib/analytics/flights_omniture",
+  "pickerDate"
+], function($, FlightsAutocomplete, GoogleAnalytics, Omniture) {
 
   "use strict";
 
