@@ -13,15 +13,16 @@ define([
 
   "use strict";
 
-  function FlightsWidgetAutocomplete($currency, $fromAirport, $fromCity, $toAirport, $toCity) {
-    this.$currency        = $currency;
-    this.$fromAirport     = $fromAirport;
-    this.$fromCity        = $fromCity;
-    this.$toAirport       = $toAirport;
-    this.$toCity          = $toCity;
-    this._onSelectCity    = this._onSelectCity.bind(this);
-    this._fetchCountries  = this._fetchCountries.bind(this);
+  function FlightsWidgetAutocomplete(args) {
+    this.$currency        = args.$currency;
+    this.$fromAirport     = args.$fromAirport;
+    this.$fromCity        = args.$fromCity;
+    this.$toAirport       = args.$toAirport;
+    this.$toCity          = args.$toCity;
     this.localStore       = new LocalStore();
+  }
+
+  FlightsWidgetAutocomplete.prototype.init = function() {
     this.getAndSetCurrency();
     this.getCountryCode().done(this.getAndSetCurrency.bind(this));
     this.setupAutocomplete(this.$fromCity);
@@ -63,8 +64,8 @@ define([
       el: $el,
       threshold: 3,
       limit: 4,
-      fetch: this._fetchCountries,
-      onItem: this._onSelectCity,
+      fetch: this._fetchCountries.bind(this),
+      onItem: this._onSelectCity.bind(this),
       templates: {
         item: "<div class='{{isCity}}'>" + "<span class='autocomplete_place-name'>{{PlaceName}}</span>" + "<span class='autocomplete_country-name'>{{CountryName}}</span>" + "</div>",
         value: "{{PlaceId}}"

@@ -15,9 +15,6 @@ define([
   "use strict";
 
   function FlightsWidget() {
-    this._updateReturnDate      = this._updateReturnDate.bind(this);
-    this._selectTripType        = this._selectTripType.bind(this);
-    this._checkErrorsAndProceed = this._checkErrorsAndProceed.bind(this);
     this.googleAnalytics        = new GoogleAnalytics("#js-flights-form");
     this.omniture               = new Omniture("#js-flights-submit");
   }
@@ -35,7 +32,17 @@ define([
     this.oneWay = function() {
       return this.$el.find(".js-oneway-btn").prop("checked");
     };
-    this.autocomplete = new FlightsAutocomplete(this.$currency, this.$fromAirport, this.$fromCity, this.$toAirport, this.$toCity);
+
+    var args = {
+      $currency: this.$currency,
+      $fromAirport: this.$fromAirport,
+      $fromCity: this.$fromCity,
+      $toAirport: this.$toAirport,
+      $toCity: this.$toCity
+    }
+    this.autocomplete = new FlightsAutocomplete(args);
+    this.autocomplete.init();
+
     this.omniture.init();
     this.initDatePickers();
     this.listen();
@@ -44,9 +51,7 @@ define([
   FlightsWidget.prototype.initDatePickers = function() {
     var today = new Date();
     this._startDate(this.$departDate, today);
-    if (!this.oneWay()) {
-      this._startDate(this.$returnDate, today, true);
-    }
+    !this.oneWay() && this._startDate(this.$returnDate, today, true);
   };
 
   // -------------------------------------------------------------------------
@@ -54,8 +59,8 @@ define([
   // -------------------------------------------------------------------------
 
   FlightsWidget.prototype.listen = function() {
-    this.$el.find("#js-flights-form").on("submit", this._checkErrorsAndProceed);
-    this.$el.find("[type=radio]").on("change", this._selectTripType);
+    this.$el.find("#js-flights-form").on("submit", this._checkErrorsAndProceed.bind(this));
+    this.$el.find("[type=radio]").on("change", this._selectTripType.bind(this));
     this.$el.find(".input--text").on("focus", this._removeError);
     this.$el.find(".js-city-input").on("click", function() {
       this.select();
@@ -64,7 +69,7 @@ define([
       var $input = $(this).closest(".input--regular--dark");
       this._removeError.bind($input);
     }.bind(this));
-    this.$departDate.on("change", this._updateReturnDate);
+    this.$departDate.on("change", this._updateReturnDate.bind(this));
   };
 
   // -------------------------------------------------------------------------
