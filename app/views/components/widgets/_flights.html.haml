@@ -1,10 +1,13 @@
-- from = properties[:prepopulation] ? properties[:prepopulation][:from] : nil
-- to = properties[:prepopulation] ? properties[:prepopulation][:to] : nil
+:ruby
+  from = properties[:prepopulation] ? properties[:prepopulation][:from] : nil
+  to = properties[:prepopulation] ? properties[:prepopulation][:to] : nil
+  today = Date.today
+  tomorrow = Date.tomorrow
 
 .booking-widget.booking-widget--flights.js-flights-widget{ class: properties[:widget_class] }
   .booking-widget__inner
 
-    %h1.copy--h1.booking-title Book flights
+    %h1.copy--h1.booking-title= properties[:title] || "Book flights"
     - if properties[:show_subheading]
       %h4.copy--h4.booking-subtitle Where would you like to fly?
 
@@ -14,31 +17,31 @@
           .field.field--booking
             .clearfix
               %label From
-              = ui_component('forms/text_input', properties: { class: "js-city-input js-from-city input--regular--dark", id: "js-from-city", name: "js-from-city", data: { prepopulation: from } })
+              = ui_component('forms/text_input', properties: { class: "js-city-input js-from-city input--regular--dark", id: "js-from-city", name: "js-from-city", value: from })
               %input.js-from-airport{ type: "hidden" }
             .field--booking__date.input__container.icon--calendar--after
-              = ui_component('forms/date_input', properties: { class: "js-input js-av-start input--regular--dark", id: "flight-depart-date", name: "departure_date", placeholder: "Departure Date" })
+              = ui_component('forms/date_input', properties: { class: "js-input js-av-start input--regular--dark", id: "flight-depart-date", name: "departure_date", placeholder: "Departure Date", value: today })
           .field.field--booking
             .clearfix
               %label To
-              = ui_component('forms/text_input', properties: { class: "js-city-input js-to-city input--regular--dark", id: "js-to-city", name: "js-to-city", data: { prepopulation: to } })
+              = ui_component('forms/text_input', properties: { class: "js-city-input js-to-city input--regular--dark", id: "js-to-city", name: "js-to-city", value: to })
               %input.js-to-airport{ type: "hidden" }
             .field--booking__date.input__container.icon--calendar--after
-              = ui_component('forms/date_input', properties: { class: "js-input js-av-end input--regular--dark", id: "flight-return-date", name: "return_date", placeholder: "Return Date" })
+              = ui_component('forms/date_input', properties: { class: "js-input js-av-end input--regular--dark", id: "flight-return-date", name: "return_date", placeholder: "Return Date", value: tomorrow })
 
       %fieldset.fieldset--pair
         .field.field--booking.media
           .media__img
             .flights-widget__round-trip#roundtrip-wrapper
-              %input.js-roundtrip-btn{ name: "roundtrip", type: "radio", checked: "checked" }
-              %span Round Trip
+              %input#round-trip.js-roundtrip-btn{ name: "roundtrip", type: "radio", checked: "checked" }
+              %label{ for: "round-trip" } Round Trip
             #oneway-wrapper
-              %input.js-oneway-btn{ name: "roundtrip", type: "radio" }
-              %span One Way
+              %input#one-way.js-oneway-btn{ name: "roundtrip", type: "radio" }
+              %label{ for: "one-way" } One Way
           .media__body
             %label.polyfill--placeholder#ie-label-currency
               Currency
-            = ui_component('forms/dropdown', properties: {class: "js-currency-select", id: "flight-currency", name: "flight-currency", placeholder: "Select Currency", options: [] })
+            = ui_component('forms/dropdown', properties: {class: "js-currency-select", id: "flight-currency", name: "flight-currency", options: Currencies, selected: "USD" })
 
         .field.field--booking
           .booking__age-input-wrapper
