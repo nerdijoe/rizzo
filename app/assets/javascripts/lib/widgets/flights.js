@@ -39,7 +39,7 @@ define([
       $fromCity: this.$fromCity,
       $toAirport: this.$toAirport,
       $toCity: this.$toCity
-    }
+    };
     this.autocomplete = new FlightsAutocomplete(args);
     this.autocomplete.init();
 

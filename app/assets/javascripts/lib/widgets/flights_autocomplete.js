@@ -27,7 +27,7 @@ define([
     this.getCountryCode().done(this.getAndSetCurrency.bind(this));
     this.setupAutocomplete(this.$fromCity);
     this.setupAutocomplete(this.$toCity);
-  }
+  };
 
   FlightsWidgetAutocomplete.prototype.API_KEY = "lp994363056324023341132625613270";
 
