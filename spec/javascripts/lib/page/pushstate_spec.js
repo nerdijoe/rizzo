@@ -95,13 +95,20 @@ define([ "jquery", "public/assets/javascripts/lib/page/pushstate.js" ], function
     });
 
     describe("updating push state", function() {
+      var initialSlug = null;
+
       beforeEach(function() {
-        spyOn(history, "pushState");
+        initialSlug = window.location.pathname;
         window.pushstate = new Pushstate();
         pushstate.navigate("", "/test");
       });
-      it("history.pushState is called", function() {
-        expect(history.pushState).toHaveBeenCalledWith({}, null, "/test");
+
+      it("changes current location", function() {
+        expect(window.location.pathname).toEqual("/test");
+      });
+
+      afterEach(function() {
+        window.history.replaceState({}, null, initialSlug)
       });
     });
 
