@@ -6,191 +6,52 @@
 
 define([
   "jquery",
-  "data/currencies",
-  "picker",
-  "pickerDate",
-  "pickerLegacy",
   "lib/widgets/flights_autocomplete",
-  "lib/analytics/flights_omniture",
   "lib/analytics/flights",
-  "lib/utils/local_store"
-], function($, currencies, picker, DatePicker, legacy, FlightsAutocomplete, Omniture, GoogleAnalytics, LocalStore) {
+  "lib/analytics/flights_omniture",
+  "pickerDate"
+], function($, FlightsAutocomplete, GoogleAnalytics, Omniture) {
 
   "use strict";
 
-  var autocomplete, countryCode, errorVisible, googleAnalytics, localStore, omniture, returnDatePicker, userCurrency,
-      $el;
-
   function FlightsWidget() {
-    autocomplete = new FlightsAutocomplete();
-    googleAnalytics = new GoogleAnalytics("#js-flights-form");
-    omniture = new Omniture("#js-flights-submit");
-    localStore = new LocalStore();
-
-    $.ajax({
-      type: "GET",
-      url: "http://www.lonelyplanet.com",
-      success: function(data, textStatus, request) {
-        countryCode = request.getResponseHeader("X-GeoIP-CountryCode");
-      }
-    });
+    this.googleAnalytics        = new GoogleAnalytics("#js-flights-form");
+    this.omniture               = new Omniture("#js-flights-submit");
   }
 
   FlightsWidget.prototype.init = function() {
-    autocomplete.init();
-    omniture.init();
+    this.$el          = $(".js-flights-widget");
+    this.$currency    = this.$el.find(".js-currency-select .js-select");
+    this.$departDate  = this.$el.find(".js-av-start");
+    this.$returnDate  = this.$el.find(".js-av-end");
+    this.$fromAirport = this.$el.find(".js-from-airport");
+    this.$fromCity    = this.$el.find("#js-from-city");
+    this.$toAirport   = this.$el.find(".js-to-airport");
+    this.$toCity      = this.$el.find("#js-to-city");
+    this.$errorMsg    = this.$el.find("#js-flights-submit .js-btn-error");
+    this.oneWay = function() {
+      return this.$el.find(".js-oneway-btn").prop("checked");
+    };
 
-    $el = $(".js-flights-widget");
-    userCurrency = localStore.getCookie("lpCurrency");
+    var args = {
+      $currency: this.$currency,
+      $fromAirport: this.$fromAirport,
+      $fromCity: this.$fromCity,
+      $toAirport: this.$toAirport,
+      $toCity: this.$toCity
+    };
+    this.autocomplete = new FlightsAutocomplete(args);
+    this.autocomplete.init();
 
-    $(document).ready(function() {
-      this.$currency = $(".js-currency-select .js-select");
-      this.$departDate = $(".js-av-start");
-      this.$fromAirport = $(".js-from-airport");
-      this.$fromCity = $(".js-from-city");
-      this.$returnDate = $(".js-av-end");
-      this.$toAirport = $(".js-to-airport");
-      this.$toCity = $(".js-to-city");
-
-      this.initDatePickers();
-      this.initCurrenySelect();
-      this.listen();
-    }.bind(this));
-  };
-
-  FlightsWidget.prototype.buildUrl = function() {
-    var departDate = this.formatDate(this.$departDate.val()),
-        returnDate = "",
-        url = "http://flights.lonelyplanet.com/Flights?",
-        currency = this.$currency.val();
-
-    if (!this.$returnDate.prop("disabled")) {
-      returnDate = this.formatDate(this.$returnDate.val());
-    }
-
-    url += "&outboundDate=" + departDate;
-    url += "&inboundDate=" + returnDate;
-    url += "&originPlace=" + (this.$fromAirport.val() === "" ? this.$fromCity.val() : this.$fromAirport.val());
-    url += "&destinationPlace=" + (this.$toAirport.val() === "" ? this.$toCity.val() : this.$toAirport.val());
-    url += "&adults=" + $(".js-adult-num .js-select").val();
-    url += "&children=" + $(".js-child-num .js-select").val();
-    url += "&infants=" + $(".js-baby-num .js-select").val();
-    url += "&locationSchema=" + "sky";
-    url += "&cabinClass=" + "economy";
-    url += "&country=" + countryCode;
-    url += "&currency=" + currency;
-    url += "&searchcontrols=true";
-
-    return url;
-  };
-
-  FlightsWidget.prototype.formatDate = function(date) {
-    var month, day, year;
-
-    date = new Date(Date.parse(date));
-
-    day = this._zeroise(date.getDate()),
-    month = this._zeroise(date.getMonth() + 1),
-    year = date.getFullYear();
-
-    return year + "-" + month + "-" + day;
-  };
-
-  FlightsWidget.prototype.initCurrenySelect = function() {
-    var opts = "", currency;
-
-    for (var j = 0; j < currencies.length; j++) {
-      currency = currencies[j].code;
-      opts += "<option value='" + currency + "'" + (currency == userCurrency ? "selected" : "") + ">" + currency + "</option>";
-    }
-
-    this.$currency
-      .removeProp("disabled")
-      .html(opts)
-      .trigger("change")
-      .closest(".js-currency-select")
-        .removeClass("is-disabled");
+    this.omniture.init();
+    this.initDatePickers();
+    this.listen();
   };
 
   FlightsWidget.prototype.initDatePickers = function() {
-    // Initialize the two date fields as Pickadate controls
-    var today = new Date(),
-        tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000); // add 24 hours
-
-    this.$returnDate.pickadate({
-      editable: false,
-      min: today,
-      format: "d mmm yyyy",
-      onStart: function() {
-        this.set({ select: tomorrow });
-      }
-    });
-
-    this.$departDate.pickadate({
-      editable: false,
-      min: today,
-      format: "d mmm yyyy",
-      onStart: function() {
-        this.set({ select: today });
-      }
-    });
-  };
-
-  FlightsWidget.prototype.checkErrors = function(e) {
-    var $errorMsg = $("#js-flights-submit .js-btn-error"),
-        errors = false,
-        valid = this.validateForm();
-
-    e.preventDefault();
-
-    // If there are errors, show an alerting div over the submit button
-    // which will fade away after 2 seconds.
-    if (!valid && !errorVisible) {
-      $errorMsg.show();
-      errorVisible = true;
-
-      setTimeout(function() {
-        $errorMsg.hide();
-        errorVisible = false;
-      }, 2000);
-    } else {
-      googleAnalytics.track();
-      window.open(this.buildUrl());
-    }
-
-    return !errors;
-  };
-
-  FlightsWidget.prototype.validateForm = function() {
-    var isValid = true;
-
-    $el.find(".input--text").each(function() {
-      var $this = $(this);
-
-      if (!$.trim($this.val())) {
-        isValid = false;
-        if ($this.hasClass("js-city-input")) {
-          $this.addClass("form--error");
-        } else {
-          $this.closest(".input--regular--dark").addClass("form--error");
-        }
-      }
-    });
-
-    return isValid;
-  };
-
-  FlightsWidget.prototype.selectTripType = function() {
-    var departDate;
-
-    if ($(".js-oneway-btn").prop("checked")) {
-      this.$returnDate.prop("disabled", true).val("One Way");
-    } else {
-      departDate = new Date(this.$departDate.pickadate("picker").get());
-
-      this.$returnDate.removeProp("disabled").val("");
-      this.$returnDate.pickadate("picker").set({ min: departDate, select: departDate });
-    }
+    var today = new Date();
+    this._startDate(this.$departDate, today);
+    !this.oneWay() && this._startDate(this.$returnDate, today, true);
   };
 
   // -------------------------------------------------------------------------
@@ -198,46 +59,106 @@ define([
   // -------------------------------------------------------------------------
 
   FlightsWidget.prototype.listen = function() {
-
-    $(".js-city-input").on("click", function() {
+    this.$el.find("#js-flights-form").on("submit", this._checkErrorsAndProceed.bind(this));
+    this.$el.find("[type=radio]").on("change", this._selectTripType.bind(this));
+    this.$el.find(".input--text").on("focus", this._removeError);
+    this.$el.find(".js-city-input").on("click", function() {
       this.select();
     });
-
-    $("#js-flights-form").submit(this.checkErrors.bind(this));
-
-    $el.find("[type=radio]").on("change", this.selectTripType.bind(this));
-
-    $el.find(".input--text").on("focus", function() {
-      var $input = $(this);
-      if ($input.hasClass("form--error")) {
-        $input.removeClass("form--error");
-      }
-    });
-
-    $el.find(".js-datepicker").on("click", function() {
+    this.$el.find(".js-datepicker").on("click", function() {
       var $input = $(this).closest(".input--regular--dark");
-      if ($input.hasClass("form--error")) {
-        $input.removeClass("form--error");
-      }
-    });
-
-    this.$departDate.on("change", function() {
-      var departDate = new Date(this.$departDate.val()),
-          returnDate = new Date(this.$returnDate.val());
-
-      if (returnDatePicker.val() !== "One Way" && departDate.getTime() > returnDate.getTime()) {
-        returnDatePicker.pickadate("picker").set({ min: departDate, select: departDate });
-      }
-    });
-
+      this._removeError.bind($input);
+    }.bind(this));
+    this.$departDate.on("change", this._updateReturnDate.bind(this));
   };
 
   // -------------------------------------------------------------------------
   // Private
   // -------------------------------------------------------------------------
 
-  FlightsWidget.prototype._zeroise = function(num) {
-    return (num < 10) ? "0" + num : num;
+  FlightsWidget.prototype._checkErrorsAndProceed = function(e) {
+    e.preventDefault();
+    if (this._validateForm()) {
+      this._proceed();
+    } else {
+      this._showError();
+    }
+  };
+
+  FlightsWidget.prototype._selectTripType = function() {
+    if (this.oneWay()) {
+      this.$returnDate.prop("disabled", true).val("One Way");
+    } else {
+      this.$returnDate.removeProp("disabled");
+      this._setDate(this.$returnDate, new Date(this.$departDate.val()), true);
+    }
+  };
+
+  FlightsWidget.prototype._removeError = function() {
+    $(this).removeClass("form--error");
+  };
+
+  FlightsWidget.prototype._updateReturnDate = function() {
+    var departDate, returnDate;
+    departDate = new Date(this.$departDate.val());
+    returnDate = new Date(this.$returnDate.val());
+    if (!this.oneWay() && departDate.getDate() > returnDate.getDate()) {
+      this._setDate(this.$returnDate, departDate, true);
+    }
+  };
+
+  FlightsWidget.prototype._startDate = function(calendar, day, nextDay) {
+    calendar.pickadate({
+      editable: false,
+      format: "d mmm yyyy",
+      onStart: function() { this._setDate(calendar, day, nextDay); }.bind(this)
+    });
+  };
+
+  FlightsWidget.prototype._setDate = function(calendar, day, nextDay) {
+    var selectDay = nextDay ? this._nextDay(day) : day;
+    calendar.pickadate("set", {
+      min: day,
+      select: selectDay
+    });
+  };
+
+  FlightsWidget.prototype._nextDay = function(day) {
+    return new Date(day.getTime() + 24 * 60 * 60 * 1000);
+  };
+
+  FlightsWidget.prototype._validateForm = function() {
+    return !this.$el.find(".input--text").filter(function() {
+      return $(this).val() === "";
+    }).each(function() {
+      var $input;
+      $input = $(this).hasClass("js-city-input") ? $(this) : $(this).closest(".input--regular--dark");
+      $input.addClass("form--error");
+    }).length;
+  };
+
+  FlightsWidget.prototype._showError = function() {
+    this.$errorMsg.show();
+    setTimeout(
+      function() {
+        this.$errorMsg.hide();
+      }.bind(this), 2000);
+  };
+
+  FlightsWidget.prototype._proceed = function() {
+    this.googleAnalytics.track();
+    window.open(this._buildUrl());
+  };
+
+  FlightsWidget.prototype._buildUrl = function() {
+    var departDate, returnDate, url;
+    departDate = this._formatDate(new Date(this.$departDate.val()));
+    returnDate = this.oneWay() ? "" : this._formatDate(new Date(this.$returnDate.val()));
+    return url = "http://flights.lonelyplanet.com/Flights?" + ("&outboundDate=" + departDate + "&inboundDate=" + returnDate) + ("&originPlace=" + (this.$fromAirport.val() || this.$fromCity.val())) + ("&destinationPlace=" + (this.$toAirport.val() || this.$toCity.val())) + ("&adults=" + ($(".js-adult-num .js-select").val())) + ("&children=" + ($(".js-child-num .js-select").val())) + ("&infants=" + ($(".js-baby-num .js-select").val())) + ("&country=" + this.autocomplete.countryCode + "&currency=" + (this.$currency.val())) + "&locationSchema=sky&cabinClass=economy&searchcontrols=true";
+  };
+
+  FlightsWidget.prototype._formatDate = function(date) {
+    return date.toISOString().split("T")[0];
   };
 
   return FlightsWidget;

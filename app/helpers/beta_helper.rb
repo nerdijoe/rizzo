@@ -4,7 +4,9 @@ module BetaHelper
   def place_or_article?
     return false unless place_presenter_defined?
     return false unless respond_to? :presenter
-    presenter.is_a?(PlacePresenter) || presenter.is_a?(ArticlesShowPresenter)
+    return true if defined?(::PlacePresenter) && presenter.is_a?(::PlacePresenter)
+    return true if defined?(::ArticlesShowPresenter) && presenter.is_a?(::ArticlesShowPresenter)
+    false
   end
   alias_method :is_place_or_article?, :place_or_article?
 
