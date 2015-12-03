@@ -50,15 +50,21 @@ define([ "jquery", "public/assets/javascripts/lib/components/gallery.js" ], func
     });
 
     describe("Updating the history", function() {
-      var newSlug = "my-image";
+      var initialSlug = null,
+          newSlug = "my-image";
+
       beforeEach(function(){
-        spyOn(window.history, "pushState");
+        initialSlug = window.location.pathname;
         gallery._updateSlug(newSlug);
       });
 
       it("Updates the state", function() {
         var expectedSlug = $("#js-gallery").data("href") + "/" + newSlug;
-        expect(window.history.pushState).toHaveBeenCalledWith({  }, "", expectedSlug);
+        expect(window.location.pathname).toEqual(expectedSlug);
+      });
+
+      afterEach(function() {
+        window.history.replaceState({}, null, initialSlug)
       });
     });
 
