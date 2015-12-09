@@ -51,6 +51,10 @@ define([ "jquery" ], function($) {
     this.listen();
   };
 
+  //-----------------------------------------------------------------------------
+  // Subscribe to events
+  //-----------------------------------------------------------------------------
+
   SlideIn.prototype.listen = function() {
     var config = this.config;
 
@@ -63,6 +67,10 @@ define([ "jquery" ], function($) {
         this._handleCloseButtonClick.bind(this));
   };
 
+  //-----------------------------------------------------------------------------
+  // Functions
+  //-----------------------------------------------------------------------------
+
   SlideIn.prototype.update = function(html) {
     var $currentLists = this.$el.find("ul"),
         $newLists = $(html).filter("ul");
@@ -74,6 +82,10 @@ define([ "jquery" ], function($) {
     this._handleUnreadContent();
     this._renderCloseButtons();
   };
+
+  //-----------------------------------------------------------------------------
+  // Private functions
+  //-----------------------------------------------------------------------------
 
   SlideIn.prototype._handleUnreadContent = function() {
     var unreadClass = this.config.classes.unread,
