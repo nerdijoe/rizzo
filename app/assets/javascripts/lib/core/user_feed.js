@@ -38,7 +38,6 @@ define([
     this.tabs = new Tabs({ selector: this.$el });
     this.flyout = new Flyout({ resizeTarget: this.tabs.$container });
     this.content = new Content({ context: this.$el });
-    this.unreadCounter = new UnreadCounter();
     this.popups = new Popups();
     this.slideIn = new SlideIn();
     this.fetcher = new Fetcher({
@@ -59,7 +58,6 @@ define([
     this._showSlideIn = this._canShowModule("slideIn", data.slideInMode);
 
     this.content.update(data);
-    this.unreadCounter.update(this.content.messages.unreadCount);
 
     if (this._showSlideIn) {
       var action = this._isFirstRun ? "init" : "update";

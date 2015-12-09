@@ -1,6 +1,5 @@
 .nav__item.nav__item--user.nav__submenu__trigger.js-user-signed-in
   %img.nav__item--user-avatar.js-user-avatar{ data: { src: "{{avatar}}"}, title: "", alt: "{{username}}" }
-  %span.notification-badge.notification-badge--unread-messages.wv--inline-block.js-user-feed__unread-counter.is-hidden
   %span.wv--hidden.nav--offscreen__title {{username}}
 
   .user-feed.nav__submenu.js-user-feed
@@ -19,7 +18,7 @@
             .col--one-half
               %a.btn.btn--linkblue.btn--small.btn--outline.btn--full-width{ href: "https://auth.lonelyplanet.com/users/sign_out"} Sign Out
 
-      .user-feed__content
+      .user-feed__content.is-hidden
         .nav__tabs
           .grid-wrapper--0
             .col--one-half
