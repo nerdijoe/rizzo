@@ -21,7 +21,8 @@ define([
 
   var defaults = {
     el:      ".js-user-feed",
-    ajaxUrl: "https://www.lonelyplanet.com/thorntree/users/feed"
+    ajaxUrl: "https://www.lonelyplanet.com/thorntree/users/feed",
+    maxActivityAgeForPopup: 60 //seconds
   };
 
   function UserFeed(args) {
@@ -66,7 +67,9 @@ define([
     }
 
     if (this._showPopups && !this._isFirstRun) {
-      this.popups.jumpOut(this.content.getLatest());
+      this.popups.jumpOut(
+        this.content.getLatest(this.maxActivityAgeForPopup)
+      );
     } else {
       this._isFirstRun = false;
     }
