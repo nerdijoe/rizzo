@@ -9,7 +9,7 @@ define([ "jquery" ], function($) {
   "use strict";
 
   var defaults = {
-    container:   "#js-row--content",
+    container:   "body",
     shroud:      ".js-user-feed--slide-in__shroud",
     closeButton: ".js-user-feed--slide-in__close",
     activities:  ".js-user-feed__activities",
