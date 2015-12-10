@@ -106,7 +106,8 @@ define([
       var urlParts = data.url.split("?");
       this._generateState(urlParts[0], urlParts[1]);
       this.pushState.navigate(this._serializeState(), this._currentRoot());
-      this._updateGoogleAnalytics(data);
+      this._updateGoogleAnalytics()
+;
       this.trigger(":ads/refresh", { ads: data.ads });
     }.bind(this));
   };
@@ -115,14 +116,16 @@ define([
 
   // Page offset currently lives within search so we must check and update each time
   Controller.prototype.replace = function(data, analytics) {
-    this._updateGoogleAnalytics(data);
+    this._updateGoogleAnalytics()
+;
     this._updateAdConfig(data);
     data.pagination && data.pagination.page_offsets && this._updateOffset(data.pagination); // jshint ignore:line
     this.trigger(":cards/received", [ data, this._currentState(), analytics ]);
   };
 
   Controller.prototype.append = function(data, analytics) {
-    this._updateGoogleAnalytics(data);
+    this._updateGoogleAnalytics()
+;
     this._updateAdConfig(data);
     data.pagination && data.pagination.page_offsets && this._updateOffset(data.pagination); // jshint ignore:line
     this._removePageParam();
@@ -130,14 +133,16 @@ define([
   };
 
   Controller.prototype.newPage = function(data, analytics) {
-    this._updateGoogleAnalytics(data);
+    this._updateGoogleAnalytics()
+;
     this._updateAdConfig(data);
     data.pagination && data.pagination.page_offsets && this._updateOffset(data.pagination); // jshint ignore:line
     this.trigger(":page/received", [ data, this._currentState(), analytics ]);
   };
 
   Controller.prototype.newLayer = function(data) {
-    this._updateGoogleAnalytics(data);
+    this._updateGoogleAnalytics()
+;
     this._updateAdConfig(data);
     this.trigger(":layer/received", [ data, this._currentState() ]);
   };
@@ -216,10 +221,9 @@ define([
     return urlParts[0] + ".json" + params;
   };
 
-  Controller.prototype._updateGoogleAnalytics = function(data) {
-    if (data.datalayer && window.lp.analytics.api) {
-      window.lp.analytics.dataLayer = data.datalayer;
-      window.lp.analytics.api.trackPageView(window.lp.analytics.dataLayer);
+  Controller.prototype._updateGoogleAnalytics = function() {
+    if (window.lp.analytics.api) {
+      window.lp.analytics.api.trackEvent({ category: "page view", action: "location override", location: document.location.pathname });
     }
   };
 
