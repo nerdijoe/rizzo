@@ -53,6 +53,8 @@ define([
         messages = content.messages;
         unreadCounter = instance.unreadCounter;
         fetcher = instance.fetcher;
+
+        instance.maxActivityAgeForPopup = Infinity;
       });
 
       afterEach(function() {
@@ -118,10 +120,6 @@ define([
           expect(messages.$unreadCounters.eq(1)).toHaveText("Messages (3)");
         });
 
-        it("updates & unhides feed unread counter (only messages count in)", function() {
-          expect(instance.unreadCounter.$el).toHaveText("3");
-        });
-
         describe("and fetches again", function() {
           var contentBeforeUpdate, contentAfterUpdate;
 
@@ -174,10 +172,6 @@ define([
               expect(messages.$unreadCounters.eq(1)).toHaveText("Messages (4)");
             });
 
-            it("updates feed unread counter", function() {
-              expect(unreadCounter.$el).toHaveText("4");
-            });
-
             it("shows popups for new items that are not self-activity", function() {
               jasmine.clock().tick(3 * popupTimers.renderDelay + 1);
               // Waits for three new but pops only two.
@@ -222,10 +216,6 @@ define([
                 expect(messages.$unreadCounters.eq(1)).toHaveText("Messages (5)");
               });
 
-              it("updates feed unread counter", function() {
-                expect(unreadCounter.$el).toHaveText("5");
-              });
-
               it("shows popups for latest items only", function() {
                 jasmine.clock().tick(2 * popupTimers.renderDelay + 1);
                 expect($(popups.selector)).toHaveLength(2);
@@ -249,21 +239,21 @@ define([
           });
 
           it("is disabled if mode === 0", function() {
-            expect(instance._canPopup(0)).toBeFalsy();
+            expect(instance._canShowModule("popups", 0)).toBeFalsy();
           });
 
           it("is disabled if mode === 1 and the view has mobile width", function() {
             spyOn(instance, "_isMobile").and.returnValue(true);
-            expect(instance._canPopup(1)).toBeFalsy();
+            expect(instance._canShowModule("popups", 1)).toBeFalsy();
           });
 
           it("is enabled if mode === 1 and the view has desktop width", function() {
             spyOn(instance, "_isMobile").and.returnValue(false);
-            expect(instance._canPopup(1)).toBeTruthy();
+            expect(instance._canShowModule("popups", 1)).toBeTruthy();
           });
 
           it("is enabled if mode === 2", function() {
-            expect(instance._canPopup(2)).toBeTruthy();
+            expect(instance._canShowModule("popups", 2)).toBeTruthy();
           });
         });
 
@@ -275,8 +265,8 @@ define([
 
           it("is always disabled", function() {
             spyOn(instance, "_isMobile").and.returnValue(false);
-            expect(instance._canPopup(1)).toBeFalsy();
-            expect(instance._canPopup(2)).toBeFalsy();
+            expect(instance._canShowModule("popups", 1)).toBeFalsy();
+            expect(instance._canShowModule("popups", 2)).toBeFalsy();
           });
         });
       });

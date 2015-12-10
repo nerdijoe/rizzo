@@ -9,6 +9,54 @@
   cursor: default
   width: 360px
 
+.user-feed--slide-in
+  $width: 300px
+
+  +z-layer(top)
+  position: fixed
+  right: -$width
+  bottom: 20px
+  min-height: 390px
+  width: $width
+  max-width: 100%
+
+.user-feed--slide-in__shroud
+  +z-layer(middle)
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  display: none
+  opacity: 0
+
+  .is-active > &
+    position: fixed
+    display: block
+
+    +respond-to(medium-view)
+      position: absolute
+      top: -10%
+      bottom: -10%
+      left: -110%
+
+.user-feed--slide-in__close
+  @extend %fly-out-shadow
+  position: absolute
+  top: 0
+  left: 0
+  width: 15px
+  height: 100%
+  border-radius: 4px 0 0 4px
+  background-color: $lpblue
+  cursor: pointer
+
+  span
+    +size(11px)
+    position: absolute
+    top: 50%
+    margin: -5px 0 0 2px
+    color: white
+
 .user-feed__container
   +css-arrow(top, 30px, 317px)
 
@@ -103,8 +151,92 @@
     right: 15px
     margin: 0
 
+  .user-feed--slide-in &
+    $slideInWidth: 300px
+    $slideInOffset: 3px
+    $tabWidth: 36px
+    $tabHeight: 40px
+    $tabOffset: 2px
+    $notificationBorderWidth: 2px
+
+    @extend %fly-out-shadow
+    @extend %transition--base
+    +z-layer(middle)
+    position: absolute
+    bottom: 0
+    right: - $slideInOffset
+    display: block !important
+    box-sizing: border-box
+    width: 100%
+    min-height: 393px
+    padding-left: 15px
+    border-radius: 4px 0 0 4px
+    background-color: white
+
+    &:before
+      @extend %fly-out-shadow
+      @extend %transition--base
+      position: absolute
+      left: -$tabWidth
+      display: block
+      box-sizing: border-box
+      width: $tabWidth - $notificationBorderWidth
+      height: $tabHeight
+      background-color: white
+      background-size: 25px
+      background-position: 40% 17%
+      border-left: $notificationBorderWidth solid transparent
+      opacity: 0.8
+      content: " "
+      cursor: pointer
+      pointer-events: all
+
+    &:nth-child(1):before
+      bottom: $tabHeight + $tabOffset
+      border-bottom: 1px solid $subduedgray
+      border-top-left-radius: 4px
+
+    &:nth-child(2):before
+      bottom: $tabOffset
+      border-bottom-left-radius: 4px
+
+    &.is-active
+      +z-layer(modal)
+      transform: translate(-$slideInWidth - $slideInOffset, 0)
+
+      &:before
+        left: 0
+        bottom: 0
+        border: none
+        width: 100%
+        height: 100%
+        border-bottom: 1px solid $subduedgray        
+        background-size: 100%
+        background-position: 40% 18.4%
+        background-color: transparent
+        opacity: 0.1
+
+    &.is-unread:before
+      border-left-color: $lpblue
+
+.user-feed__messages
+  
+  .user-feed--slide-in &
+
+    li:nth-last-child(2)
+      margin-bottom: 63px // footer height
+
 .user-feed__footer
+  position: relative
   padding: 18px 15px 13px
+
+  .user-feed--slide-in &
+    position: absolute
+    bottom: 0
+    left: 0
+    box-sizing: border-box
+    width: 100%
+    padding-left: 28px
 
 .activity-list__item--empty
   +font-size(16)
@@ -152,3 +284,14 @@
 
   &:hover
     background-color: $red
+
+  .user-feed--slide-in &
+    right: auto
+    left: -8px
+    opacity: 0
+    +respond-to(wide-view)
+      display: none
+
+  .is-active &
+    opacity: 1
+

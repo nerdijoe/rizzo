@@ -44,11 +44,11 @@ define([
     this.timeago.refresh();
   };
 
-  Content.prototype.getLatest = function() {
+  Content.prototype.getLatest = function(maxAge) {
     var $activities = this._getLatestByType("activities"),
         $messages = this._getLatestByType("messages");
 
-    return $activities.add($messages);
+    return this._filterByMaxAge($activities, maxAge).add($messages);
   };
 
   //---------------------------------------------------------------------------
@@ -68,6 +68,17 @@ define([
         targetUrl = $item.find(this.config.itemLink).attr("href");
 
     window.location.href = targetUrl;
+  };
+
+  Content.prototype._filterByMaxAge = function($collection, maxAge) {
+    var now = new Date().getTime();
+
+    return $collection.filter(function() {
+      var timestamp = $(this).find(".js-timeago").attr("datetime"),
+          itemAge = (now - new Date(timestamp).getTime()) / 1000;
+
+      return itemAge <= (maxAge || Infinity);
+    });
   };
 
   Content.prototype._getLatestByType = function(type) {
