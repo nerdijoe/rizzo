@@ -258,7 +258,7 @@ define([
       });
 
       it("updates the analytics datalayer", function() {
-        expect(controller._updateGoogleAnalytics).toHaveBeenCalledWith(newParams);
+        expect(controller._updateGoogleAnalytics).toHaveBeenCalled();
       });
 
       it("updates the ad config", function() {
