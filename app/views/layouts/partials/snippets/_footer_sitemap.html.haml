@@ -12,15 +12,16 @@
         %strong
           20% discount
         on your next guidebook purchase
-      %form.newsletter-footer(action='//www.lonelyplanet.com/newsletter/form-submission.php' method='post')
+      %form.newsletter-footer.js-newsletter-footer(action='//www.lonelyplanet.com/newsletter' method='post')
+        %input{:type=>"hidden", :name=>"authenticity_token", :value=>form_authenticity_token.to_s}
         %label.polyfill--placeholder.newsletter-footer__placeholder Email
-        %input.input--small--newsletter(type='text' id='newsletter-email' autocomplete='off' name='sailthru_email' placeholder='your@email.com' required='required')
-        %input(type='hidden' name='Source' value='homepagefooter')
-        %input(type='hidden' name='type' value='subscribe')
+        %input.input--small--newsletter(type='text' id='newsletter-email' autocomplete='off' name='sailthru[required][email]' placeholder='your@email.com' required='required')
+        %input(type='hidden' name='config[source]' value='homepagefooter')
+        %input(type='hidden' name='config[email_template]' value='Welcome email')
         .dropdown.dropdown--country.js-select-group-manager
           %label.dropdown__value.dropdown__value--country.js-select-overlay.icon--chevron-down--after(for='select-country')
             Select country
-          %select.dropdown__select.js-select#select-country(name='sailthru_Country')
+          %select.dropdown__select.js-select#select-country(name='sailthru[required][country]')
             - footer_newsletter_country_items.each do |country|
               %option(value="#{country[:title]}")
                 = country[:title]

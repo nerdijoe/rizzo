@@ -19,6 +19,7 @@ define([
   "lib/core/cookie_compliance",
   "lib/core/advertising",
   "lib/core/block_checker",
+  "lib/core/newsletter_form",
   "lib/components/toggle_active",
   "lib/components/select_group_manager"
 
