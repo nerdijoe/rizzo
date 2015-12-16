@@ -45,7 +45,7 @@ define([
       content: "Thank you for subscribing, " +
         "you'll soon receive an email confirming your subscription."
     }, true);
-  }
+  };
 
   NewsletterForm.prototype._handleSubmitError = function(xhr) {
     if (xhr.status === 409) {
@@ -59,7 +59,7 @@ define([
         content: "Something went wrong."
       }, true);
     }
-  }
+  };
 
   $(document).ready(function() {
     new NewsletterForm;
