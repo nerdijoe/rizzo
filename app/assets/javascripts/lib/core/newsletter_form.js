@@ -34,30 +34,32 @@ define([
   NewsletterForm.prototype._handleSubmit = function(event) {
     event.preventDefault();
 
-    var that = this;
-
     $.post(this.$el.attr("action"), this.$el.serialize())
-      .done(function() {
-        that.alert.success({
-          title: "Success!",
-          content: "Thank you for subscribing, " +
-            "you'll soon receive an email confirming your subscription."
-        }, true);
-      })
-      .fail(function(xhr) {
-        if (xhr.status === 409) {
-          that.alert.announcement({
-            title: "",
-            content: "You are already subscribed."
-          }, true);
-        } else {
-          that.alert.error({
-            title: "Error. ",
-            content: "Something went wrong."
-          }, true);
-        }
-      });
+      .done(this._handleSubmitSuccess.bind(this))
+      .fail(this._handleSubmitError.bind(this));
   };
+
+  NewsletterForm.prototype._handleSubmitSuccess = function() {
+    this.alert.success({
+      title: "Success!",
+      content: "Thank you for subscribing, " +
+        "you'll soon receive an email confirming your subscription."
+    }, true);
+  }
+
+  NewsletterForm.prototype._handleSubmitError = function(xhr) {
+    if (xhr.status === 409) {
+      this.alert.announcement({
+        title: "",
+        content: "You are already subscribed."
+      }, true);
+    } else {
+      this.error({
+        title: "Error. ",
+        content: "Something went wrong."
+      }, true);
+    }
+  }
 
   $(document).ready(function() {
     new NewsletterForm;
