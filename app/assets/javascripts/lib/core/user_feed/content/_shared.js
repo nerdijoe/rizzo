@@ -10,23 +10,42 @@ define([], function() {
 
   var shared = function() {
 
-    this._handleUpdate = function(itemsArray, onRender, unreadCount) {
-      var newHtml = this._getHtml(itemsArray),
-          doRender = this._hasNewContent(newHtml);
+    this._handleUpdate = function(itemsArray, onRender) {
+      var newHtml = this._getHtml(itemsArray);
 
       this.latestCount = this._getLatestCount(itemsArray);
+      this.unreadCount = this._getUnreadCount(itemsArray);
 
-      if (unreadCount === undefined) {
-        this.unreadCount = this._getUnreadCount(itemsArray);
+      this._renderItems(newHtml);
+      onRender();
+    };
+
+    this._getUnreadCount = function(itemsArray) {
+      var unreadCount = 0,
+          lastReadTimestamp = this._getLastReadTimestamp();
+
+      if (lastReadTimestamp) {
+        var newTimestamps = this._getTimestamps(itemsArray),
+            i, l = newTimestamps.length;
+
+        for (i = 0; i < l; i++) {
+          (newTimestamps[i] > lastReadTimestamp) && unreadCount++;
+        }
+
+        this._storeLastTimestamp(newTimestamps[0]);
+
       } else {
-        this.unreadCount = unreadCount;
+        lastReadTimestamp = new Date(itemsArray[0].timestamp).getTime();
+        this._storeLastReadTimestamp(lastReadTimestamp);
       }
 
-      if (doRender) {
-        this._renderItems(newHtml);
-        this._renderCounters();
-        onRender();
-      }
+      return unreadCount;
+    };
+
+    this._markUnread = function() {
+      var $items = this.$container.find(this.config.item);
+
+      $items.slice(0, this.unreadCount).addClass("is-unread");
     };
 
     this._getHtml = function(itemsArray) {
@@ -49,23 +68,6 @@ define([], function() {
 
     this._renderItems = function(html) {
       this.$container.html(html);
-    };
-
-    this._renderCounters = function() {
-      var count = this.unreadCount,
-          counterText = count > 0 ? " (" + count + ")" : "";
-
-      // This updates all standalone & appended counters,
-      // e.g. "(3)", "Messages (3)"
-      this.$unreadCounters.text(function(index, oldText) {
-        var titleEnd = oldText.lastIndexOf("("), newText;
-
-        newText = oldText
-          .slice(0, titleEnd > -1 ? titleEnd : oldText.length)
-          .trim().concat(counterText).trim();
-
-        return newText;
-      });
     };
 
     this._getTimestamps = function(itemsArray) {

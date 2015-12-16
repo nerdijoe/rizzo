@@ -33,7 +33,7 @@
     position: fixed
     display: block
 
-    +respond-to(medium-view)
+    +respond-to(wide-view)
       position: absolute
       top: -10%
       bottom: -10%
@@ -154,10 +154,9 @@
   .user-feed--slide-in &
     $slideInWidth: 300px
     $slideInOffset: 3px
-    $tabWidth: 36px
+    $tabWidth: 38px
     $tabHeight: 40px
     $tabOffset: 2px
-    $notificationBorderWidth: 2px
 
     @extend %fly-out-shadow
     @extend %transition--base
@@ -180,12 +179,11 @@
       left: -$tabWidth
       display: block
       box-sizing: border-box
-      width: $tabWidth - $notificationBorderWidth
+      width: $tabWidth
       height: $tabHeight
       background-color: white
       background-size: 25px
       background-position: 40% 17%
-      border-left: $notificationBorderWidth solid transparent
       opacity: 0.8
       content: " "
       cursor: pointer
@@ -216,8 +214,9 @@
         background-color: transparent
         opacity: 0.1
 
-    &.is-unread:before
-      border-left-color: $lpblue
+    &:not(.is-active).is-unread:before
+      background-color: $red
+      background-position-y: 40%
 
 .user-feed__messages
   

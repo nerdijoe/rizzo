@@ -28,7 +28,7 @@ define([
 
   Content.prototype.init = function() {
     this.activities = new Activities({ item: this.config.item });
-    this.messages = new Messages();
+    this.messages = new Messages({ item: this.config.item });
     this.timeago = new Timeago({ context: this.$context });
 
     this.listen();

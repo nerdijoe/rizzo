@@ -4,14 +4,13 @@
 //
 //-----------------------------------------------------------------------------
 
-define([ "jquery" ], function($) {
+define([ "jquery", "lib/utils/local_store" ], function($, LocalStore) {
 
   "use strict";
 
   var defaults = {
     container:   "body",
     shroud:      ".js-user-feed--slide-in__shroud",
-    closeButton: ".js-user-feed--slide-in__close",
     activities:  ".js-user-feed__activities",
     messages:    ".js-user-feed__messages",
     item:        ".js-user-feed__item",
@@ -32,6 +31,7 @@ define([ "jquery" ], function($) {
 
   function SlideIn(args) {
     this.config = $.extend({}, defaults, args);
+    this.localStore = new LocalStore();
 
     this.$container = $(this.config.container);
   }
@@ -43,7 +43,6 @@ define([ "jquery" ], function($) {
                 .html(html)
                 .appendTo(this.$container);
 
-    this._renderCloseButtons();
     this._renderShroud();
     this._addTabsIconsClasses();
     this._handleUnreadContent();
@@ -63,8 +62,10 @@ define([ "jquery" ], function($) {
         this._handleListClick.bind(this))
       .on("click", config.item,
         this._handleItemClick.bind(this))
-      .on("click", config.closeButton + ", " + config.shroud,
-        this._handleCloseButtonClick.bind(this));
+      .on("click", config.shroud,
+        this._handleShroudClick.bind(this))
+      .on("mouseenter",
+        this._handleMouseEnter.bind(this));
   };
 
   //-----------------------------------------------------------------------------
@@ -80,7 +81,6 @@ define([ "jquery" ], function($) {
     });
 
     this._handleUnreadContent();
-    this._renderCloseButtons();
   };
 
   //-----------------------------------------------------------------------------
@@ -88,42 +88,91 @@ define([ "jquery" ], function($) {
   //-----------------------------------------------------------------------------
 
   SlideIn.prototype._handleUnreadContent = function() {
-    var unreadClass = this.config.classes.unread,
-        $target = this.$el.find("." + unreadClass).closest("ul");
+    var unreadSelector = "li." + this.config.classes.unread,
+        $allLists = this.$el.find("ul"),
+        $targetList = this.$el.find(unreadSelector).closest("ul");
 
-    this._toggleUnread($target, true);
+    this._setRead($allLists);
+    $targetList.length && this._setUnread($targetList);
+  };
+
+  SlideIn.prototype._listenToMouseleave = function() {
+    this.$el.one("mouseleave", this._handleShroudClick.bind(this));
+  };
+
+  SlideIn.prototype._handleMouseEnter = function(event) {
+    if (this._isDesktop()) {
+      this._handleListClick(event);
+
+      // delay forced by slide animation:
+      setTimeout(this._listenToMouseleave.bind(this), 200);
+    }
   };
 
   SlideIn.prototype._handleListClick = function(event) {
     var $target = $(event.target);
 
-    $target.is("ul") && this._toggleActive($target, null);
+    if ($target.is("ul")) {
+      var isActive = $target.hasClass(this.config.classes.active);
+
+      !isActive && this._setActive($target);
+    }
   };
 
   SlideIn.prototype._handleItemClick = function(event) {
     var $item = $(event.currentTarget),
-        targetUrl = $item.find(this.config.itemLink).attr("href");
+        itemHref = $item.find(this.config.itemLink).attr("href");
 
-    window.location.href = targetUrl;
+    this._handleShroudClick();
+    window.location.href = itemHref;
   };
 
-  SlideIn.prototype._handleCloseButtonClick = function() {
-    var $target = this.$el.find("ul." + this.config.classes.active),
-        isActivity = $target.hasClass(this.config.activities.substr(1));
+  SlideIn.prototype._handleShroudClick = function() {
+    var activeSelector = "." + this.config.classes.active,
+        $targetList = this.$el.find("ul" + activeSelector),
+        $items = $targetList.find(this.config.item),
+        isActivitiesList = $targetList.is(this.config.activities),
+        isMessagesList = $targetList.is(this.config.messages);
 
-    isActivity && this._toggleUnread($target, false);
-    this._toggleActive($target, false);
+    this._setInactive($targetList);
+    this._setRead($targetList);
+    this._setRead($items);
+
+    if (isActivitiesList) {
+      this.localStore.set(
+        "lastActivityTimestamp.read",
+        this.localStore.get("lastActivityTimestamp")
+      );
+    }
+
+    if (isMessagesList) {
+      this.localStore.set(
+        "lastMessageTimestamp.read",
+        this.localStore.get("lastMessageTimestamp")
+      );
+    }
   };
 
-  SlideIn.prototype._toggleUnread = function($target, state) {
-    $target.toggleClass(this.config.classes.unread, state);
+  SlideIn.prototype._setUnread = function($target) {
+    $target.addClass(this.config.classes.unread);
   };
 
-  SlideIn.prototype._toggleActive = function($target, state) {
+  SlideIn.prototype._setRead = function($target) {
+    $target.removeClass(this.config.classes.unread);
+  };
+
+  SlideIn.prototype._setActive = function($target) {
     var activeClass = this.config.classes.active;
 
-    this.$el.toggleClass(activeClass, state);
-    $target.toggleClass(activeClass, state);
+    this.$el.addClass(activeClass);
+    $target.addClass(activeClass);
+  };
+
+  SlideIn.prototype._setInactive = function($target) {
+    var activeClass = this.config.classes.active;
+
+    this.$el.removeClass(activeClass);
+    $target.removeClass(activeClass);
   };
 
   SlideIn.prototype._addTabsIconsClasses = function() {
@@ -141,10 +190,8 @@ define([ "jquery" ], function($) {
       .appendTo(this.$el);
   };
 
-  SlideIn.prototype._renderCloseButtons = function() {
-    $(this.config.templates.close)
-      .addClass(this.config.closeButton.substr(1))
-      .prependTo(this.$el.find("ul"));
+  SlideIn.prototype._isDesktop = function() {
+    return window.innerWidth >= 980;
   };
 
   return SlideIn;

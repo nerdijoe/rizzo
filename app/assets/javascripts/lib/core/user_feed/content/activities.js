@@ -4,7 +4,11 @@
 //
 //-----------------------------------------------------------------------------
 
-define([ "jquery", "./_shared" ], function($, shared) {
+define([
+  "jquery",
+  "./_shared",
+  "lib/utils/local_store"
+], function($, shared, LocalStore) {
 
   "use strict";
 
@@ -18,6 +22,8 @@ define([ "jquery", "./_shared" ], function($, shared) {
 
     this.$container = $(this.config.container);
     this.$unreadCounters = $(this.config.unreadCounter);
+
+    this.localStore = new LocalStore();
 
     this.unreadCount = 0;
   }
@@ -44,28 +50,16 @@ define([ "jquery", "./_shared" ], function($, shared) {
   // Private functions
   //---------------------------------------------------------------------------
 
-  Activities.prototype._getUnreadCount = function(itemsArray) {
-    var unreadCount = 0;
-
-    if (this._lastReadTimestamp) {
-      var newTimestamps = this._getTimestamps(itemsArray),
-          i, l = newTimestamps.length;
-
-      for (i = 0; i < l; i++) {
-        (newTimestamps[i] > this._lastReadTimestamp) && unreadCount++;
-      }
-
-    } else {
-      this._lastReadTimestamp = new Date(itemsArray[0].timestamp).getTime();
-    }
-
-    return unreadCount;
+  Activities.prototype._getLastReadTimestamp = function() {
+    return this.localStore.get("lastActivityTimestamp.read");
   };
 
-  Activities.prototype._markUnread = function() {
-    var $items = this.$container.find(this.config.item);
+  Activities.prototype._storeLastReadTimestamp = function(timestamp) {
+    this.localStore.set("lastActivityTimestamp.read", timestamp);
+  };
 
-    $items.slice(0, this.unreadCount).addClass("is-unread");
+  Activities.prototype._storeLastTimestamp = function(timestamp) {
+    this.localStore.set("lastActivityTimestamp", timestamp);
   };
 
   return Activities;
