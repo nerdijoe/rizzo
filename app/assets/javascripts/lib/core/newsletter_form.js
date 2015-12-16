@@ -54,7 +54,7 @@ define([
         content: "You are already subscribed."
       }, true);
     } else {
-      this.error({
+      this.alert.error({
         title: "Error. ",
         content: "Something went wrong."
       }, true);
