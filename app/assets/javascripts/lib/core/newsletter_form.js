@@ -14,7 +14,7 @@ define([
   // el: {string} selector for form
   // alert: {string} selector for alert wrapper,
   //        will display notifications after submit,
-  //        by default in place of submitted form
+  //        by default in place of submitted form (see defaults)
   function NewsletterForm(args) {
     this.config = $.extend({}, defaults, args);
     this.$el = $(this.config.el);
@@ -23,7 +23,7 @@ define([
   }
 
   NewsletterForm.prototype.init = function() {
-    this.alert = new Alert({ container: defaults.alert });
+    this.alert = new Alert({ container: this.$alert });
     this.listen();
   };
 
