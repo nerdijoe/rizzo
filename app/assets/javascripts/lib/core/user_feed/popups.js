@@ -9,7 +9,7 @@ define([ "jquery" ], function($) {
   "use strict";
 
   var defaults = {
-    context: "#js-row--content",
+    context: "body",
     templates: {
       el: "<ul class='user-feed__list user-feed__popup'></ul>",
       close: "<span class='user-feed__popup__close icon icon--cross'></span>"
@@ -26,7 +26,7 @@ define([ "jquery" ], function($) {
 
     this.$context = $(this.config.context);
 
-    this.$context && this.init();
+    this.init();
   }
 
   Popups.prototype.init = function() {
