@@ -1,31 +1,34 @@
-<!-- User Feed flyout -->
-<div class="js-user-signed-in">
+<div id="context">
 
-  <div class="js-user-feed__unread-counter is-hidden"></div>
+  <!-- User Feed flyout -->
+  <div class="js-user-signed-in">
 
-  <div class="js-user-feed">
+    <div class="js-user-feed__unread-counter is-hidden"></div>
 
-    <a class="js-tab-trigger is-active" href="#user-feed-activities">
-      Recent activity <span class="js-user-feed__activities__unread-counter"></span>
-    </a>
+    <div class="js-user-feed">
 
-    <a class="js-tab-trigger" href="#user-feed-messages">
-      Messages <span class="js-user-feed__messages__unread-counter"></span>
-    </a>
+      <a class="js-tab-trigger is-active" href="#user-feed-activities">
+        Recent activity
+      </a>
 
-    <div class="js-tabs-content">
+      <a class="js-tab-trigger" href="#user-feed-messages">
+        Messages
+      </a>
 
-      <ul id="#user-feed-activities" class="js-user-feed__activities is-active">
-        <li>No activities<time class='js-timeago' datetime='2015-01-05T00:00:00.000Z'></time></li>
-      </ul>
+      <div class="js-tabs-content">
 
-      <ul id="#user-feed-messages" class="js-user-feed__messages">
-        <li>No messages<time class='js-timeago' datetime='2015-01-05T00:00:00.000Z'></time></li>
-        <li class="js-user-feed__messages__footer is-hidden">
-          See all messages
-        <time class='js-timeago' datetime='2015-01-05T00:00:00.000Z'></time></li>
-      </ul>
+        <ul id="#user-feed-activities" class="js-user-feed__activities is-active">
+          <li>No activities<time class='js-timeago' datetime='2015-01-05T00:00:00.000Z'></time></li>
+        </ul>
 
+        <ul id="#user-feed-messages" class="js-user-feed__messages">
+          <li>No messages<time class='js-timeago' datetime='2015-01-05T00:00:00.000Z'></time></li>
+          <li class="js-user-feed__messages__footer is-hidden">
+            See all messages
+          <time class='js-timeago' datetime='2015-01-05T00:00:00.000Z'></time></li>
+        </ul>
+
+      </div>
     </div>
   </div>
 </div>
@@ -34,9 +37,6 @@
 <div class="js-user-feed__messages__unread-counter">
   <span>Messages</span>
 </div>
-
-<!-- Popups context-->
-<div id="js-row--content"></div>
 
 <!-- Sample responses -->
 <script id="sample-response-1" type="application/json">
@@ -66,15 +66,15 @@
     "messages":[
       {
         "timestamp":"2015-01-05T00:00:00.000Z",
-        "text":"<li class='js-user-feed__item is-unread'><a class='js-user-feed__item__link' href='/foo'>Foo</a><time class='js-timeago' datetime='2015-01-05T00:00:00.000Z'></time></li>"
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Foo</a><time class='js-timeago' datetime='2015-01-05T00:00:00.000Z'></time></li>"
       },
       {
         "timestamp":"2015-01-04T00:00:00.000Z",
-        "text":"<li class='js-user-feed__item is-unread'><a class='js-user-feed__item__link' href='/foo'>Foo</a><time class='js-timeago' datetime='2015-01-04T00:00:00.000Z'></time></li>"
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Foo</a><time class='js-timeago' datetime='2015-01-04T00:00:00.000Z'></time></li>"
       },
       {
         "timestamp":"2015-01-03T00:00:00.000Z",
-        "text":"<li class='js-user-feed__item is-unread'><a class='js-user-feed__item__link' href='/foo'>Foo</a><time class='js-timeago' datetime='2015-01-03T00:00:00.000Z'></time></li>"
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Foo</a><time class='js-timeago' datetime='2015-01-03T00:00:00.000Z'></time></li>"
       },
       {
         "timestamp":"2015-01-02T00:00:00.000Z",
@@ -117,19 +117,19 @@
     "messages":[
       {
         "timestamp":"2015-01-06T00:00:00.000Z",
-        "text":"<li class='js-user-feed__item is-unread'><a class='js-user-feed__item__link' href='/foo'>Foo</a><time class='js-timeago' datetime='2015-01-06T00:00:00.000Z'></time></li>"
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Foo</a><time class='js-timeago' datetime='2015-01-06T00:00:00.000Z'></time></li>"
       },
       {
         "timestamp":"2015-01-05T00:00:00.000Z",
-        "text":"<li class='js-user-feed__item is-unread'><a class='js-user-feed__item__link' href='/foo'>Foo</a><time class='js-timeago' datetime='2015-01-05T00:00:00.000Z'></time></li>"
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Foo</a><time class='js-timeago' datetime='2015-01-05T00:00:00.000Z'></time></li>"
       },
       {
         "timestamp":"2015-01-04T00:00:00.000Z",
-        "text":"<li class='js-user-feed__item is-unread'><a class='js-user-feed__item__link' href='/foo'>Foo</a><time class='js-timeago' datetime='2015-01-04T00:00:00.000Z'></time></li>"
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Foo</a><time class='js-timeago' datetime='2015-01-04T00:00:00.000Z'></time></li>"
       },
       {
         "timestamp":"2015-01-03T00:00:00.000Z",
-        "text":"<li class='js-user-feed__item is-unread'><a class='js-user-feed__item__link' href='/foo'>Bar</a><time class='js-timeago' datetime='2015-01-03T00:00:00.000Z'></time></li>"
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Bar</a><time class='js-timeago' datetime='2015-01-03T00:00:00.000Z'></time></li>"
       },
       {
         "timestamp":"2015-01-02T00:00:00.000Z",
@@ -168,23 +168,23 @@
     "messages":[
       {
         "timestamp":"2015-01-07T00:00:00.000Z",
-        "text":"<li class='js-user-feed__item is-unread'><a class='js-user-feed__item__link' href='/foo'>Bar</a><time class='js-timeago' datetime='2015-01-05T00:00:00.000Z'></time></li>"
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Bar</a><time class='js-timeago' datetime='2015-01-05T00:00:00.000Z'></time></li>"
       },
       {
         "timestamp":"2015-01-06T00:00:00.000Z",
-        "text":"<li class='js-user-feed__item is-unread'><a class='js-user-feed__item__link' href='/foo'>Bar</a><time class='js-timeago' datetime='2015-01-05T00:00:00.000Z'></time></li>"
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Bar</a><time class='js-timeago' datetime='2015-01-05T00:00:00.000Z'></time></li>"
       },
       {
         "timestamp":"2015-01-05T00:00:00.000Z",
-        "text":"<li class='js-user-feed__item is-unread'><a class='js-user-feed__item__link' href='/foo'>Bar</a><time class='js-timeago' datetime='2015-01-05T00:00:00.000Z'></time></li>"
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Bar</a><time class='js-timeago' datetime='2015-01-05T00:00:00.000Z'></time></li>"
       },
       {
         "timestamp":"2015-01-04T00:00:00.000Z",
-        "text":"<li class='js-user-feed__item is-unread'><a class='js-user-feed__item__link' href='/foo'>Foo</a><time class='js-timeago' datetime='2015-01-05T00:00:00.000Z'></time></li>"
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Foo</a><time class='js-timeago' datetime='2015-01-05T00:00:00.000Z'></time></li>"
       },
       {
         "timestamp":"2015-01-03T00:00:00.000Z",
-        "text":"<li class='js-user-feed__item is-unread'><a class='js-user-feed__item__link' href='/foo'>Bar</a><time class='js-timeago' datetime='2015-01-05T00:00:00.000Z'></time></li>"
+        "text":"<li class='js-user-feed__item'><a class='js-user-feed__item__link' href='/foo'>Bar</a><time class='js-timeago' datetime='2015-01-05T00:00:00.000Z'></time></li>"
       }
     ],
     "unreadMessagesCount": 5,

@@ -9,7 +9,7 @@ define([ "jquery", "lib/utils/local_store" ], function($, LocalStore) {
   "use strict";
 
   var defaults = {
-    container:   "body",
+    context:   "body",
     shroud:      ".js-user-feed--slide-in__shroud",
     activities:  ".js-user-feed__activities",
     messages:    ".js-user-feed__messages",
@@ -33,7 +33,7 @@ define([ "jquery", "lib/utils/local_store" ], function($, LocalStore) {
     this.config = $.extend({}, defaults, args);
     this.localStore = new LocalStore();
 
-    this.$container = $(this.config.container);
+    this.$context = $(this.config.context);
   }
 
   SlideIn.prototype.init = function(html) {
@@ -41,7 +41,7 @@ define([ "jquery", "lib/utils/local_store" ], function($, LocalStore) {
 
     this.$el = $(this.config.templates.el)
                 .html(html)
-                .appendTo(this.$container);
+                .appendTo(this.$context);
 
     this._renderShroud();
     this._addTabsIconsClasses();
