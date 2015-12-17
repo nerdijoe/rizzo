@@ -12,6 +12,7 @@
 .user-feed--slide-in
   $width: 300px
 
+  @extend %transition--base
   +z-layer(top)
   position: fixed
   right: -$width
@@ -19,6 +20,9 @@
   bottom: 15px // same as popup
   width: $width
   max-width: 100%
+
+  .show-nav &
+    @extend %invisible // hide when mobile sidenav opens
 
 .user-feed--slide-in__shroud
   +z-layer(middle)
