@@ -68,7 +68,7 @@ define([
 
     if (this._showPopups && !this._isFirstRun) {
       this.popups.jumpOut(
-        this.content.getLatest(this.maxActivityAgeForPopup)
+        this.content.getLatest(this.config.maxActivityAgeForPopup)
       );
     } else {
       this._isFirstRun = false;

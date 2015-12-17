@@ -44,11 +44,15 @@ define([
     this.timeago.refresh();
   };
 
-  Content.prototype.getLatest = function(maxAge) {
+  Content.prototype.getLatest = function(maxActivityAge) {
     var $activities = this._getLatestByType("activities"),
         $messages = this._getLatestByType("messages");
 
-    return this._filterByMaxAge($activities, maxAge).add($messages);
+    if (typeof maxActivityAge === "number") {
+      $activities = this._filterByMaxAge($activities, maxActivityAge);
+    }
+
+    return $activities.add($messages);
   };
 
   //---------------------------------------------------------------------------
@@ -77,7 +81,7 @@ define([
       var timestamp = $(this).find(".js-timeago").attr("datetime"),
           itemAge = (now - new Date(timestamp).getTime()) / 1000;
 
-      return itemAge <= (maxAge || Infinity);
+      return itemAge <= maxAge;
     });
   };
 
