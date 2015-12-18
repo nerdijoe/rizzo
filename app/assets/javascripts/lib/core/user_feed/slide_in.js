@@ -18,7 +18,8 @@ define([ "jquery", "lib/utils/local_store" ], function($, LocalStore) {
     classes: {
       icons:     [ "icon--pen--line--before", "icon--comment--line--before" ],
       unread:    "is-unread",
-      active:    "is-active"
+      active:    "is-active",
+      author:    "is-author"
     },
     templates: {
       el:        "<div class='user-feed--slide-in'></div>",
@@ -88,9 +89,10 @@ define([ "jquery", "lib/utils/local_store" ], function($, LocalStore) {
   //-----------------------------------------------------------------------------
 
   SlideIn.prototype._handleUnreadContent = function() {
-    var unreadSelector = "li." + this.config.classes.unread,
+    var unread = "li." + this.config.classes.unread,
+        author = "li." + this.config.classes.author,
         $allLists = this.$el.find("ul"),
-        $targetList = this.$el.find(unreadSelector).closest("ul");
+        $targetList = this.$el.find(unread).not(author).closest("ul");
 
     this._setRead($allLists);
     $targetList.length && this._setUnread($targetList);
