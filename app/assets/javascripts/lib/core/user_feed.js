@@ -20,7 +20,8 @@ define([
   "use strict";
 
   var defaults = {
-    el:      ".js-user-feed",
+    el: ".js-user-feed",
+    context: "body",
     ajaxUrl: "https://www.lonelyplanet.com/thorntree/users/feed",
     maxActivityAgeForPopup: 60 //seconds
   };
@@ -39,8 +40,8 @@ define([
     this.tabs = new Tabs({ selector: this.$el });
     this.flyout = new Flyout({ resizeTarget: this.tabs.$container });
     this.content = new Content({ context: this.$el });
-    this.popups = new Popups();
-    this.slideIn = new SlideIn();
+    this.popups = new Popups({ context: this.config.context });
+    this.slideIn = new SlideIn({ context: this.config.context });
     this.fetcher = new Fetcher({
       ajax: {
         url: this.config.ajaxUrl,
@@ -68,7 +69,7 @@ define([
 
     if (this._showPopups && !this._isFirstRun) {
       this.popups.jumpOut(
-        this.content.getLatest(this.maxActivityAgeForPopup)
+        this.content.getLatest(this.config.maxActivityAgeForPopup)
       );
     } else {
       this._isFirstRun = false;

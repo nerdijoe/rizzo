@@ -43,7 +43,11 @@ define([
         jasmine.clock().install();
 
         window.lp.userFeed.popups = true;
-        instance = new UserFeed({ ajaxUrl: "/foo" });
+        instance = new UserFeed({
+          ajaxUrl: "/foo",
+          context: "#context",
+          maxActivityAgeForPopup: false
+        });
 
         tabs = instance.tabs;
         flyout = instance.flyout;
@@ -53,8 +57,6 @@ define([
         messages = content.messages;
         unreadCounter = instance.unreadCounter;
         fetcher = instance.fetcher;
-
-        instance.maxActivityAgeForPopup = Infinity;
       });
 
       afterEach(function() {
@@ -111,13 +113,8 @@ define([
           expect(messages.$footer).not.toHaveClass("is-hidden");
         });
 
-        it("leaves activities unread counter empty", function() {
-          expect(activities.$unreadCounters.eq(0)).toHaveText("");
-        });
-
         it("updates messages unread counters (tab & mobile menu)", function() {
-          expect(messages.$unreadCounters.eq(0)).toHaveText("(3)");
-          expect(messages.$unreadCounters.eq(1)).toHaveText("Messages (3)");
+          expect(messages.$unreadCounter).toHaveText("Messages (3)");
         });
 
         describe("and fetches again", function() {
@@ -163,13 +160,8 @@ define([
               expect(activities.$container.find(".is-unread")).toHaveLength(2);
             });
 
-            it("updates activities unread counter", function() {
-              expect(activities.$unreadCounters.eq(0)).toHaveText("(2)");
-            });
-
             it("updates messages unread counters", function() {
-              expect(messages.$unreadCounters.eq(0)).toHaveText("(4)");
-              expect(messages.$unreadCounters.eq(1)).toHaveText("Messages (4)");
+              expect(messages.$unreadCounter).toHaveText("Messages (4)");
             });
 
             it("shows popups for new items that are not self-activity", function() {
@@ -207,13 +199,8 @@ define([
                 expect(activities.$container.find(".is-unread")).toHaveLength(3);
               });
 
-              it("updates activities unread counter", function() {
-                expect(activities.$unreadCounters.eq(0)).toHaveText("(3)");
-              });
-
               it("updates messages unread counters", function() {
-                expect(messages.$unreadCounters.eq(0)).toHaveText("(5)");
-                expect(messages.$unreadCounters.eq(1)).toHaveText("Messages (5)");
+                expect(messages.$unreadCounter).toHaveText("Messages (5)");
               });
 
               it("shows popups for latest items only", function() {

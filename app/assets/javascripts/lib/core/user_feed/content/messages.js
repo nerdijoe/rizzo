@@ -4,7 +4,11 @@
 //
 //-----------------------------------------------------------------------------
 
-define([ "jquery", "./_shared" ], function($, shared) {
+define([
+  "jquery",
+  "./_shared",
+  "lib/utils/local_store"
+], function($, shared, LocalStore) {
 
   "use strict";
 
@@ -18,11 +22,12 @@ define([ "jquery", "./_shared" ], function($, shared) {
     this.config = $.extend({}, defaults, args);
 
     this.$container = $(this.config.container);
-    this.$unreadCounters = $(this.config.unreadCounter);
+    this.$unreadCounter = $(this.config.unreadCounter);
     this.$footer = $(this.config.footer);
 
+    this.localStore = new LocalStore();
+
     this.unreadCount = 0;
-    this.isFirstRun = true;
   }
 
   //---------------------------------------------------------------------------
@@ -41,8 +46,11 @@ define([ "jquery", "./_shared" ], function($, shared) {
     if (itemsArray.length) {
       this._handleUpdate(
         itemsArray,
-        this._updateFooter.bind(this, !!itemsArray.length),
-        data.unreadMessagesCount
+        this._onRender.bind(
+          this,
+          !!itemsArray.length,
+          data.unreadMessagesCount
+        )
       );
     }
   };
@@ -50,6 +58,30 @@ define([ "jquery", "./_shared" ], function($, shared) {
   //---------------------------------------------------------------------------
   // Private functions
   //---------------------------------------------------------------------------
+
+  Messages.prototype._getLastReadTimestamp = function() {
+    return this.localStore.get("lastMessageTimestamp.read");
+  };
+
+  Messages.prototype._storeLastReadTimestamp = function(timestamp) {
+    this.localStore.set("lastMessageTimestamp.read", timestamp);
+  };
+
+  Messages.prototype._storeLastTimestamp = function(timestamp) {
+    this.localStore.set("lastMessageTimestamp", timestamp);
+  };
+
+  Messages.prototype._onRender = function(showFooter, totalUnreadMessages) {
+    this._markUnread();
+    this._renderMobileCounter(totalUnreadMessages);
+    this._updateFooter(showFooter);
+  };
+
+  Messages.prototype._renderMobileCounter = function(count) {
+    var counterText = count > 0 ? "(" + count + ")" : "";
+
+    this.$unreadCounter.text("Messages " + counterText);
+  };
 
   Messages.prototype._updateFooter = function(state) {
     var $footer = this.$footer;

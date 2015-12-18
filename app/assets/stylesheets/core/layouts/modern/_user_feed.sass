@@ -12,13 +12,17 @@
 .user-feed--slide-in
   $width: 300px
 
+  @extend %transition--base
   +z-layer(top)
   position: fixed
   right: -$width
-  bottom: 20px
-  min-height: 390px
+  top: 15px
+  bottom: 15px // same as popup
   width: $width
   max-width: 100%
+
+  .show-nav &
+    @extend %invisible // hide when mobile sidenav opens
 
 .user-feed--slide-in__shroud
   +z-layer(middle)
@@ -33,11 +37,8 @@
     position: fixed
     display: block
 
-    +respond-to(medium-view)
-      position: absolute
-      top: -10%
-      bottom: -10%
-      left: -110%
+    +respond-to(wide-view)
+      display: none
 
 .user-feed--slide-in__close
   @extend %fly-out-shadow
@@ -106,6 +107,7 @@
 .user-feed__list
   display: none
   list-style: none
+  border: 1px solid whitesmoke
   &.is-active
     display: block
   .activity-list__item
@@ -118,9 +120,9 @@
     font-weight: normal
     color: $titlegray
     &.is-unread
-      background: mix($linkblue, #fff, 3%)
+      background: rgba($linkblue, .03)
     &:hover
-      background: mix($linkblue, #fff, 10%)
+      background: rgba($linkblue, .1)
     &, &:first-of-type // because it gets overwritten in Community
       padding: 15px $primary-nav-height 30px 15px
       min-height: 20px
@@ -154,10 +156,9 @@
   .user-feed--slide-in &
     $slideInWidth: 300px
     $slideInOffset: 3px
-    $tabWidth: 36px
+    $tabWidth: 40px
     $tabHeight: 40px
     $tabOffset: 2px
-    $notificationBorderWidth: 2px
 
     @extend %fly-out-shadow
     @extend %transition--base
@@ -168,8 +169,9 @@
     display: block !important
     box-sizing: border-box
     width: 100%
-    min-height: 393px
-    padding-left: 15px
+    min-height: 380px
+    max-height: 100%
+    // padding-left: 15px
     border-radius: 4px 0 0 4px
     background-color: white
 
@@ -180,12 +182,11 @@
       left: -$tabWidth
       display: block
       box-sizing: border-box
-      width: $tabWidth - $notificationBorderWidth
+      width: $tabWidth
       height: $tabHeight
       background-color: white
       background-size: 25px
       background-position: 40% 17%
-      border-left: $notificationBorderWidth solid transparent
       opacity: 0.8
       content: " "
       cursor: pointer
@@ -202,6 +203,8 @@
 
     &.is-active
       +z-layer(modal)
+      overflow-x: hidden
+      overflow-y: auto
       transform: translate(-$slideInWidth - $slideInOffset, 0)
 
       &:before
@@ -215,9 +218,11 @@
         background-position: 40% 18.4%
         background-color: transparent
         opacity: 0.1
+        cursor: default
 
-    &.is-unread:before
-      border-left-color: $lpblue
+    &:not(.is-active).is-unread:before
+      background-color: $red
+      background-position-y: 39%
 
 .user-feed__messages
   
@@ -248,7 +253,7 @@
   @extend %rounded-corners
   @extend %transition--slower
   @extend %fly-out-shadow
-  +z-layer(modal)
+  z-index: 19 // right below the slide-in (overlaps on narrow screens)
   position: fixed
   bottom: -150px
   left: 0
@@ -256,14 +261,18 @@
   box-sizing: border-box
   border: 2px solid #297CBB
   background: white
-  width: 94%
-  margin: 0 3%
+  width: 80%
+  max-width: 350px
+  margin: 0 17% 0 3%
   transition-timing-function: cubic-bezier(.16,.3,.08,1.48)
 
   +respond-to(wide-view)
     left: 15px
     width: 350px
     margin: 0
+
+  .activity-list__item
+    @extend %rounded-corners
 
 .user-feed__popup__close
   @extend %transition--base
@@ -284,13 +293,6 @@
 
   &:hover
     background-color: $red
-
-  .user-feed--slide-in &
-    right: auto
-    left: -8px
-    opacity: 0
-    +respond-to(wide-view)
-      display: none
 
   .is-active &
     opacity: 1
