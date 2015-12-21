@@ -3,6 +3,7 @@ define([
   "flamsteed",
   "lib/core/ad_manager",
   "lib/utils/local_store",
+  "lib/core/sailthru_form",
 
   "sCode",
   "trackjs",
@@ -19,11 +20,10 @@ define([
   "lib/core/cookie_compliance",
   "lib/core/advertising",
   "lib/core/block_checker",
-  "lib/core/newsletter_form",
   "lib/components/toggle_active",
   "lib/components/select_group_manager"
 
-], function($, Flamsteed, AdManager, LocalStore) {
+], function($, Flamsteed, AdManager, LocalStore, SailthruForm) {
   /* global utag */
 
   "use strict";
@@ -67,6 +67,11 @@ define([
         });
       }
     }
+
+    new SailthruForm({
+      el: ".js-newsletter-footer",
+      alert: ".js-newsletter-footer"
+    });
 
     $(document).on("click", ".beta-banner", function(e) {
       e.preventDefault();

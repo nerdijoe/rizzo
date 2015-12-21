@@ -5,33 +5,26 @@ define([
 
   "use strict";
 
-  var defaults = {
-    el: ".js-newsletter-footer",
-    alert: ".js-newsletter-footer"
-  };
-
   // @args = {}
   // el: {string} selector for form
   // alert: {string} selector for alert wrapper,
-  //        will display notifications after submit,
-  //        by default in place of submitted form (see defaults)
-  function NewsletterForm(args) {
-    this.config = $.extend({}, defaults, args);
-    this.$el = $(this.config.el);
-    this.$alert = $(this.config.alert);
+  //        will display notifications after submit
+  function SailthruForm(args) {
+    this.$el = $(args.el);
+    this.$alert = $(args.alert);
     this.$el.length && this.init();
   }
 
-  NewsletterForm.prototype.init = function() {
+  SailthruForm.prototype.init = function() {
     this.alert = new Alert({ container: this.$alert });
     this.listen();
   };
 
-  NewsletterForm.prototype.listen = function() {
+  SailthruForm.prototype.listen = function() {
     this.$el.on("submit", this._handleSubmit.bind(this));
   };
 
-  NewsletterForm.prototype._handleSubmit = function(event) {
+  SailthruForm.prototype._handleSubmit = function(event) {
     event.preventDefault();
 
     $.post(this.$el.attr("action"), this.$el.serialize())
@@ -39,7 +32,7 @@ define([
       .fail(this._handleSubmitError.bind(this));
   };
 
-  NewsletterForm.prototype._handleSubmitSuccess = function() {
+  SailthruForm.prototype._handleSubmitSuccess = function() {
     this.alert.success({
       title: "Success!",
       content: "Thank you for subscribing, " +
@@ -47,7 +40,7 @@ define([
     }, true);
   };
 
-  NewsletterForm.prototype._handleSubmitError = function(xhr) {
+  SailthruForm.prototype._handleSubmitError = function(xhr) {
     if (xhr.status === 409) {
       this.alert.announcement({
         title: "",
@@ -61,9 +54,5 @@ define([
     }
   };
 
-  $(document).ready(function() {
-    new NewsletterForm;
-  });
-
-  return NewsletterForm;
+  return SailthruForm;
 });
