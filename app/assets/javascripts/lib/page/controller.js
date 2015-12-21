@@ -223,7 +223,7 @@ define([
 
   Controller.prototype._updateGoogleAnalytics = function() {
     if (window.lp.analytics.api) {
-      window.lp.analytics.api.trackEvent({ category: "page view", action: "location override", location: document.location.pathname });
+      window.lp.analytics.api.trackEvent({ category: "Page View", action: "location override", label: document.location.pathname });
     }
   };
 
