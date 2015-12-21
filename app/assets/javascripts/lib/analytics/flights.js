@@ -19,16 +19,9 @@ define([ "jquery" ], function($) {
     }
 
     window.lp.analytics.api.trackEvent({
-      category: "flights",
-      action:   "search",
-      params: {
-        locationStart: this.$locationStart.val(),
-        locationEnd:   this.$locationEnd.val(),
-        startDate:     this.$startDate.val(),
-        endDate:       this.$endDate.val(),
-        travellers:    this.countTravellers(),
-        currency:      this.$currency.val()
-      }
+      category: "Partner",
+      label: "Click",
+      action: "partner:scyscanner.com|type:Flight|name:" + this.$locationEnd.val()
     });
 
   };
