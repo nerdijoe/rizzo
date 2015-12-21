@@ -26,4 +26,16 @@ module SailthruHelper
       haml_tag(:meta, name: "sailthru.tags",  content: tags) if tags
     end
   end
+
+  def register(params)
+    return 409 if SailthruUser.exists?(params[:email])
+
+    status = SailthruUser.create_or_update!(params)
+
+    if params[:email_template] && status == 200
+      SailthruEmail.send!(params[:email], params[:email_template])
+    end
+
+    status
+  end
 end

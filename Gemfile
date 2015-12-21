@@ -15,6 +15,7 @@ gem 'sanitize'
 gem 'dotenv'
 gem 'redcarpet'
 gem 'image-resizer', git: 'https://github.com/lonelyplanet/image-resizer.git', require: 'image_resizer'
+gem 'typhoeus'
 
 group :test do
   gem 'rspec-rails', '~> 2.14.0'
