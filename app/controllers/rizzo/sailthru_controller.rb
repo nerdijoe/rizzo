@@ -1,12 +1,12 @@
 class Rizzo::SailthruController < ActionController::Base
-  include SailthruHelper
 
   def save
-    render json: {}, status: register(form_params)
+    render json: {}, status: SailthruService.register(form_params)
   end
+
+  private
 
   def form_params
     params.require(:sailthru)
   end
-
 end
