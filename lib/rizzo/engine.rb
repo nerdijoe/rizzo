@@ -15,5 +15,9 @@ module Rizzo
     initializer "rizzo.update_asset_paths" do |app|
       app.config.assets.precompile += Rizzo::Assets.precompile_as_engine
     end
+
+    initializer :assets do |config|
+      Rails.application.config.assets.paths << root.join('node_modules')
+    end
   end
 end

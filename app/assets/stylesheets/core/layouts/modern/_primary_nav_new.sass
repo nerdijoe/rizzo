@@ -1,0 +1,224 @@
+$scaling-factor: 0.7142857142857143
+
+.content-wrapper.navigation-wrapper.rizzo-navigation.rizzo-next
+  .header
+    background-color: $navblue
+
+  .header__container
+    @media (min-width: 30em)
+      margin-left: (3rem * $scaling-factor)
+      margin-right: (3rem * $scaling-factor)
+    @media (min-width: 67.5em)
+      margin-left: (6rem * $scaling-factor)
+      margin-right: (6rem * $scaling-factor)
+
+  .header__logo
+    fill: white
+    @media (min-width: 45em)
+      width: (15rem * $scaling-factor)
+
+  .header__inner
+    border-bottom: 0
+    @media (min-width: 45em)
+      height: (13rem * $scaling-factor)
+
+  .navigation
+    line-height: (13rem * $scaling-factor)
+
+  .navigation__item--active
+    height: (13rem * $scaling-factor)
+
+  .navigation__item
+    margin-left: (1rem * $scaling-factor)
+    &:not(:last-child)
+      margin-right: 2.5rem //(4rem * $scaling-factor)
+
+  .navigation__link
+    color: white
+    font-size: 1.2rem
+    text-decoration: none
+    &:hover
+      color: white
+
+  .navigation__item--active .navigation__link
+    color: white
+
+  .navigation__item--user > .navigation__link
+    padding: (1.7rem * $scaling-factor) (2rem * $scaling-factor) (1.7rem * $scaling-factor)
+
+  .navigation__item--user > a:hover
+    border-color: white
+
+  .header__search
+    color: white
+    @media (min-width: 67.5em)
+      height: (13rem * $scaling-factor)
+      font-size: 2rem
+
+  .sub-navigation
+    width: 23rem
+    margin-left: -11.5rem
+    top: (10rem * $scaling-factor)
+
+    .sub-navigation__link
+      text-decoration: none
+      padding-top: .6rem
+      padding-bottom: .6rem
+
+  .sub-navigation-feature + .sub-navigation__list
+    padding-top: .5rem
+    padding-bottom: 1.5rem
+
+  .sub-navigation-feature__image
+    margin-right: (2.6rem * $scaling-factor)
+    width: (8rem * $scaling-factor)
+
+  .sub-navigation-feature__text
+    padding-top: 1.5rem
+
+  .sub-navigation-feature__title
+    font-size: 1.4rem
+
+  .sub-navigation-feature__subtitle
+    font-size: .9rem
+
+  .sub-navigation__item
+    font-size: 1.3rem
+
+  .header__search [class*="icon-"]
+    font-size: (2rem * $scaling-factor)
+
+  .avatar
+    height: 3rem
+    max-width: 3rem
+    width: 3rem
+
+  .header__mobile-search:before
+    font-size: (2.3rem * $scaling-factor)
+    line-height: 5rem
+
+  .header--narrow .header__mobile-search
+    color: white
+
+  .header--narrow .header__mobile-menu .menu-icon
+    color: white
+    background-color: white
+    &:before, &:after
+      color: white
+      background-color: white
+
+  .notification-badge--user
+    right: (-.2rem * $scaling-factor)
+    width: (1.5rem * $scaling-factor)
+    height: (1.5rem * $scaling-factor)
+    left: 2rem
+
+  .notification-badge--user-inline
+    left: 4.5rem
+    width: (1.0rem * $scaling-factor)
+    height: (1.0rem * $scaling-factor)
+    border: none
+
+.mobile-navigation.mobile-navigation--visible
+  width: (25rem * $scaling-factor)
+  max-width: 50vw
+
+  .mobile-navigation__item
+    font-size: 1.5rem
+    & a
+      padding: (1.5rem * $scaling-factor) 0
+
+  .mobile-navigation__item--active a
+    color: black
+    
+  .mobile-navigation__link,
+  .sub-navigation__link
+    text-decoration: none
+    outline: 0
+
+  .sub-navigation__item
+    font-size: 1.3rem
+    margin-left: (3.0rem * $scaling-factor)
+
+  .sub-navigation-feature__subtitle
+    font-size: .9rem
+    margin-top: (.4rem * $scaling-factor)
+
+  .sub-navigation-feature__title
+    font-size: 1.4rem
+
+  .mobile-navigation__item .icon
+    margin-top: .1rem
+
+  .mobile-sub-navigation .sub-navigation-feature__image
+    margin-right: (0.7rem * $scaling-factor)
+    width: 7rem
+
+  .mobile-sub-navigation .sub-navigation-feature
+    padding-top: 0
+
+.search.search--visible
+
+  .search__container
+    max-width: 129rem
+
+    @media (max-width: 29.9375em)
+      padding-left: 1.5rem
+      padding-right: 1.5rem
+
+    @media (min-width: 30em)
+      margin-left: 3rem
+      margin-right: 3rem
+
+    @media (min-width: 67.5em)
+      margin-left: 6rem
+      margin-right: 6rem
+
+  .search__inner
+    @media (min-width: 45em)
+      height: (13rem * $scaling-factor)
+
+  .search-item
+    margin-bottom: (1rem * $scaling-factor)
+    line-height: (6rem * $scaling-factor)
+
+  .search-item__link
+    padding-left: (11rem * $scaling-factor)
+    &:hover
+      text-decoration: none
+
+  .search-item__name
+    font-size: (1.8rem * $scaling-factor)
+    @media (min-width: 45em)
+      font-size: (2.2rem * $scaling-factor)
+
+  .search__input
+    font-size: 1.6rem
+    @media (min-width: 45em)
+      font-size: 2rem
+      left: (4rem * $scaling-factor)
+      right: (4rem * $scaling-factor)
+
+  .search__label
+    top: 0.5rem
+    &:before
+      font-size: (2rem * $scaling-factor)
+
+  .search__close:before
+    content: "\e605"
+    font-family: "dest-next-icons"
+    font-size: (1.8rem * $scaling-factor)
+    @media (min-width: 45em)
+    .search__close:before
+      font-size: (2rem * $scaling-factor)
+
+  .topic__image
+    width: (8rem * $scaling-factor)
+    height: (6rem * $scaling-factor)
+
+    // workaround for no-freight
+    &:before
+      top: 50%
+      left: 50%
+      margin-right: -50%
+      transform: translate(-50%, -50%)
