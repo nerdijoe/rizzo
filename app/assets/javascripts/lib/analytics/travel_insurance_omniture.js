@@ -24,9 +24,29 @@ require([ "jquery", "lib/analytics/analytics" ], function($, Analytics) {
   });
 
   // Before redirection (which the WN widget does, it's not a form submit)
-  // if the user clicked on the submit button, track click with Omniture
+  // if the user clicked on the submit button, track click with Omniture and GA
   window.onbeforeunload = function() {
     if (windowUnloadedFromSubmitClick) {
+
+      if (window.lp.analytics.api && window.lp.analytics.api.trackEvent) {
+
+        var destinations = $("#selected-destinations li").map(function() {
+          return $(this).text().replace(/[^a-zA-Z()\d\s:]/, "").trim();
+        }).get().join("|");
+
+        if (!$(".js-travel-widget .input-validation-errors").length) {
+          window.lp.analytics.api.trackEvent({
+            category: "Partner",
+            label:    "Click",
+            action: [
+              "partner:worldnomads",
+              "type:Insurance",
+              "name:" + destinations
+            ].join("|")
+          });
+        }
+      }
+
       window.s.events = "event42";
       window.s.t();
     }
