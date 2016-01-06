@@ -1,8 +1,8 @@
-define([ "jquery", "lib/core/newsletter_form" ], function($, NewsletterForm) {
+define([ "jquery", "lib/core/sailthru_form" ], function($, SailthruForm) {
 
   "use strict";
 
-  describe("NewsletterForm", function() {
+  describe("SailthruForm", function() {
     var instance;
 
     beforeEach(function() {
@@ -12,7 +12,10 @@ define([ "jquery", "lib/core/newsletter_form" ], function($, NewsletterForm) {
     describe("Initialization", function() {
 
       beforeEach(function() {
-        instance = new NewsletterForm();
+        instance = new SailthruForm({
+          el: ".js-newsletter-footer",
+          alert: ".js-newsletter-footer"
+        });
       });
 
       it("is defined", function() {
@@ -29,7 +32,10 @@ define([ "jquery", "lib/core/newsletter_form" ], function($, NewsletterForm) {
 
       beforeEach(function() {
         jasmine.Ajax.install();
-        instance = new NewsletterForm();
+        instance = new SailthruForm({
+          el: ".js-newsletter-footer",
+          alert: ".js-newsletter-footer"
+        });
         instance.$el.submit();
         request = jasmine.Ajax.requests.mostRecent();
       });

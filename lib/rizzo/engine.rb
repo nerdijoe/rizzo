@@ -7,6 +7,7 @@ module Rizzo
         get 'breadcrumb'        => 'global_resources#breadcrumb'
         get "r/:encrypted_url"  => 'redirector#show', :as => :redirector
         get "redirector"        => 'redirector#internal', :as => :internal_redirector
+        post 'rizzo_sailthru'   => 'rizzo/sailthru#save', :as => :rizzo_sailthru
       end
 
     end
