@@ -15,15 +15,13 @@ define(function() {
     }
 
     window.lp.analytics.api.trackEvent({
-      category: "car-rental",
-      action:   "search-partner-click",
-      params: {
-        locationStart:     this.$locationStart.val(),
-        locationEnd:       this.$locationEnd.val(),
-        startDate:         this.$dateStart.val() + "," + this.$timeStart.val(),
-        endDate:           this.$dateEnd.val() + "," + this.$timeEnd.val(),
-        locationResidence: this.$locationResidence.val()
-      }
+      category: "Partner",
+      action:   "Click",
+      label: [
+        "partner:" + "Cartrawler",
+        "type:"    + "Car Rental",
+        "name:"    + this.$locationStart.val()
+      ].join("|")
     });
 
   };
