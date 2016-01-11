@@ -20,8 +20,8 @@ define([ "jquery" ], function($) {
 
     window.lp.analytics.api.trackEvent({
       category: "Partner",
-      label: "Click",
-      action: "partner:scyscanner.com|type:Flight|name:" + this.$locationEnd.val()
+      action: "Click",
+      label:  "partner:scyscanner.com|type:Flight|name:" + this.$locationEnd.val()
     });
 
   };
