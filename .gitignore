@@ -76,3 +76,6 @@ vendor/assets/javascripts/jquery/MIT-LICENSE.txt
 vendor/assets/javascripts/jquery/dist/jquery.min.js
 vendor/assets/javascripts/jquery/dist/jquery.min.map
 vendor/assets/javascripts/jquery/src/
+
+# rizzo-next
+!node_modules/rizzo-next/dist/
