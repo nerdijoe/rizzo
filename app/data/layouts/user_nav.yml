@@ -16,7 +16,7 @@
       :icon_class: "icon--settings--before icon--white--before"
     -
       :title: "Messages"
-      :slug: "https://www.lonelyplanet.com/thorntree/profiles/{{profileSlug}}/messages"
+      :slug: "https://www.lonelyplanet.com/thorntree/messages"
       :icon_class: "icon--envelope--before icon--white--before js-user-feed__messages__unread-counter"
     -
       :title: "Forum Activity"
