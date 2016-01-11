@@ -10,72 +10,74 @@
   font-style: normal;
 }
 
+.rizzo-next {
 
-[class^="icon-"], [class*=" icon-"] {
-  font-family: 'dest-next-icons';
-  speak: none;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
+  [class^="icon-"], [class*=" icon-"] {
+    font-family: 'dest-next-icons';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
 
-  /* Better Font Rendering =========== */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-.icon-search:before {
-  content: "\e609";
-}
-.icon-cart:before {
-  content: "\e606";
-}
-.icon-search-thin:before {
-  content: "\e607";
-}
-.icon-chevron-down:before {
-  content: "\e600";
-}
-.icon-chevron-up:before {
-  content: "\e601";
-}
-.icon-chevron-left:before {
-  content: "\e602";
-}
-.icon-chevron:before {
-  content: "\e603";
-}
-.icon-chevron-right:before {
-  content: "\e603";
-}
-.icon-close-small:before {
-  content: "\e605";
-}
-.icon-cog:before {
-  content: "\f013";
-}
-.icon-gear:before {
-  content: "\f013";
-}
-.icon-sign-out:before {
-  content: "\f08b";
-}
-.icon-twitter:before {
-  content: "\f099";
-}
-.icon-facebook:before {
-  content: "\f09a";
-}
-.icon-facebook-f:before {
-  content: "\f09a";
-}
-.icon-apple:before {
-  content: "\f179";
-}
-.icon-heart:before {
-  content: "\e9da";
-}
-.icon-pinterest:before {
-  content: "\ead0";
+  .icon-search:before {
+    content: "\e609";
+  }
+  .icon-cart:before {
+    content: "\e606";
+  }
+  .icon-search-thin:before {
+    content: "\e607";
+  }
+  .icon-chevron-down:before {
+    content: "\e600";
+  }
+  .icon-chevron-up:before {
+    content: "\e601";
+  }
+  .icon-chevron-left:before {
+    content: "\e602";
+  }
+  .icon-chevron:before {
+    content: "\e603";
+  }
+  .icon-chevron-right:before {
+    content: "\e603";
+  }
+  .icon-close-small:before {
+    content: "\e605";
+  }
+  .icon-cog:before {
+    content: "\f013";
+  }
+  .icon-gear:before {
+    content: "\f013";
+  }
+  .icon-sign-out:before {
+    content: "\f08b";
+  }
+  .icon-twitter:before {
+    content: "\f099";
+  }
+  .icon-facebook:before {
+    content: "\f09a";
+  }
+  .icon-facebook-f:before {
+    content: "\f09a";
+  }
+  .icon-apple:before {
+    content: "\f179";
+  }
+  .icon-heart:before {
+    content: "\e9da";
+  }
+  .icon-pinterest:before {
+    content: "\ead0";
+  }
 }

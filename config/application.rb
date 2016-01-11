@@ -22,5 +22,6 @@ module Rizzo
     config.assets.version = '1.0'
     config.assets.precompile += Rizzo::Assets.precompile
 
+    config.assets.paths << config.root.join('node_modules')
   end
 end

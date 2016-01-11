@@ -24,5 +24,8 @@
   "optionalDependencies": {
     "yeoman-generators": "git+ssh://git@github.com:lonelyplanet/yeoman#c7d05b299ea9d9fdeb59f0aa7f9116eee9592165",
     "generator-rizzo": "latest"
+  },
+  "dependencies": {
+    "rizzo-next": "^0.11.2"
   }
 }

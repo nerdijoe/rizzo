@@ -4,6 +4,7 @@ define([
   "lib/core/ad_manager",
   "lib/utils/local_store",
   "lib/core/sailthru_form",
+  "rizzo-next/dist/rizzo-next",
 
   "sCode",
   "trackjs",
@@ -23,7 +24,7 @@ define([
   "lib/components/toggle_active",
   "lib/components/select_group_manager"
 
-], function($, Flamsteed, AdManager, LocalStore, SailthruForm) {
+], function($, Flamsteed, AdManager, LocalStore, SailthruForm, Rizzo) {
   /* global utag */
 
   "use strict";
@@ -72,6 +73,11 @@ define([
       el: ".js-newsletter-footer",
       alert: ".js-newsletter-footer"
     });
+
+    if (window.lp.isNewNav) {
+      new Rizzo.Header({ el: $(".header") });
+      new Rizzo.Login();
+    }
 
     $(document).on("click", ".beta-banner", function(e) {
       e.preventDefault();

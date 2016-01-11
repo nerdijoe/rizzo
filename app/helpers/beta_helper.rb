@@ -19,6 +19,10 @@ module BetaHelper
     false
   end
 
+  def show_new_header?
+    cookies[:_v] == 'split-12-destinations-next'
+  end
+
   private
 
   def place_presenter_defined?
