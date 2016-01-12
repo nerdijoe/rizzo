@@ -28,7 +28,7 @@ module Rizzo::Assets
 
   def self.precompile_as_engine
     [
-      'rizzo-next',
+      'rizzo-next.css',
       'core.css',
       'core_ie.css',
       'core_fixed_width.css',
