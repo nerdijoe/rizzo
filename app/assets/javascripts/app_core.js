@@ -4,7 +4,7 @@ define([
   "lib/core/ad_manager",
   "lib/utils/local_store",
   "lib/core/sailthru_form",
-  "dist/rizzo-next",
+  "rizzo-next",
 
   "sCode",
   "trackjs",
