@@ -17,7 +17,7 @@ module Rizzo
     end
 
     initializer :assets do |config|
-      Rails.application.config.assets.paths << root.join('node_modules')
+      Rails.application.config.assets.paths << root.join('node_modules/rizzo-next')
     end
   end
 end
