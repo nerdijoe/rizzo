@@ -1,5 +1,5 @@
 class Rizzo::SailthruService
-  SAILTHRU_API_URL = ENV['SAILTHRU_API_URL'] || 'http://canary.community.lonelyplanet.com/'
+  SAILTHRU_API_URL = ENV['RIZZO_SAILTHRU_API_URL'] || 'http://canary.community.lonelyplanet.com/'
   REGISTER_OR_CHECK_URL = SAILTHRU_API_URL + "sailthru/v1/users"
   SEND_EMAIL_URL = SAILTHRU_API_URL + "sailthru/v1/email"
   SAILTHRU_REGIONS = YAML.load_file(Rizzo::Engine.root.join('app/data/sailthru/regions.yml'))
