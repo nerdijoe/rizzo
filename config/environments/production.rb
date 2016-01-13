@@ -14,8 +14,10 @@ Rizzo::Application.configure do
   config.active_support.deprecation = :notify
   config.eager_load = true
 
+  config.paths['log'] = File.join((ENV['RAILS_LOG_PATH'] || 'log'), "#{Rails.env}.log")
   config.lograge.enabled = true
   config.lograge.log_format = :logstash
+  config.log_level = :info
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   config.action_controller.asset_host = "//" << (ENV['RAILS_ASSET_DOMAIN'] || "assets.staticlp.com")
