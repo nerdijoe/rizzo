@@ -20,7 +20,7 @@ module BetaHelper
   end
 
   def show_new_header?
-    cookies[:_v] == 'split-12-destinations-next'
+    @shop_navbar_test || cookies[:_v] == 'split-12-destinations-next'
   end
 
   private
