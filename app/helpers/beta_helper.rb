@@ -1,4 +1,4 @@
-# BETA
+# Deprecated 1-13-16, but keeping around for reference (for now)
 module BetaHelper
   # Look for a place presenter from Waldorf
   def place_or_article?
