@@ -49,9 +49,7 @@ define([
       });
     }
 
-    // TODO: BETA code
-    var ls = new LocalStore(),
-        $bannerTmpl = $($("#tmpl-banner").html()),
+    var $bannerTmpl = $($("#tmpl-banner").html()),
         numRand = Math.random(),
         showBanner = (numRand < 0.10 && $("#tmpl-banner").length);
 
@@ -78,32 +76,6 @@ define([
       new Rizzo.Header({ el: $(".header") });
       new Rizzo.Login();
     }
-
-    $(document).on("click", ".beta-banner", function(e) {
-      e.preventDefault();
-
-      if (window.lp.fs) {
-        window.lp.fs.log({
-          d: JSON.stringify({
-            name: "beta registration",
-            referrer: window.location.href
-          })
-        });
-      }
-
-      if (window.utag && window.utag.link) {
-        utag.link({
-          /* jshint ignore:start */
-          ga_event_category: "Destinations Next",
-          ga_event_action: "Beta Sign Up",
-          ga_event_label: window.location.pathname
-          /* jshint ignore:end */
-        });
-      }
-
-      ls.setCookie("_v", "split-12-destinations-next", 14);
-      window.location.reload();
-    });
 
     // Navigation tracking
     $("#js-primary-nav").on("click", ".js-nav-item", function() {
