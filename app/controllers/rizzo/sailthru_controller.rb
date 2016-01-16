@@ -1,7 +1,7 @@
 class Rizzo::SailthruController < ActionController::Base
 
   def save
-    render json: {}, status: SailthruService.register(form_params)
+    render json: {}, status: Rizzo::SailthruService.register(form_params)
   end
 
   private
