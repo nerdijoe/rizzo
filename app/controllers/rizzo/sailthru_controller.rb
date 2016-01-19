@@ -1,12 +1,14 @@
-class Rizzo::SailthruController < ActionController::Base
+module Rizzo
+  class SailthruController < ActionController::Base
 
-  def save
-    render json: {}, status: SailthruService.register(form_params)
-  end
+    def save
+      render json: {}, status: SailthruService.register(form_params)
+    end
 
-  private
+    private
 
-  def form_params
-    params.require(:sailthru)
+    def form_params
+      params.require(:sailthru)
+    end
   end
 end
