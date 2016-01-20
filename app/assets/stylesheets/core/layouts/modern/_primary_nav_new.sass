@@ -231,15 +231,10 @@ $lp-notification-badge-size: 17px
     &:not(:last-child)
       margin-right: (1.7rem * $scaling-factor)
 
-  .navigation__item--user > .navigation__link
-    border-width: 1px
-    border-radius: (1.7rem * $scaling-factor)
-    padding: (1.7rem * $scaling-factor) (2rem * $scaling-factor) (1.5rem * $scaling-factor)
-
   .navigation__link
     font-size: (1.4rem * $scaling-factor)
     text-decoration: none
-    transition: color 400ms ease-in-out
+    transition: color 400ms
 
     &:hover,
     &:active,
@@ -256,10 +251,19 @@ $lp-notification-badge-size: 17px
       color: #7796bb
 
   .navigation__item--user > .navigation__link
-    padding: (1.7rem * $scaling-factor) (2rem * $scaling-factor) (1.7rem * $scaling-factor)
+    border-color: rgba(#fff, .8)
+    border-width: 1px
+    border-radius: (1.7rem * $scaling-factor)
+    padding: (1.7rem * $scaling-factor) (2rem * $scaling-factor) (1.5rem * $scaling-factor)
+    transition: background-color 400ms, border-color 400ms
 
-  .navigation__item--user > a:hover
-    border-color: #fff
+    &:hover,
+    &:active,
+    &:focus
+      background-color: rgba(#fff, .07)
+      border-color: rgba(#fff, .38)
+      color: #fff
+      transition: background-color 400ms, border-color 400ms
 
 
 
