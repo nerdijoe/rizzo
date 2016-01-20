@@ -68,8 +68,9 @@ $lp-min-480: #{(480 * .0625)}em   // 30em
 $lp-min-360: #{(360 * .0625)}em   // 22.5em
 $lp-min-320: #{(320 * .0625)}em   // 20em
 
-$lp-max-720: #{(719 * .0625)}em // 44.9375em
-$lp-max-480: #{(479 * .0625)}em // 29.9375em
+$lp-max-1530: #{(1530 * .0625)}em // 95.625
+$lp-max-720: #{(719 * .0625)}em   // 44.9375em
+$lp-max-480: #{(479 * .0625)}em   // 29.9375em
 
 $lp-blue: #287bbb
 $lp-color-red: #dc221a
@@ -277,11 +278,17 @@ $lp-notification-badge-size: 17px
     top: (10rem * $scaling-factor)
     font-size: (1.8rem * $scaling-factor)
 
+    @media (max-width: $lp-max-1530)
+      right: 0
+
     &:before
       border: (.8rem * $scaling-factor) solid transparent
       border-bottom-color: #fff
       margin-left: (-.8rem * $scaling-factor)
       top: (-1.6rem * $scaling-factor)
+
+      @media (max-width: $lp-max-1530)
+        right: (1.6rem * $scaling-factor)
 
   .sub-navigation--visible
     box-shadow: 0 $lp-gutter (9rem * $scaling-factor) rgba(0, 0, 0, .4)
