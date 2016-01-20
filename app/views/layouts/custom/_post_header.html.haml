@@ -3,7 +3,6 @@
     window.lp.isNewNav = "#{show_new_header?}";
 
 - if show_new_header?
-  %link{rel: "stylesheet", href: "#{asset_path('rizzo-next.css')}"}
   .content-wrapper.navigation-wrapper.rizzo-navigation.rizzo-next
     = render :file => 'header'
 - else
