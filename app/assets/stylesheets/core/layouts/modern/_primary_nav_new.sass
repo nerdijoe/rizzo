@@ -383,13 +383,10 @@ $lp-notification-badge-size: 17px
     border-radius: 50%
     background-color: $lp-color-red
     user-select: none
-
-  // override Rizzo
-  .notification-badge
+    // override Rizzo
     box-sizing: border-box
     box-shadow: none
     left: auto
-
 
   .notification-badge__wrap
     position: relative
@@ -431,46 +428,48 @@ $lp-notification-badge-size: 17px
     height: 6px
     z-index: 2
 
-  // namespaced styles
+// ---------------------------------------------------------------------------
+// notification-badge (namespaced)
+// ---------------------------------------------------------------------------
 
-  // pixel values for finer control and exact positioning, sizing
-  .lp-notification-badge
-    width: 17px
-    height: 17px
-    font-size: 10px
-    line-height: 18px
+// pixel values for finer control and exact positioning, sizing
+.lp-notification-badge
+  width: 17px
+  height: 17px
+  font-size: 10px
+  line-height: 18px
 
-  // pixel values for finer control and exact positioning, sizing
-  .lp-notification-badge--shop
-    top: 46.5px
-    right: -6px
+// pixel values for finer control and exact positioning, sizing
+.lp-notification-badge--shop
+  top: 46.5px
+  right: -6px
 
-  // pixel values for finer control and exact positioning, sizing
-  .lp-notification-badge--shop-inline
-    left: 46px
-    top: 18px
-    width: 6px
-    height: 6px
+// pixel values for finer control and exact positioning, sizing
+.lp-notification-badge--shop-inline
+  left: 46px
+  top: 18px
+  width: 6px
+  height: 6px
 
-  // pixel values for finer control and exact positioning, sizing
-  .lp-notification-badge--user
-    right: -2px
-    width: 15px
-    height: 15px
+// pixel values for finer control and exact positioning, sizing
+.lp-notification-badge--user
+  right: -2px
+  width: 15px
+  height: 15px
 
-  // rem too small to work for dimensions
-  .lp-notification-badge--user-inline
-    top: (-.5rem * $scaling-factor)
-    right: (-1.1rem * $scaling-factor)
-    width: 12px
-    height: 12px
+// rem too small to work for dimensions
+.lp-notification-badge--user-inline
+  top: (-.5rem * $scaling-factor)
+  right: (-1.1rem * $scaling-factor)
+  width: 12px
+  height: 12px
 
-  // pixel values for finer control and exact positioning, sizing
-  .lp-notification-badge--mobile-menu
-    top: 16px
-    right: 12px
-    width: 6px
-    height: 6px
+// pixel values for finer control and exact positioning, sizing
+.lp-notification-badge--mobile-menu
+  top: 16px
+  right: 12px
+  width: 6px
+  height: 6px
 
 
 
@@ -486,6 +485,63 @@ $lp-notification-badge-size: 17px
   padding: (3rem * $scaling-factor)
   width: (25rem * $scaling-factor)
 
+  .notification-badge
+    width: $lp-notification-badge-size
+    height: $lp-notification-badge-size
+    font-size: 10px
+    font-weight: bold
+    font-style: normal
+    line-height: ($lp-notification-badge-size + 1)
+    text-align: center
+    color: #fff
+    border-radius: 50%
+    background-color: $lp-color-red
+    user-select: none
+    // override Rizzo
+    box-sizing: border-box
+    box-shadow: none
+    left: auto
+
+  .notification-badge__wrap
+    position: relative
+
+  .notification-badge--shop
+    position: absolute
+    top: 46.5px
+    right: -6px
+
+  .notification-badge--shop-inline
+    position: absolute
+    left: 46px
+    top: 18px
+    width: 6px
+    height: 6px
+
+  .notification-badge--user,
+  .notification-badge--user-inline
+    position: absolute
+    border: 3px solid #fff
+
+  .notification-badge--user
+    top: 0
+    right: -2px
+    width: 15px
+    height: 15px
+
+  .notification-badge--user-inline
+    top: -5px
+    right: -11px
+    width: 12px
+    height: 12px
+
+  .notification-badge--mobile-menu
+    position: absolute
+    top: 16px
+    right: 12px
+    width: 6px
+    height: 6px
+    z-index: 2
+
 // Pixel values for more precise measurements
 .mobile-navigation__item
   border-bottom-width: 1px
@@ -499,7 +555,7 @@ $lp-notification-badge-size: 17px
 .mobile-navigation__link
   line-height: 1.5
   padding: (1.6rem * $scaling-factor) 0 (1.1rem * $scaling-factor)
-  text-decoration: none
+  text-decoration: none !important
 
 .mobile-navigation__item--active > .mobile-navigation__link
   color: #333
