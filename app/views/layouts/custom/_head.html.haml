@@ -13,6 +13,9 @@
 = yield :dns_prefetch
 %link{ rel: "dns-prefetch", href: "http://assets.staticlp.com" }
 
+- if show_new_header?
+  %link{rel: "stylesheet", href: "#{asset_path('rizzo-next.css')}"}
+
 %link{ rel: "icon", type: "image/x-icon", href: "https://www.lonelyplanet.com/favicon.ico" }
 
 %meta{ name:"viewport", content: responsive && !@fixed_width_layout ? "width=device-width, initial-scale=1" : "width=1024" }

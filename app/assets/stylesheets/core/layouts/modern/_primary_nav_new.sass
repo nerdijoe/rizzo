@@ -1,239 +1,781 @@
-$scaling-factor: 0.7142857142857143
+// -----------------------------------------------------------------------------
+// Fonts
+// -----------------------------------------------------------------------------
+
+@font-face
+  font-family: "Benton Sans"
+  src: url("https://assets.staticlp.com/javascripts/2c8c3478-e1ba-4af3-bfd0-9fea259fc17f-2.eot")
+  src: url("https://assets.staticlp.com/javascripts/2c8c3478-e1ba-4af3-bfd0-9fea259fc17f-2.eot?") format("embedded-opentype"), url("https://assets.staticlp.com/javascripts/2c8c3478-e1ba-4af3-bfd0-9fea259fc17f-3.woff") format("woff"), url("https://assets.staticlp.com/javascripts/2c8c3478-e1ba-4af3-bfd0-9fea259fc17f-1.ttf") format("truetype")
+  font-style: normal
+  font-stretch: normal
+  font-weight: 300
+
+@font-face
+  font-family: "Benton Sans"
+  src: url("https://assets.staticlp.com/javascripts/19319132-31a6-45e2-85a5-6dacae897490-2.eot")
+  src: url("https://assets.staticlp.com/javascripts/19319132-31a6-45e2-85a5-6dacae897490-2.eot?") format("embedded-opentype"), url("https://assets.staticlp.com/javascripts/19319132-31a6-45e2-85a5-6dacae897490-3.woff") format("woff"), url("https://assets.staticlp.com/javascripts/19319132-31a6-45e2-85a5-6dacae897490-1.ttf") format("truetype")
+  font-style: normal
+  font-stretch: normal
+  font-weight: 500
+
+@font-face
+  font-family: "Benton Sans"
+  src: url("https://assets.staticlp.com/javascripts/743d3d3a-da58-48d2-a5c3-bd7994650e23-2.eot")
+  src: url("https://assets.staticlp.com/javascripts/743d3d3a-da58-48d2-a5c3-bd7994650e23-2.eot?") format("embedded-opentype"), url("https://assets.staticlp.com/javascripts/743d3d3a-da58-48d2-a5c3-bd7994650e23-3.woff") format("woff"), url("https://assets.staticlp.com/javascripts/743d3d3a-da58-48d2-a5c3-bd7994650e23-1.ttf") format("truetype")
+  font-style: normal
+  font-stretch: normal
+  font-weight: 600
+
+@font-face
+  font-family: "Miller Daily"
+  src: url("https://assets.staticlp.com/javascripts/2d4b6287-e087-4bce-89af-61a0cd634f27-2.eot")
+  src: url("https://assets.staticlp.com/javascripts/2d4b6287-e087-4bce-89af-61a0cd634f27-2.eot?") format("embedded-opentype"), url("https://assets.staticlp.com/javascripts/2d4b6287-e087-4bce-89af-61a0cd634f27-3.woff") format("woff"), url("https://assets.staticlp.com/javascripts/2d4b6287-e087-4bce-89af-61a0cd634f27-1.ttf") format("truetype")
+  font-style: italic
+  font-weight: normal
+  font-stretch: normal
+
+@font-face
+  font-family: "Miller Daily"
+  src: url("https://assets.staticlp.com/javascripts/6e603ae4-800b-4625-9fa8-1819315263a6-2.eot")
+  src: url("https://assets.staticlp.com/javascripts/6e603ae4-800b-4625-9fa8-1819315263a6-2.eot?") format("embedded-opentype"), url("https://assets.staticlp.com/javascripts/6e603ae4-800b-4625-9fa8-1819315263a6-3.woff") format("woff"), url("https://assets.staticlp.com/javascripts/6e603ae4-800b-4625-9fa8-1819315263a6-1.ttf") format("truetype")
+  font-style: normal
+  font-weight: normal
+  font-stretch: normal
+
+// -----------------------------------------------------------------------------
+// Variables
+// -----------------------------------------------------------------------------
+
+// Rizzo Next base font size / Rizzo base font size
+$scaling-factor: (10 / 14)
+
+// Rizzo Next variables
+$lp-gutter: (3rem * $scaling-factor)
+
+$lp-min-1410: #{(1410 * .0625)}em // 88.125em
+$lp-min-1350: #{(1350 * .0625)}em // 84.375em
+$lp-min-1290: #{(1290 * .0625)}em // 80.625em
+$lp-min-1200: #{(1200 * .0625)}em // 75em
+$lp-min-1080: #{(1080 * .0625)}em // 67.5em
+$lp-min-1024: #{(1024 * .0625)}em // 64em
+$lp-min-960: #{(960 * .0625)}em   // 60em
+$lp-min-840: #{(840 * .0625)}em   // 52.5em
+$lp-min-768: #{(768 * .0625)}em   // 48em
+$lp-min-720: #{(720 * .0625)}em   // 45em
+$lp-min-600: #{(600 * .0625)}em   // 37.5em
+$lp-min-560: #{(560 * .0625)}em   // 35em
+$lp-min-480: #{(480 * .0625)}em   // 30em
+$lp-min-360: #{(360 * .0625)}em   // 22.5em
+$lp-min-320: #{(320 * .0625)}em   // 20em
+
+$lp-max-1530: #{(1530 * .0625)}em // 95.625
+$lp-max-720: #{(719 * .0625)}em   // 44.9375em
+$lp-max-480: #{(479 * .0625)}em   // 29.9375em
+
+$lp-blue: #287bbb
+$lp-color-red: #dc221a
+$lp-notification-badge-size: 17px
+
+@mixin lp-font-size($sizeValue, $baseValue: 10)
+  $value: strip-unit($sizeValue)
+  font-size: #{$value * $baseValue + px}
+  @if unit($sizeValue) == "rem"
+    font-size: ($sizeValue * $scaling-factor)
+
+%lp-icon-font
+  font-family: "dest-next-icons"
+  -moz-osx-font-smoothing: grayscale
+  -webkit-font-smoothing: antialiased
+  font-style: normal
+  font-variant: normal
+  font-weight: normal
+  line-height: 1
+  speak: none
+  text-transform: none
 
 .content-wrapper.navigation-wrapper.rizzo-navigation.rizzo-next
+  box-sizing: border-box
+
+  // ---------------------------------------------------------------------------
+  // header
+  // ---------------------------------------------------------------------------
+
   .header
     background-color: $navblue
+    box-sizing: inherit
+    font-family: "Benton Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif
 
   .header__container
-    @media (min-width: 30em)
-      margin-left: (3rem * $scaling-factor)
-      margin-right: (3rem * $scaling-factor)
-    @media (min-width: 67.5em)
+    max-width: (129rem * $scaling-factor)
+    margin-left: auto
+    margin-right: auto
+
+    @media (max-width: $lp-max-480)
+      padding-left: ($lp-gutter / 2)
+      padding-right: ($lp-gutter / 2)
+
+    @media (min-width: $lp-min-480)
+      margin-left: $lp-gutter
+      margin-right: $lp-gutter
+
+    @media (min-width: $lp-min-1080)
       margin-left: (6rem * $scaling-factor)
       margin-right: (6rem * $scaling-factor)
-    @media (min-width: 88.125em)
+
+    @media (min-width: $lp-min-1410)
       margin-left: auto
       margin-right: auto
 
-  .header__logo
-    fill: white
-    @media (min-width: 45em)
-      width: (15rem * $scaling-factor)
-
   .header__inner
-    max-width: 1290px
-    margin: 0 auto
     border-bottom: 0
-    @media (min-width: 45em)
+    height: (5rem * $scaling-factor)
+
+    @media (min-width: $lp-min-720)
       height: (13rem * $scaling-factor)
 
+  .header__logo
+    fill: #fff
+    width: (7.2rem * $scaling-factor)
+
+    @media (min-width: $lp-min-720)
+      width: (14.2rem * $scaling-factor)
+
+  .header__search
+    color: #fff
+
+    @media (min-width: $lp-min-1080)
+      +lp-font-size(2.4rem)
+      height: 100%
+      margin-top: (-6.5rem * $scaling-factor)
+      line-height: 100%
+
+    [class*="icon-"]
+      +lp-font-size(2rem)
+      margin-right: (1.2rem * $scaling-factor)
+
+    &:hover,
+    &:active,
+    &:focus
+      [class*="icon-"]
+        margin-right: ((1.2rem - .3) * $scaling-factor)
+
+  .header__mobile
+    right: ($lp-gutter / -2)
+
+  .header__mobile--left
+    right: auto
+    left: ($lp-gutter / -2)
+
+  .header__mobile-search
+    +size((5rem * $scaling-factor))
+
+    &:before
+      margin-left: (.4rem * $scaling-factor)
+
+  .header__mobile-menu
+    +size((5rem * $scaling-factor))
+
+  // Pixel value for line-height to be more precise
+  .header__mobile-search,
+  .header__mobile-menu,
+  .header__mobile-cart
+    line-height: 50px
+
+    &:before
+      +lp-font-size(2.3rem)
+
+  .header--narrow .header__mobile-search,
+  .header--narrow .header__mobile-menu,
+  .header--narrow .header__mobile-cart
+    color: #fff
+
+  .header__mobile-menu .menu-icon
+    top: (2.4rem * $scaling-factor)
+    left: ($lp-gutter / 2)
+    right: ($lp-gutter / 2)
+
+    &:before
+      top: (-.5rem * $scaling-factor)
+
+    &:after
+      top: (.5rem * $scaling-factor)
+
+  .header__mobile-menu .menu-icon,
+  .header__mobile-menu .menu-icon:before,
+  .header__mobile-menu .menu-icon:after
+    +size((2rem * $scaling-factor), (.2rem * $scaling-factor))
+    background-color: #fff
+
+  .header--narrow .header__mobile-menu .menu-icon,
+  .header--narrow .header__mobile-menu .menu-icon:before,
+  .header--narrow .header__mobile-menu .menu-icon:after
+    background-color: #fff
+
+
+
+
+
+  // ---------------------------------------------------------------------------
+  // navigation
+  // ---------------------------------------------------------------------------
+
+  // pixel value here because rem calculation is 1 px off
   .navigation
-    line-height: (13rem * $scaling-factor)
+    box-sizing: inherit
+    line-height: 130px
 
   .navigation__item--active
+    border-bottom: 0
     height: (13rem * $scaling-factor)
 
   .navigation__item
-    margin-left: (1rem * $scaling-factor)
+    margin-left: (1.7rem * $scaling-factor)
+
     &:not(:last-child)
-      margin-right: 2.5rem //(4rem * $scaling-factor)
+      margin-right: (1.7rem * $scaling-factor)
 
   .navigation__link
-    color: white
-    font-size: 1.2rem
+    +lp-font-size(1.4rem)
     text-decoration: none
-    &:hover
-      color: white
+    transition: color 400ms
 
+    &:hover,
+    &:active,
+    &:focus
+      transition: color 400ms
+
+  .navigation__link,
   .navigation__item--active .navigation__link
-    color: white
+    color: #fff
+
+    &:hover,
+    &:active,
+    &:focus
+      color: #7796bb
 
   .navigation__item--user > .navigation__link
-    padding: (1.7rem * $scaling-factor) (2rem * $scaling-factor) (1.7rem * $scaling-factor)
+    border-color: rgba(#fff, .8)
+    border-width: 1px
+    border-radius: (1.7rem * $scaling-factor)
+    padding: (1.7rem * $scaling-factor) (2rem * $scaling-factor) (1.5rem * $scaling-factor)
+    transition: background-color 400ms, border-color 400ms
 
-  .navigation__item--user > a:hover
-    border-color: white
+    &:hover,
+    &:active,
+    &:focus
+      background-color: rgba(#fff, .07)
+      border-color: rgba(#fff, .38)
+      color: #fff
+      transition: background-color 400ms, border-color 400ms
 
-  .header__search
-    color: white
-    @media (min-width: 67.5em)
-      height: (13rem * $scaling-factor)
-      font-size: 2rem
+
+
+
+
+  // ---------------------------------------------------------------------------
+  // sub-navigation
+  // ---------------------------------------------------------------------------
 
   .sub-navigation
-    width: 23rem
-    margin-left: -11.5rem
+    +lp-font-size(1.8rem)
+    font-family: inherit
+    box-sizing: inherit
+    border-radius: (.2rem * $scaling-factor)
+    width: (29rem * $scaling-factor)
+    margin-left: ((-29rem / 2 + .1) * $scaling-factor)
     top: (10rem * $scaling-factor)
 
-    .sub-navigation__link
-      text-decoration: none
-      padding-top: .6rem
-      padding-bottom: .6rem
+    @media (max-width: $lp-max-1530)
+      right: 0
 
-  .sub-navigation-feature + .sub-navigation__list
-    padding-top: .5rem
-    padding-bottom: 1.5rem
+    &:before
+      border: (.8rem * $scaling-factor) solid transparent
+      border-bottom-color: #fff
+      margin-left: (-.8rem * $scaling-factor)
+      top: (-1.6rem * $scaling-factor)
+
+      @media (max-width: $lp-max-1530)
+        right: (1.6rem * $scaling-factor)
+
+  .sub-navigation--visible
+    box-shadow: 0 $lp-gutter (9rem * $scaling-factor) rgba(0, 0, 0, .4)
+
+  .sub-navigation-feature
+    padding: $lp-gutter $lp-gutter (2rem * $scaling-factor)
 
   .sub-navigation-feature__image
     margin-right: (2.6rem * $scaling-factor)
     width: (8rem * $scaling-factor)
 
   .sub-navigation-feature__text
-    padding-top: 1.5rem
+    padding-top: ($lp-gutter / 2)
 
   .sub-navigation-feature__title
-    font-size: 1.4rem
+    +lp-font-size(1.6rem)
 
   .sub-navigation-feature__subtitle
-    font-size: .9rem
-
-  .sub-navigation__item
-    font-size: 1.3rem
-
-  .header__search [class*="icon-"]
-    font-size: (2rem * $scaling-factor)
-
-  .avatar
-    height: 3rem
-    max-width: 3rem
-    width: 3rem
-
-  .header__mobile-search:before
-    font-size: (2.3rem * $scaling-factor)
-    line-height: 5rem
-
-  .header--narrow .header__mobile-search
-    color: white
-
-  .header--narrow .header__mobile-menu .menu-icon
-    color: white
-    background-color: white
-    &:before, &:after
-      color: white
-      background-color: white
-
-  .notification-badge--user
-    right: (-.2rem * $scaling-factor)
-    width: (1.5rem * $scaling-factor)
-    height: (1.5rem * $scaling-factor)
-    left: 2rem
-
-  .notification-badge--user-inline
-    left: 4.5rem
-    width: (1.0rem * $scaling-factor)
-    height: (1.0rem * $scaling-factor)
-    border: none
-
-  .notification-badge--shop
-    top: 3rem
-    left: 1.8rem
-
-  .notification-badge
-    width: 1.4rem
-    height: 1.4rem
-    font-size: 1rem
-    line-height: 1.5rem
-
-.mobile-navigation.mobile-navigation--visible
-  width: (25rem * $scaling-factor)
-  max-width: 50vw
-
-  .mobile-navigation__item
-    font-size: 1.5rem
-    & a
-      padding: (1.5rem * $scaling-factor) 0
-
-  .mobile-navigation__item--active a
-    color: black
-    
-  .mobile-navigation__link,
-  .sub-navigation__link
-    text-decoration: none
-    outline: 0
-
-  .sub-navigation__item
-    font-size: 1.3rem
-    margin-left: (3.0rem * $scaling-factor)
-
-  .sub-navigation-feature__subtitle
-    font-size: .9rem
+    +lp-font-size(1.1rem)
     margin-top: (.4rem * $scaling-factor)
 
-  .sub-navigation-feature__title
-    font-size: 1.4rem
+  .sub-navigation__list
+    padding-bottom: (2.8rem * $scaling-factor)
+    padding-top: (2.8rem * $scaling-factor)
 
-  .mobile-navigation__item .icon
-    margin-top: .1rem
-
-  .mobile-sub-navigation .sub-navigation-feature__image
-    margin-right: (0.7rem * $scaling-factor)
-    width: 7rem
-
-  .mobile-sub-navigation .sub-navigation-feature
+  .sub-navigation-feature + .sub-navigation__list
     padding-top: 0
 
-.search.search--visible
+  .sub-navigation__item
+    +lp-font-size(1.6rem)
+    margin-left: $lp-gutter
+    margin-right: $lp-gutter
 
-  .search__container
-    max-width: 129rem
+  .sub-navigation__link
+    padding-top: (1rem * $scaling-factor)
+    padding-bottom: (.8rem * $scaling-factor)
+    text-decoration: none
 
-    @media (max-width: 29.9375em)
-      padding-left: 1.5rem
-      padding-right: 1.5rem
+    &:after
+      +size(calc(100% + #{$lp-gutter} + #{$lp-gutter}), calc(100% + .2rem))
+      left: -$lp-gutter
+      right: -$lp-gutter
+      top: (-.1rem * $scaling-factor)
 
-    @media (min-width: 30em)
-      margin-left: 3rem
-      margin-right: 3rem
+  .sub-navigation__button
+    +lp-font-size(1.2rem)
+    padding: (1.8rem * $scaling-factor) (3rem * $scaling-factor) (1.4rem * $scaling-factor)
+    border-radius: 0 0 (.2rem * $scaling-factor) (.2rem * $scaling-factor)
+    padding-top: (2.3rem * $scaling-factor)
+    padding-bottom: (1.9rem * $scaling-factor)
 
-    @media (min-width: 67.5em)
-      margin-left: 6rem
-      margin-right: 6rem
 
-  .search__inner
-    @media (min-width: 45em)
-      height: (13rem * $scaling-factor)
 
-  .search-item
-    margin-bottom: (1rem * $scaling-factor)
-    line-height: (6rem * $scaling-factor)
 
-  .search-item__link
-    padding-left: (11rem * $scaling-factor)
-    &:hover
-      text-decoration: none
 
-  .search-item__name
-    font-size: (1.8rem * $scaling-factor)
-    @media (min-width: 45em)
-      font-size: (2.2rem * $scaling-factor)
+  // ---------------------------------------------------------------------------
+  // avatar
+  // ---------------------------------------------------------------------------
 
-  .search__input
-    font-size: 1.6rem
-    @media (min-width: 45em)
-      font-size: 2rem
-      left: (4rem * $scaling-factor)
-      right: (4rem * $scaling-factor)
+  // pixel values for exact sizing
+  .avatar
+    +size(40px)
+    max-width: 40px
 
-  .search__label
-    top: 0.5rem
-    &:before
-      font-size: (2rem * $scaling-factor)
+  // adjusting position
+  .navigation__item--user .avatar
+    right: -1px
 
-  .search__close:before
+  .navigation__item--user > a.avatar
+    padding: 0
+
+  .avatar--navigation
+    top: (-.4rem * $scaling-factor)
+
+
+
+
+
+  // ---------------------------------------------------------------------------
+  // notification-badge
+  //
+  // All styles from Rizzo Next are being included below until this component
+  // is namespaced. Namespaced styles have been retained
+  //
+  // Pixel values are used for finer control and exact positioning, sizing
+  // ---------------------------------------------------------------------------
+
+  .notification-badge
+    +size($lp-notification-badge-size)
+    font-size: 10px
+    font-weight: bold
+    font-style: normal
+    line-height: ($lp-notification-badge-size + 1)
+    text-align: center
+    color: #fff
+    border-radius: 50%
+    background-color: $lp-color-red
+    user-select: none
+    // override Rizzo
+    box-sizing: border-box
+    box-shadow: none
+    left: auto
+
+  .notification-badge__wrap
+    position: relative
+
+  .notification-badge--shop
+    position: absolute
+    top: 46.5px
+    right: -6px
+
+  .notification-badge--shop-inline
+    +size(6px)
+    position: absolute
+    left: 46px
+    top: 18px
+
+  .notification-badge--user,
+  .notification-badge--user-inline
+    position: absolute
+    border: 3px solid #fff
+
+  .notification-badge--user
+    +size(15px)
+    top: 0
+    right: -2px
+
+  .notification-badge--user-inline
+    +size(12px)
+    top: -5px
+    right: -11px
+
+  .notification-badge--mobile-menu
+    +size(6px)
+    position: absolute
+    top: 16px
+    right: 12px
+    z-index: 2
+
+// ---------------------------------------------------------------------------
+// notification-badge (namespaced)
+// ---------------------------------------------------------------------------
+
+// pixel values for finer control and exact positioning, sizing
+.lp-notification-badge
+  +size(17px)
+  font-size: 10px
+  line-height: 18px
+
+// pixel values for finer control and exact positioning, sizing
+.lp-notification-badge--shop
+  top: 46.5px
+  right: -6px
+
+// pixel values for finer control and exact positioning, sizing
+.lp-notification-badge--shop-inline
+  +size(6px)
+  left: 46px
+  top: 18px
+
+// pixel values for finer control and exact positioning, sizing
+.lp-notification-badge--user
+  +size(15px)
+  right: -2px
+
+// rem too small to work for dimensions
+.lp-notification-badge--user-inline
+  +size(12px)
+  top: (-.5rem * $scaling-factor)
+  right: (-1.1rem * $scaling-factor)
+
+// pixel values for finer control and exact positioning, sizing
+.lp-notification-badge--mobile-menu
+  +size(6px)
+  top: 16px
+  right: 12px
+
+
+
+
+
+// -----------------------------------------------------------------------------
+// mobile-navigation
+// -----------------------------------------------------------------------------
+
+.mobile-navigation
+  box-sizing: border-box
+  font-family: "Benton Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif
+  padding: (3rem * $scaling-factor)
+  width: (25rem * $scaling-factor)
+
+  .notification-badge
+    +size($lp-notification-badge-size)
+    font-size: 10px
+    font-weight: bold
+    font-style: normal
+    line-height: ($lp-notification-badge-size + 1)
+    text-align: center
+    color: #fff
+    border-radius: 50%
+    background-color: $lp-color-red
+    user-select: none
+    // override Rizzo
+    box-sizing: border-box
+    box-shadow: none
+    left: auto
+
+  .notification-badge__wrap
+    position: relative
+
+  .notification-badge--shop
+    position: absolute
+    top: 46.5px
+    right: -6px
+
+  .notification-badge--shop-inline
+    +size(6px)
+    position: absolute
+    left: 46px
+    top: 18px
+
+  .notification-badge--user,
+  .notification-badge--user-inline
+    position: absolute
+    border: 3px solid #fff
+
+  .notification-badge--user
+    +size(15px)
+    top: 0
+    right: -2px
+
+  .notification-badge--user-inline
+    +size(12px)
+    top: -5px
+    right: -11px
+
+  .notification-badge--mobile-menu
+    +size(6px)
+    position: absolute
+    top: 16px
+    right: 12px
+    z-index: 2
+
+// Pixel values for more precise measurements
+.mobile-navigation__item
+  border-bottom-width: 1px
+  font-size: 18px
+
+  .icon
+    +size((1.3rem * $scaling-factor))
+    margin-top: (.6rem * $scaling-factor)
+
+.mobile-navigation__link
+  line-height: 1.5
+  padding: (1.6rem * $scaling-factor) 0 (1.1rem * $scaling-factor)
+  text-decoration: none !important
+
+.mobile-navigation__item--active > .mobile-navigation__link
+  color: #333
+
+
+
+
+
+// -----------------------------------------------------------------------------
+// mobile-sub-navigation
+// -----------------------------------------------------------------------------
+
+.mobile-sub-navigation
+  box-sizing: border-box
+
+.mobile-sub-navigation .sub-navigation-feature
+  padding: 0 0 (2rem * $scaling-factor)
+
+// Pixel width because rem calculation is 1 px off
+.mobile-sub-navigation .sub-navigation-feature__image
+  margin-right: (1.4rem * $scaling-factor)
+  width: 60px
+
+.mobile-sub-navigation .sub-navigation-feature__text
+  padding-top: (.8rem * $scaling-factor)
+
+.mobile-sub-navigation .sub-navigation-feature__title
+  +lp-font-size(1.6rem)
+
+.mobile-sub-navigation .sub-navigation-feature__subtitle
+  +lp-font-size(1.1rem)
+  margin-top: (.4rem * $scaling-factor)
+
+.mobile-sub-navigation .sub-navigation__list
+  padding: 0
+
+.mobile-sub-navigation .sub-navigation__item
+  +lp-font-size(1.6rem)
+  margin-left: 0
+  margin-right: 0
+
+.mobile-sub-navigation .sub-navigation__link
+  padding: (1rem * $scaling-factor) ($lp-gutter / 2) (.8rem * $scaling-factor)
+  text-decoration: none
+
+  &:after
+    +size(calc(100% + #{$lp-gutter} + #{$lp-gutter}), calc(100% + .2rem))
+    left: -$lp-gutter
+    right: -$lp-gutter
+    top: (-.1rem * $scaling-factor)
+
+.mobile-sub-navigation .sub-navigation__button
+  +lp-font-size(1.2rem)
+  padding: (1.8rem * $scaling-factor) (3rem * $scaling-factor) (1.4rem * $scaling-factor)
+  border-radius: 0 0 (.2rem * $scaling-factor) (.2rem * $scaling-factor)
+  padding-top: (2.3rem * $scaling-factor)
+  padding-bottom: (1.9rem * $scaling-factor)
+
+
+
+
+
+// ---------------------------------------------------------------------------
+// search
+// ---------------------------------------------------------------------------
+
+.lp-search
+  box-sizing: border-box
+  font-family: "Benton Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif
+
+  @media (min-width: $lp-min-720)
+    box-shadow: (-5rem * $scaling-factor) 0 (15rem * $scaling-factor) rgba(0, 0, 0, .5)
+
+  [class^="icon-"],
+  [class*=" icon-"]
+    @extend %lp-icon-font
+
+  .icon-close-small:before
     content: "\e605"
-    font-family: "dest-next-icons"
-    font-size: (1.8rem * $scaling-factor)
-    @media (min-width: 45em)
-    .search__close:before
-      font-size: (2rem * $scaling-factor)
 
-  .topic__image
-    width: (8rem * $scaling-factor)
-    height: (6rem * $scaling-factor)
+  .icon-chevron-right:before
+    content: "\e603"
 
-    // workaround for no-freight
-    &:before
-      top: 50%
-      left: 50%
-      margin-right: -50%
-      transform: translate(-50%, -50%)
+.lp-search__container
+  max-width: (129rem * $scaling-factor)
+  margin-left: auto
+  margin-right: auto
+
+  @media (max-width: $lp-max-480)
+    padding-left: ($lp-gutter / 2)
+    padding-right: ($lp-gutter / 2)
+
+  @media (min-width: $lp-min-480)
+    margin-left: $lp-gutter
+    margin-right: $lp-gutter
+
+  @media (min-width: $lp-min-1080)
+    margin-left: ($lp-gutter * 2)
+    margin-right: ($lp-gutter * 2)
+
+  @media (min-width: $lp-min-1410)
+    margin-left: auto
+    margin-right: auto
+
+.lp-search__inner
+  height: (5rem * $scaling-factor)
+  line-height: (3.8rem * $scaling-factor)
+
+  @media (min-width: $lp-min-720)
+    height: (13rem * $scaling-factor)
+
+  &:after
+    @media (max-width: $lp-max-720)
+      background-image: linear-gradient(to left, #fff 0%, rgba(#fff, 0) 100%)
+      bottom: 0
+      content: ""
+      height: 100%
+      position: absolute
+      right: 29px
+      top: 0
+      width: 30px
+
+.lp-search__label
+  +size((2rem * $scaling-factor))
+
+  @media (min-width: $lp-min-720)
+    top: (-.4rem * $scaling-factor)
+
+  &:before
+    +lp-font-size(2rem)
+
+.lp-search__input
+  +lp-font-size(1.6rem)
+  +size(calc(100% - #{(5rem * $scaling-factor)} - #{(.9rem * $scaling-factor)}), (3.8rem * $scaling-factor))
+  left: (2.5rem * $scaling-factor)
+  right: (5.9rem * $scaling-factor)
+
+  @media (max-width: $lp-max-720)
+    padding-top: (.3rem * $scaling-factor)
+
+  @media (min-width: $lp-min-720)
+    +lp-font-size(2.4rem)
+    left: (3.4rem * $scaling-factor)
+    right: (3.4rem * $scaling-factor)
+    padding-top: 1px
+    width: calc(100% - #{(8rem * $scaling-factor)})
+
+.lp-search__close
+  +size((3.8rem * $scaling-factor))
+  right: (-.9rem * $scaling-factor)
+
+  @media (min-width: $lp-min-720)
+    right: 0
+
+  &:before
+    +lp-font-size(1.8rem)
+
+    @media (min-width: $lp-min-720)
+      +lp-font-size(2rem)
+
+.lp-search-results
+  transform: translateY((-2rem * $scaling-factor))
+
+.lp-search-results--visible
+  transform: translateY(0)
+
+.lp-search-results__list
+  margin-bottom: ((4.5rem + .6rem) * $scaling-factor)
+  padding-top: (1rem * $scaling-factor)
+  border-top-width: 1px
+
+// Pixel value for line-height so that it's more precise
+.lp-search-item
+  margin-bottom: (1rem * $scaling-factor)
+  line-height: 60px
+
+.lp-search-item__link
+  padding-left: (11rem * $scaling-factor)
+  text-decoration: none
+
+.lp-search-item__name
+  +lp-font-size(1.8rem)
+  border-bottom-width: 1px
+
+  @media (min-width: $lp-min-720)
+    +lp-font-size(2.2rem)
+    transform: translateX(0)
+
+.lp-search-item:hover,
+.lp-search-item:active,
+.lp-search-item:focus,
+.lp-search-item--selected
+  .lp-search-item__name
+    @media (min-width: $lp-min-720)
+      transform: translateX(7px)
+
+.lp-search-results__more
+  +lp-font-size(1.2rem)
+  margin-bottom: (4.5rem * $scaling-factor)
+
+.lp-search-results__more
+  color: $lp-blue
+  text-decoration: none
+
+  &:hover
+  &:active,
+  &:focus
+    color: $lp-blue + 30
+
+  [class*="icon-"]
+    transform: translateX(6px)
+
+  &:hover [class*="icon-"],
+  &:active [class*="icon-"],
+  &:focus [class*="icon-"]
+    transform: translateX(2px)
+
+
+
+
+
+// ---------------------------------------------------------------------------
+// topic
+// ---------------------------------------------------------------------------
+
+.topic__image
+  +size((8rem * $scaling-factor), (6rem * $scaling-factor))
