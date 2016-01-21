@@ -76,6 +76,12 @@ $lp-blue: #287bbb
 $lp-color-red: #dc221a
 $lp-notification-badge-size: 17px
 
+@mixin lp-font-size($sizeValue, $baseValue: 10)
+  $value: strip-unit($sizeValue)
+  font-size: #{$value * $baseValue + px}
+  @if unit($sizeValue) == "rem"
+    font-size: ($sizeValue * $scaling-factor)
+
 %lp-icon-font
   font-family: "dest-next-icons"
   -moz-osx-font-smoothing: grayscale
@@ -138,14 +144,14 @@ $lp-notification-badge-size: 17px
     color: #fff
 
     @media (min-width: $lp-min-1080)
+      +lp-font-size(2.4rem)
       height: 100%
-      font-size: (2.4rem * $scaling-factor)
       margin-top: (-6.5rem * $scaling-factor)
       line-height: 100%
 
     [class*="icon-"]
+      +lp-font-size(2rem)
       margin-right: (1.2rem * $scaling-factor)
-      font-size: (2rem * $scaling-factor)
 
     &:hover,
     &:active,
@@ -161,15 +167,13 @@ $lp-notification-badge-size: 17px
     left: ($lp-gutter / -2)
 
   .header__mobile-search
-    width: (5rem * $scaling-factor)
-    height: (5rem * $scaling-factor)
+    +size((5rem * $scaling-factor))
 
     &:before
       margin-left: (.4rem * $scaling-factor)
 
   .header__mobile-menu
-    height: (5rem * $scaling-factor)
-    width: (5rem * $scaling-factor)
+    +size((5rem * $scaling-factor))
 
   // Pixel value for line-height to be more precise
   .header__mobile-search,
@@ -178,7 +182,7 @@ $lp-notification-badge-size: 17px
     line-height: 50px
 
     &:before
-      font-size: (2.3rem * $scaling-factor)
+      +lp-font-size(2.3rem)
 
   .header--narrow .header__mobile-search,
   .header--narrow .header__mobile-menu,
@@ -199,9 +203,8 @@ $lp-notification-badge-size: 17px
   .header__mobile-menu .menu-icon,
   .header__mobile-menu .menu-icon:before,
   .header__mobile-menu .menu-icon:after
-    height: (.2rem * $scaling-factor)
+    +size((2rem * $scaling-factor), (.2rem * $scaling-factor))
     background-color: #fff
-    width: (2rem * $scaling-factor)
 
   .header--narrow .header__mobile-menu .menu-icon,
   .header--narrow .header__mobile-menu .menu-icon:before,
@@ -232,7 +235,7 @@ $lp-notification-badge-size: 17px
       margin-right: (1.7rem * $scaling-factor)
 
   .navigation__link
-    font-size: (1.4rem * $scaling-factor)
+    +lp-font-size(1.4rem)
     text-decoration: none
     transition: color 400ms
 
@@ -274,13 +277,13 @@ $lp-notification-badge-size: 17px
   // ---------------------------------------------------------------------------
 
   .sub-navigation
+    +lp-font-size(1.8rem)
     font-family: inherit
     box-sizing: inherit
     border-radius: (.2rem * $scaling-factor)
     width: (29rem * $scaling-factor)
     margin-left: ((-29rem / 2 + .1) * $scaling-factor)
     top: (10rem * $scaling-factor)
-    font-size: (1.8rem * $scaling-factor)
 
     @media (max-width: $lp-max-1530)
       right: 0
@@ -308,10 +311,10 @@ $lp-notification-badge-size: 17px
     padding-top: ($lp-gutter / 2)
 
   .sub-navigation-feature__title
-    font-size: (1.6rem * $scaling-factor)
+    +lp-font-size(1.6rem)
 
   .sub-navigation-feature__subtitle
-    font-size: (1.1rem * $scaling-factor)
+    +lp-font-size(1.1rem)
     margin-top: (.4rem * $scaling-factor)
 
   .sub-navigation__list
@@ -322,7 +325,7 @@ $lp-notification-badge-size: 17px
     padding-top: 0
 
   .sub-navigation__item
-    font-size: (1.6rem * $scaling-factor)
+    +lp-font-size(1.6rem)
     margin-left: $lp-gutter
     margin-right: $lp-gutter
 
@@ -332,14 +335,13 @@ $lp-notification-badge-size: 17px
     text-decoration: none
 
     &:after
-      height: calc(100% + .2rem)
+      +size(calc(100% + #{$lp-gutter} + #{$lp-gutter}), calc(100% + .2rem))
       left: -$lp-gutter
       right: -$lp-gutter
       top: (-.1rem * $scaling-factor)
-      width: calc(100% + #{$lp-gutter} + #{$lp-gutter})
 
   .sub-navigation__button
-    font-size: (1.2rem * $scaling-factor)
+    +lp-font-size(1.2rem)
     padding: (1.8rem * $scaling-factor) (3rem * $scaling-factor) (1.4rem * $scaling-factor)
     border-radius: 0 0 (.2rem * $scaling-factor) (.2rem * $scaling-factor)
     padding-top: (2.3rem * $scaling-factor)
@@ -355,9 +357,8 @@ $lp-notification-badge-size: 17px
 
   // pixel values for exact sizing
   .avatar
-    height: 40px
+    +size(40px)
     max-width: 40px
-    width: 40px
 
   // adjusting position
   .navigation__item--user .avatar
@@ -383,8 +384,7 @@ $lp-notification-badge-size: 17px
   // ---------------------------------------------------------------------------
 
   .notification-badge
-    width: $lp-notification-badge-size
-    height: $lp-notification-badge-size
+    +size($lp-notification-badge-size)
     font-size: 10px
     font-weight: bold
     font-style: normal
@@ -408,11 +408,10 @@ $lp-notification-badge-size: 17px
     right: -6px
 
   .notification-badge--shop-inline
+    +size(6px)
     position: absolute
     left: 46px
     top: 18px
-    width: 6px
-    height: 6px
 
   .notification-badge--user,
   .notification-badge--user-inline
@@ -420,23 +419,20 @@ $lp-notification-badge-size: 17px
     border: 3px solid #fff
 
   .notification-badge--user
+    +size(15px)
     top: 0
     right: -2px
-    width: 15px
-    height: 15px
 
   .notification-badge--user-inline
+    +size(12px)
     top: -5px
     right: -11px
-    width: 12px
-    height: 12px
 
   .notification-badge--mobile-menu
+    +size(6px)
     position: absolute
     top: 16px
     right: 12px
-    width: 6px
-    height: 6px
     z-index: 2
 
 // ---------------------------------------------------------------------------
@@ -445,8 +441,7 @@ $lp-notification-badge-size: 17px
 
 // pixel values for finer control and exact positioning, sizing
 .lp-notification-badge
-  width: 17px
-  height: 17px
+  +size(17px)
   font-size: 10px
   line-height: 18px
 
@@ -457,30 +452,26 @@ $lp-notification-badge-size: 17px
 
 // pixel values for finer control and exact positioning, sizing
 .lp-notification-badge--shop-inline
+  +size(6px)
   left: 46px
   top: 18px
-  width: 6px
-  height: 6px
 
 // pixel values for finer control and exact positioning, sizing
 .lp-notification-badge--user
+  +size(15px)
   right: -2px
-  width: 15px
-  height: 15px
 
 // rem too small to work for dimensions
 .lp-notification-badge--user-inline
+  +size(12px)
   top: (-.5rem * $scaling-factor)
   right: (-1.1rem * $scaling-factor)
-  width: 12px
-  height: 12px
 
 // pixel values for finer control and exact positioning, sizing
 .lp-notification-badge--mobile-menu
+  +size(6px)
   top: 16px
   right: 12px
-  width: 6px
-  height: 6px
 
 
 
@@ -497,8 +488,7 @@ $lp-notification-badge-size: 17px
   width: (25rem * $scaling-factor)
 
   .notification-badge
-    width: $lp-notification-badge-size
-    height: $lp-notification-badge-size
+    +size($lp-notification-badge-size)
     font-size: 10px
     font-weight: bold
     font-style: normal
@@ -522,11 +512,10 @@ $lp-notification-badge-size: 17px
     right: -6px
 
   .notification-badge--shop-inline
+    +size(6px)
     position: absolute
     left: 46px
     top: 18px
-    width: 6px
-    height: 6px
 
   .notification-badge--user,
   .notification-badge--user-inline
@@ -534,23 +523,20 @@ $lp-notification-badge-size: 17px
     border: 3px solid #fff
 
   .notification-badge--user
+    +size(15px)
     top: 0
     right: -2px
-    width: 15px
-    height: 15px
 
   .notification-badge--user-inline
+    +size(12px)
     top: -5px
     right: -11px
-    width: 12px
-    height: 12px
 
   .notification-badge--mobile-menu
+    +size(6px)
     position: absolute
     top: 16px
     right: 12px
-    width: 6px
-    height: 6px
     z-index: 2
 
 // Pixel values for more precise measurements
@@ -559,8 +545,7 @@ $lp-notification-badge-size: 17px
   font-size: 18px
 
   .icon
-    width: (1.3rem * $scaling-factor)
-    height: (1.3rem * $scaling-factor)
+    +size((1.3rem * $scaling-factor))
     margin-top: (.6rem * $scaling-factor)
 
 .mobile-navigation__link
@@ -594,17 +579,17 @@ $lp-notification-badge-size: 17px
   padding-top: (.8rem * $scaling-factor)
 
 .mobile-sub-navigation .sub-navigation-feature__title
-  font-size: (1.6rem * $scaling-factor)
+  +lp-font-size(1.6rem)
 
 .mobile-sub-navigation .sub-navigation-feature__subtitle
-  font-size: (1.1rem * $scaling-factor)
+  +lp-font-size(1.1rem)
   margin-top: (.4rem * $scaling-factor)
 
 .mobile-sub-navigation .sub-navigation__list
   padding: 0
 
 .mobile-sub-navigation .sub-navigation__item
-  font-size: (1.6rem * $scaling-factor)
+  +lp-font-size(1.6rem)
   margin-left: 0
   margin-right: 0
 
@@ -613,14 +598,13 @@ $lp-notification-badge-size: 17px
   text-decoration: none
 
   &:after
-    height: calc(100% + .2rem)
+    +size(calc(100% + #{$lp-gutter} + #{$lp-gutter}), calc(100% + .2rem))
     left: -$lp-gutter
     right: -$lp-gutter
     top: (-.1rem * $scaling-factor)
-    width: calc(100% + #{$lp-gutter} + #{$lp-gutter})
 
 .mobile-sub-navigation .sub-navigation__button
-  font-size: (1.2rem * $scaling-factor)
+  +lp-font-size(1.2rem)
   padding: (1.8rem * $scaling-factor) (3rem * $scaling-factor) (1.4rem * $scaling-factor)
   border-radius: 0 0 (.2rem * $scaling-factor) (.2rem * $scaling-factor)
   padding-top: (2.3rem * $scaling-factor)
@@ -691,45 +675,42 @@ $lp-notification-badge-size: 17px
       width: 30px
 
 .lp-search__label
-  width: (2rem * $scaling-factor)
-  height: (2rem * $scaling-factor)
+  +size((2rem * $scaling-factor))
 
   @media (min-width: $lp-min-720)
     top: (-.4rem * $scaling-factor)
 
   &:before
-    font-size: (2rem * $scaling-factor)
+    +lp-font-size(2rem)
 
 .lp-search__input
+  +lp-font-size(1.6rem)
+  +size(calc(100% - #{(5rem * $scaling-factor)} - #{(.9rem * $scaling-factor)}), (3.8rem * $scaling-factor))
   left: (2.5rem * $scaling-factor)
   right: (5.9rem * $scaling-factor)
-  width: calc(100% - #{(5rem * $scaling-factor)} - #{(.9rem * $scaling-factor)})
-  height: (3.8rem * $scaling-factor)
-  font-size: (1.6rem * $scaling-factor)
 
   @media (max-width: $lp-max-720)
     padding-top: (.3rem * $scaling-factor)
 
   @media (min-width: $lp-min-720)
+    +lp-font-size(2.4rem)
     left: (3.4rem * $scaling-factor)
     right: (3.4rem * $scaling-factor)
-    font-size: (2.4rem * $scaling-factor)
     padding-top: 1px
     width: calc(100% - #{(8rem * $scaling-factor)})
 
 .lp-search__close
-  width: (3.8rem * $scaling-factor)
-  height: (3.8rem * $scaling-factor)
+  +size((3.8rem * $scaling-factor))
   right: (-.9rem * $scaling-factor)
 
   @media (min-width: $lp-min-720)
     right: 0
 
   &:before
-    font-size: (1.8rem * $scaling-factor)
+    +lp-font-size(1.8rem)
 
     @media (min-width: $lp-min-720)
-      font-size: (2rem * $scaling-factor)
+      +lp-font-size(2rem)
 
 .lp-search-results
   transform: translateY((-2rem * $scaling-factor))
@@ -752,11 +733,11 @@ $lp-notification-badge-size: 17px
   text-decoration: none
 
 .lp-search-item__name
-  font-size: (1.8rem * $scaling-factor)
+  +lp-font-size(1.8rem)
   border-bottom-width: 1px
 
   @media (min-width: $lp-min-720)
-    font-size: (2.2rem * $scaling-factor)
+    +lp-font-size(2.2rem)
     transform: translateX(0)
 
 .lp-search-item:hover,
@@ -768,8 +749,8 @@ $lp-notification-badge-size: 17px
       transform: translateX(7px)
 
 .lp-search-results__more
+  +lp-font-size(1.2rem)
   margin-bottom: (4.5rem * $scaling-factor)
-  font-size: (1.2rem * $scaling-factor)
 
 .lp-search-results__more
   color: $lp-blue
@@ -797,5 +778,4 @@ $lp-notification-badge-size: 17px
 // ---------------------------------------------------------------------------
 
 .topic__image
-  height: (6rem * $scaling-factor)
-  width: (8rem * $scaling-factor)
+  +size((8rem * $scaling-factor), (6rem * $scaling-factor))
