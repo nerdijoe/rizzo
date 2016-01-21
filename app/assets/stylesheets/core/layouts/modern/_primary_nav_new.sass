@@ -141,7 +141,7 @@ $lp-notification-badge-size: 17px
       width: (14.2rem * $scaling-factor)
 
   .header__search
-    color: #fff
+    color: rgba(#fff, .38)
 
     @media (min-width: $lp-min-1080)
       +lp-font-size(2.4rem)
@@ -151,6 +151,7 @@ $lp-notification-badge-size: 17px
 
     [class*="icon-"]
       +lp-font-size(2rem)
+      color: #fff
       margin-right: (1.2rem * $scaling-factor)
 
     &:hover,
@@ -158,6 +159,14 @@ $lp-notification-badge-size: 17px
     &:focus
       [class*="icon-"]
         margin-right: ((1.2rem - .3) * $scaling-factor)
+
+  .header__search-text
+    color: #fff
+
+  .header__search:hover .header__search-text,
+  .header__search:active .header__search-text,
+  .header__search:focus .header__search-text
+    color: rgba(#fff, .38)
 
   .header__mobile
     right: ($lp-gutter / -2)
