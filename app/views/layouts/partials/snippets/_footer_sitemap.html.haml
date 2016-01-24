@@ -12,7 +12,7 @@
         %strong
           20% discount
         on your next guidebook purchase
-      %form.newsletter-footer.js-newsletter-footer(action='/newsletter' method='post')
+      %form.newsletter-footer.js-newsletter-footer(action='//www.lonelyplanet.com/newsletter' method='post')
         %input{:type=>"hidden", :name=>"authenticity_token", :value=>form_authenticity_token.to_s}
         %label.polyfill--placeholder.newsletter-footer__placeholder Email
         %input.input--small--newsletter(type='text' id='newsletter-email' autocomplete='off' name='sailthru[email]' placeholder='your@email.com' required='required')
