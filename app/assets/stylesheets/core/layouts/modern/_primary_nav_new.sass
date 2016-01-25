@@ -165,8 +165,21 @@ $lp-notification-badge-size: 17px
       [class*="icon-"]
         margin-right: rem-to-px(.9rem)
 
+  // override shop styles; reset to defaults because of `button span` declaration
+  .header__search-text,
+  .header__search-beyond
+    display: inline
+    margin: 0
+    padding: 0
+    position: static
+    white-space: normal
+
   .header__search-text
     color: #fff
+
+  // override shop styles; needed because of `button span` declaration
+  .header__search-beyond
+    color: inherit
 
   .header__search:hover .header__search-text,
   .header__search:active .header__search-text,
