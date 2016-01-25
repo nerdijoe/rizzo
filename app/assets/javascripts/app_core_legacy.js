@@ -13,6 +13,7 @@ require([ "jquery" ], function($) {
   require([
     "flamsteed",
     "lib/core/ad_manager",
+    "rizzo-next",
     "lib/page/swipe",
     "lib/core/authenticator",
     "lib/core/shopping_cart",
@@ -24,7 +25,7 @@ require([ "jquery" ], function($) {
     "trackjs",
     "polyfills/function_bind",
     "polyfills/xdr"
-  ], function(Flamsteed, AdManager) {
+  ], function(Flamsteed, AdManager, Rizzo) {
 
     $(document).ready(function() {
 
@@ -32,6 +33,11 @@ require([ "jquery" ], function($) {
 
       if (window.lp.ads) {
         new AdManager(window.lp.ads).init();
+      }
+
+      if (window.lp.isNewNav) {
+        new Rizzo.Header({ el: $(".header") });
+        new Rizzo.Login();
       }
 
       if (!secure) {
