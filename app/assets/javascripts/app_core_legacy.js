@@ -14,6 +14,7 @@ require([ "jquery" ], function($) {
     "flamsteed",
     "lib/core/ad_manager",
     "rizzo-next",
+    "lib/core/sailthru_form",
     "lib/page/swipe",
     "lib/core/authenticator",
     "lib/core/shopping_cart",
@@ -25,7 +26,7 @@ require([ "jquery" ], function($) {
     "trackjs",
     "polyfills/function_bind",
     "polyfills/xdr"
-  ], function(Flamsteed, AdManager, Rizzo) {
+  ], function(Flamsteed, AdManager, Rizzo, SailthruForm) {
 
     $(document).ready(function() {
 
@@ -48,6 +49,11 @@ require([ "jquery" ], function($) {
           });
         }
       }
+
+      new SailthruForm({
+        el: ".js-newsletter-footer",
+        alert: ".js-newsletter-footer"
+      });
 
     });
 
