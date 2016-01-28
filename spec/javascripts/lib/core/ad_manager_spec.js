@@ -45,6 +45,7 @@ define([ "public/assets/javascripts/lib/core/ad_manager" ], function(AdManager) 
         adThm: "honeymoons,world-food",
         adTnm: "overview,poi-list",
         layers: [],
+        interest: "adventure-travel",
         keyValues: {
           foo: "bar"
         }
@@ -58,6 +59,7 @@ define([ "public/assets/javascripts/lib/core/ad_manager" ], function(AdManager) 
         expect(result.thm).toEqual(config.adThm);
         expect(result.tnm).toEqual(config.adTnm.split(","));
         expect(result.foo).toEqual(config.keyValues.foo);
+        expect(result.interest).toEqual(config.interest);
       });
 
       it("supports krux targeting", function() {

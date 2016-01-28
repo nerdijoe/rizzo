@@ -90,7 +90,8 @@ define([ "jquery", "lib/core/ad_sizes", "lib/core/ad_unit" ], function($, adSize
       thm: config.adThm,
       ctt: config.continent,
       cnty: config.country,
-      dest: config.destination
+      dest: config.destination,
+      interest: config.interest
     };
 
     if (window.Krux) {
