@@ -14,11 +14,8 @@ define([
 
       jasmine.Ajax.install();
 
-      window.lp.user = undefined;
-
       instance = new UserFeed({
         context: "#context",
-        authUrl: "/foo",
         feedUrl: "/bar",
         maxActivityAgeForPopup: Infinity
       });
@@ -36,11 +33,6 @@ define([
 
       beforeEach(function() {
         instance = new UserFeed({ context: false }); // disable init
-      });
-
-      it("contain proper auth url", function() {
-        expect(instance.config.authUrl)
-          .toBe("https://auth.lonelyplanet.com/users/status.json");
       });
 
       it("contain proper feed url", function() {
@@ -62,15 +54,11 @@ define([
       describe("User signed out", function() {
 
         beforeEach(function() {
-          // respond to Initializer's auth request
+          // respond to Initializer's feed request
           jasmine.Ajax.requests.mostRecent().respondWith({
             status: 200,
-            responseText: "lpUserStatusCallback({})"
+            responseText: "{}"
           });
-        });
-
-        it("doesn't request feed data (sends auth request only)", function() {
-          expect(jasmine.Ajax.requests.count()).toEqual(1);
         });
 
         it("doesn't initialize", function() {
@@ -79,27 +67,13 @@ define([
       });
 
       describe("User signed in", function() {
-        var authData, feedData;
-
-        beforeEach(function() {
-          authData = JSON.stringify({ username: "foo" });
-
-          // respond to Initializer's auth data request
-          jasmine.Ajax.requests.mostRecent().respondWith({
-            status: 200,
-            responseText: "lpUserStatusCallback(" + authData + ")"
-          });
-        });
 
         describe("Slide-in & Popups disabled", function() {
 
           beforeEach(function() {
-            feedData = JSON.stringify({ popupsMode: 0, slideInMode: 0 });
-
-            // respond to Initializer's feed data request
             jasmine.Ajax.requests.mostRecent().respondWith({
               status: 200,
-              responseText: "lpUserFeedCallback(" + feedData + ")"
+              responseText: JSON.stringify({ popupsMode: 0, slideInMode: 0 })
             });
           });
 
@@ -111,12 +85,9 @@ define([
         describe("Only Slide-in enabled", function() {
 
           beforeEach(function() {
-            feedData = JSON.stringify({ popupsMode: 0, slideInMode: 1 });
-
-            // respond to Initializer's feed data request
             jasmine.Ajax.requests.mostRecent().respondWith({
               status: 200,
-              responseText: "lpUserFeedCallback(" + feedData + ")"
+              responseText: JSON.stringify({ popupsMode: 0, slideInMode: 1 })
             });
           });
 
@@ -128,12 +99,9 @@ define([
         describe("Only Popups enabled", function() {
 
           beforeEach(function() {
-            feedData = JSON.stringify({ popupsMode: 1, slideInMode: 0 });
-
-            // respond to Initializer's feed data request
             jasmine.Ajax.requests.mostRecent().respondWith({
               status: 200,
-              responseText: "lpUserFeedCallback(" + feedData + ")"
+              responseText: JSON.stringify({ popupsMode: 1, slideInMode: 0 })
             });
           });
 
@@ -146,7 +114,7 @@ define([
 
     describe("Functionality", function() {
       var container, content, activities, messages, isDesktopSpy,
-          popups, fetcher, request, feedJSONP, authData, feedData;
+          popups, fetcher, request, feedData;
 
       beforeEach(function() {
         jasmine.clock().install();
@@ -155,18 +123,9 @@ define([
 
         isDesktopSpy.and.returnValue(true);
 
-        authData = JSON.stringify({ username: "foo" });
-        feedData = JSON.stringify({ popupsMode: 1, slideInMode: 1 });
-
-        // respond to Initializer's auth data request
         jasmine.Ajax.requests.mostRecent().respondWith({
           status: 200,
-          responseText: "lpUserStatusCallback(" + authData + ")"
-        });
-
-        jasmine.Ajax.requests.mostRecent().respondWith({
-          status: 200,
-          responseText: "lpUserFeedCallback(" + feedData + ")"
+          responseText: JSON.stringify({ popupsMode: 1, slideInMode: 1 })
         });
 
         container = instance.container;
@@ -190,7 +149,7 @@ define([
           request = jasmine.Ajax.requests.mostRecent();
           request.respondWith({
             status: 200,
-            responseText: "lpUserFeedCallback({})"
+            responseText: "{}"
           });
 
           contentAfterUpdate = container.$el.html();
@@ -204,17 +163,13 @@ define([
       describe("Fetch returns 5 activities (0 unread) & 5 messages (3 unread)", function() {
 
         beforeEach(function() {
-          feedJSONP = JSON.stringify(JSON.parse($("#sample-response-1").html()));
+          feedData = JSON.stringify(JSON.parse($("#sample-response-1").html()));
 
           request = jasmine.Ajax.requests.mostRecent();
           request.respondWith({
             status: 200,
-            responseText: "lpUserFeedCallback(" + feedJSONP + ")"
+            responseText: feedData
           });
-        });
-
-        it("from proper url with jsonp callback", function() {
-          expect(request.url.indexOf("/bar?callback=lpUserFeedCallback")).toBe(0);
         });
 
         it("renders activities list", function() {
@@ -245,7 +200,7 @@ define([
 
               request.respondWith({
                 status: 200,
-                responseText: "lpUserFeedCallback(" + feedJSONP + ")"
+                responseText: feedData
               });
 
               contentAfterUpdate = container.$el.html();
@@ -261,11 +216,11 @@ define([
 
             beforeEach(function() {
               popupTimers = popups.config.timers;
-              feedJSONP = JSON.stringify(JSON.parse($("#sample-response-2").html()));
+              feedData = JSON.stringify(JSON.parse($("#sample-response-2").html()));
 
               request.respondWith({
                 status: 200,
-                responseText: "lpUserFeedCallback(" + feedJSONP + ")"
+                responseText: feedData
               });
             });
 
@@ -293,14 +248,14 @@ define([
             describe("and again - returns 1 new activity & 1 new message", function() {
 
               beforeEach(function() {
-                feedJSONP = JSON.stringify(JSON.parse($("#sample-response-3").html()));
+                feedData = JSON.stringify(JSON.parse($("#sample-response-3").html()));
 
                 jasmine.clock().tick(2 * fetcher.config.interval + 1);
                 request = jasmine.Ajax.requests.mostRecent();
 
                 request.respondWith({
                   status: 200,
-                  responseText: "lpUserFeedCallback(" + feedJSONP + ")"
+                  responseText: feedData
                 });
               });
 
