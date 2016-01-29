@@ -20,7 +20,6 @@ define([
 
   var defaults = {
     context: "body",
-    authUrl: "https://auth.lonelyplanet.com/users/status.json",
     feedUrl: "https://www.lonelyplanet.com/thorntree/users/feed",
     maxActivityAgeForPopup: 60 //seconds
   };
@@ -34,7 +33,6 @@ define([
     this.$context = $(this.config.context);
 
     this.$context.length && new Initializer({
-      authUrl: this.config.authUrl,
       feedUrl: this.config.feedUrl,
       onSuccess: this._handleInit.bind(this)
     });
