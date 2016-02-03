@@ -7,14 +7,12 @@
 define([
   "jquery",
   "lib/utils/debounce",
-  "./user_feed/actions",
   "./user_feed/container",
   "./user_feed/content",
   "./user_feed/fetcher",
   "./user_feed/initializer",
   "./user_feed/popups",
-], function($, debounce, Actions, Container, Content,
-            Fetcher, Initializer, Popups) {
+], function($, debounce, Container, Content, Fetcher, Initializer, Popups) {
 
   "use strict";
 
@@ -43,7 +41,6 @@ define([
 
     this.container = new Container({ context: this.$context });
     this.content = new Content({ $el: this.container.$el });
-    this.actions = new Actions({ $el: this.container.$el });
     this.popups = new Popups({ context: this.$context });
     this.fetcher = new Fetcher({
       feedUrl: this.config.feedUrl,
