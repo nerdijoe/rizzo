@@ -22,6 +22,6 @@
     "matchdep": "latest"
   },
   "dependencies": {
-    "rizzo-next": "0.11.23"
+    "rizzo-next": "0.11.25"
   }
 }
