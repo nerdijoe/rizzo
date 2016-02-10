@@ -23,7 +23,7 @@ define([ "jquery" ], function($) {
   };
 
   CookieCompliance.prototype.mustShow = function() {
-    this.inEurope() && !this.seen();
+    return this.inEurope() && !this.seen();
   };
 
   CookieCompliance.prototype.inEurope = function() {
