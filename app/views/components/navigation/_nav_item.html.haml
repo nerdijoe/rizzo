@@ -19,7 +19,7 @@
 
   lpa_data = case
              when defined?(global) && global
-               item_analytics.merge lpa: { category: "Global Navigation Click", action: item[:title] }
+               item_analytics.merge lpa: { category: "Global Navigation Click", action: "Click", label: item[:title] }
              else
                item_analytics
              end
