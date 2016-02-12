@@ -31,7 +31,7 @@ require([ "jquery", "lib/analytics/analytics" ], function($, Analytics) {
       if (!$(".js-travel-widget .input-validation-errors").length) {
         window.lp.analytics.api.trackEvent({
           category: "Partner",
-          action:   "Search",
+          action:   "Click",
           label: [
             "Worldnomads",
             "Insurance",
