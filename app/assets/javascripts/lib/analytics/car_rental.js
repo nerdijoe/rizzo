@@ -18,9 +18,9 @@ define(function() {
       category: "Partner",
       action:   "Click",
       label: [
-        "partner:" + "Cartrawler",
-        "type:"    + "Car Rental",
-        "name:"    + this.$locationStart.val()
+        "Cartrawler",
+        "Car Rental",
+        this.$locationStart.val()
       ].join("|")
     });
 
