@@ -154,7 +154,7 @@ define([
     var departDate, returnDate, url;
     departDate = this._formatDate(new Date(this.$departDate.val()));
     returnDate = this.oneWay() ? "" : this._formatDate(new Date(this.$returnDate.val()));
-    return url = "http://flights.lonelyplanet.com/Flights?" + ("&outboundDate=" + departDate + "&inboundDate=" + returnDate) + ("&originPlace=" + (this.$fromAirport.val() || this.$fromCity.val())) + ("&destinationPlace=" + (this.$toAirport.val() || this.$toCity.val())) + ("&adults=" + ($(".js-adult-num .js-select").val())) + ("&children=" + ($(".js-child-num .js-select").val())) + ("&infants=" + ($(".js-baby-num .js-select").val())) + ("&country=" + this.autocomplete.countryCode + "&currency=" + (this.$currency.val())) + "&locationSchema=sky&cabinClass=economy&searchcontrols=true";
+    return url = "http://flights.lonelyplanet.com/flights?" + "home_country=" + this.autocomplete.countryCode + "&currency=" + (this.$currency.val()) + "&#/result?"  + ("originplace=" + (this.$fromAirport.val() || this.$fromCity.val())) + ("&destinationplace=" + (this.$toAirport.val() || this.$toCity.val())) + ("&outbounddate=" + departDate + "&inbounddate=" + returnDate) + ("&adults=" + ($(".js-adult-num .js-select").val())) + ("&children=" + ($(".js-child-num .js-select").val())) + ("&infants=" + ($(".js-baby-num .js-select").val())) + "&cabinclass=Economy";
   };
 
   FlightsWidget.prototype._formatDate = function(date) {
