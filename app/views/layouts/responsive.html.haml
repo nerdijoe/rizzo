@@ -10,7 +10,7 @@
   = render 'layouts/custom/pre_header', third_party: false
   .wrapper.js-wrapper
     - unless @no_nav
-      = render 'layouts/custom/post_header', search: true, user_nav: true, include_js: true, nav_primary: true, responsive: true, ads_header: true
+      = render 'layouts/custom/post_header', legacy_header: false, search: true, user_nav: true, include_js: true, nav_primary: true, responsive: true, ads_header: true
 
     .row.row--content{id: @no_wallpaper ? "" : "js-row--content"}
       - if (yield :secondary).present?
