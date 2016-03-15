@@ -158,7 +158,12 @@ define([
   };
 
   FlightsWidget.prototype._formatDate = function(date) {
-    return date.toISOString().split("T")[0];
+    var month = '' + (date.getMonth() + 1),
+        day = '' + date.getDate(),
+        year = date.getFullYear();
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+    return [year, month, day].join('-');
   };
 
   return FlightsWidget;
