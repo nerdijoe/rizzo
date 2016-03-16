@@ -102,8 +102,11 @@ define([
     var departDate, returnDate;
     departDate = new Date(this.$departDate.val());
     returnDate = new Date(this.$returnDate.val());
-    if (!this.oneWay() && departDate.getDate() > returnDate.getDate()) {
+
+    if (!this.oneWay() && departDate > returnDate) {
       this._setDate(this.$returnDate, departDate, true);
+    } else {
+      this._setMinDate(this.$returnDate, departDate);
     }
   };
 
@@ -120,6 +123,12 @@ define([
     calendar.pickadate("set", {
       min: day,
       select: selectDay
+    });
+  };
+
+  FlightsWidget.prototype._setMinDate = function(calendar, minDate) {
+    calendar.pickadate("set", {
+      min: minDate
     });
   };
 
