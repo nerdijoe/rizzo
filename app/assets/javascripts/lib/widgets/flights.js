@@ -102,8 +102,11 @@ define([
     var departDate, returnDate;
     departDate = new Date(this.$departDate.val());
     returnDate = new Date(this.$returnDate.val());
-    if (!this.oneWay() && departDate.getDate() > returnDate.getDate()) {
+
+    if (!this.oneWay() && departDate > returnDate) {
       this._setDate(this.$returnDate, departDate, true);
+    } else {
+      this._setMinDate(this.$returnDate, departDate);
     }
   };
 
@@ -120,6 +123,12 @@ define([
     calendar.pickadate("set", {
       min: day,
       select: selectDay
+    });
+  };
+
+  FlightsWidget.prototype._setMinDate = function(calendar, minDate) {
+    calendar.pickadate("set", {
+      min: minDate
     });
   };
 
@@ -154,11 +163,16 @@ define([
     var departDate, returnDate, url;
     departDate = this._formatDate(new Date(this.$departDate.val()));
     returnDate = this.oneWay() ? "" : this._formatDate(new Date(this.$returnDate.val()));
-    return url = "http://flights.lonelyplanet.com/Flights?" + ("&outboundDate=" + departDate + "&inboundDate=" + returnDate) + ("&originPlace=" + (this.$fromAirport.val() || this.$fromCity.val())) + ("&destinationPlace=" + (this.$toAirport.val() || this.$toCity.val())) + ("&adults=" + ($(".js-adult-num .js-select").val())) + ("&children=" + ($(".js-child-num .js-select").val())) + ("&infants=" + ($(".js-baby-num .js-select").val())) + ("&country=" + this.autocomplete.countryCode + "&currency=" + (this.$currency.val())) + "&locationSchema=sky&cabinClass=economy&searchcontrols=true";
+    return url = "http://flights.lonelyplanet.com/flights?" + "home_country=" + this.autocomplete.countryCode + "&currency=" + (this.$currency.val()) + "&#/result?"  + ("originplace=" + (this.$fromAirport.val() || this.$fromCity.val())) + ("&destinationplace=" + (this.$toAirport.val() || this.$toCity.val())) + ("&outbounddate=" + departDate + "&inbounddate=" + returnDate) + ("&adults=" + ($(".js-adult-num .js-select").val())) + ("&children=" + ($(".js-child-num .js-select").val())) + ("&infants=" + ($(".js-baby-num .js-select").val())) + "&cabinclass=Economy";
   };
 
   FlightsWidget.prototype._formatDate = function(date) {
-    return date.toISOString().split("T")[0];
+    var month = "" + (date.getMonth() + 1),
+        day = "" + date.getDate(),
+        year = date.getFullYear();
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+    return [ year, month, day ].join("-");
   };
 
   return FlightsWidget;
