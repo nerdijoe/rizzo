@@ -1,6 +1,8 @@
 :ruby
   from = properties[:prepopulation] ? properties[:prepopulation][:from] : nil
   to = properties[:prepopulation] ? properties[:prepopulation][:to] : nil
+  from_code = properties[:prepopulation] ? properties[:prepopulation][:from_code] : nil
+  to_code = properties[:prepopulation] ? properties[:prepopulation][:to_code] : nil
   today = Date.today
   tomorrow = Date.tomorrow
 
@@ -18,14 +20,14 @@
             .clearfix
               %label From
               = ui_component('forms/text_input', properties: { class: "js-city-input js-from-city input--regular--dark", id: "js-from-city", name: "js-from-city", value: from })
-              %input.js-from-airport{ type: "hidden" }
+              %input.js-from-airport{ type: "hidden", value: from_code }
             .field--booking__date.input__container.icon--calendar--after
               = ui_component('forms/date_input', properties: { class: "js-input js-av-start input--regular--dark", id: "flight-depart-date", name: "departure_date", placeholder: "Departure Date", value: today })
           .field.field--booking
             .clearfix
               %label To
               = ui_component('forms/text_input', properties: { class: "js-city-input js-to-city input--regular--dark", id: "js-to-city", name: "js-to-city", value: to })
-              %input.js-to-airport{ type: "hidden" }
+              %input.js-to-airport{ type: "hidden", value: to_code }
             .field--booking__date.input__container.icon--calendar--after
               = ui_component('forms/date_input', properties: { class: "js-input js-av-end input--regular--dark", id: "flight-return-date", name: "return_date", placeholder: "Return Date", value: tomorrow })
 
