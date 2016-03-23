@@ -1,5 +1,3 @@
-require 'sanitize'
-
 module JsHelper
   LP_DEFAULT_JS_NAMESPACE = "window.lp"
 
@@ -72,7 +70,7 @@ module JsHelper
   end
 
   def js_sanitize(param)
-    Sanitize.clean(param)
+    strip_tags(param.dup)
   end
 
 end
