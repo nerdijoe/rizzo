@@ -33,8 +33,9 @@ define([ "public/assets/javascripts/lib/utils/throttle.js" ], function(throttle)
         interval = setInterval(bounce, 10);
       });
 
-      it("has triggered the callback", function() {
+      it("has triggered the callback", function(done) {
         expect(callbackInc).toBe(2);
+        done();
       });
 
     });
