@@ -15,27 +15,28 @@ define([ "public/assets/javascripts/lib/utils/throttle.js" ], function(throttle)
 
     describe("Execute the given callback only once per wait time", function() {
       var instance,
-          bounceInc = 0,
           callbackInc = 0;
 
-      beforeEach(function(done) {
+      beforeEach(function() {
+        jasmine.clock().install();
+        jasmine.clock().mockDate();
+
         instance = throttle(function() {
           callbackInc++;
         }, 25);
 
-        function bounce() {
-          if (bounceInc == 6) return done();
-
-          bounceInc++;
+        for (var i = 0; i < 6; i++) {
           instance();
+          jasmine.clock().tick(10);
         }
-
-        interval = setInterval(bounce, 10);
       });
 
-      it("has triggered the callback", function(done) {
+      afterEach(function() {
+        jasmine.clock().uninstall()
+      });
+
+      it("has triggered the callback", function() {
         expect(callbackInc).toBe(2);
-        done();
       });
 
     });
