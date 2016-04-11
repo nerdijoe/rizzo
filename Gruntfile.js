@@ -148,6 +148,7 @@ module.exports = function(grunt) {
           host: "http://127.0.0.1:8888/",
           helpers: [
             "./vendor/assets/javascripts/jquery/dist/jquery.js",
+            "node_modules/jasmine-jquery/lib/jasmine-jquery.js",
             "node_modules/jasmine-ajax/lib/mock-ajax.js",
             "./spec/javascripts/helpers/**/*.js"
           ],
