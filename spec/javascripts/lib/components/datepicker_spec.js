@@ -30,7 +30,6 @@ define([
 
         expect($(".js-custom .picker").length).toBe(2);
       });
-
     });
 
     describe("Functionality", function() {
@@ -110,61 +109,93 @@ define([
 
       describe("Choosing dates", function() {
 
-        var selected, stubDate;
+        var instance, stubDate, $start, $end;
 
         beforeEach(function() {
           stubDate = new Date();
           stubDate.setMonth(stubDate.getMonth() + 1);
           stubDate.setDate("20");
 
-          new Datepicker({ target: ".js-standard" });
-          $("#js-av-start").data("pickadate").set("select", stubDate);
+          instance = new Datepicker({ target: ".js-standard" });
+          $start = $("#js-av-start"),
+          $end = $("#js-av-end");
         });
 
-        it("selecting a 'start' date opens the 'end' date calendar only once", function() {
-          var $start = $("#js-av-start"),
-              $end = $("#js-av-end");
+        it("selecting 'start' date opens 'end' picker", function() {
+          expect($end).not.toHaveClass("picker__input--active");
 
-          $start.trigger("change");
+          $start.data("pickadate").set("select", stubDate);
+          $start.data("pickadate").close();
 
           expect($end).toHaveClass("picker__input--active");
+          expect($start).not.toHaveClass("picker__input--active");
+        });
 
-          $end.pickadate("picker").close();
-          $start.trigger("change");
+        it("selecting 'end' date opens 'start' picker", function() {
+          expect($start).not.toHaveClass("picker__input--active");
 
+          $end.data("pickadate").set("select", stubDate);
+          $end.data("pickadate").close();
+
+          expect($start).toHaveClass("picker__input--active");
           expect($end).not.toHaveClass("picker__input--active");
         });
 
-        it("selecting an 'end' date before the selected 'start' date updates the 'start' date to the day before", function() {
+        describe("Invalid dates auto correction", function() {
+          var startDaysSelector = ".js-start-container .picker__day--infocus:not(.picker__day--disabled)",
+              endDaysSelector = ".js-end-container .picker__day--infocus:not(.picker__day--disabled)",
+              selectedStartDaySelector = ".js-start-container .picker__day--selected",
+              selectedEndDaySelector = ".js-end-container .picker__day--selected";
 
-          $("#js-av-start").trigger("focus");
-          $(".js-start-container .picker__day--infocus:not(.picker__day--disabled):contains('23')").trigger("click");
+          describe("selecting 'end' date earlier than 'start' date opens 'start' picker", function() {
 
-          $("#js-av-end").trigger("focus");
-          $(".js-end-container .picker__day--infocus:not(.picker__day--disabled):contains('22')").trigger("click");
+            it("and sets its date to the day before by default", function() {
+              $start.focus();
+              $(startDaysSelector).filter(":contains('23')").trigger("click");
+              $(endDaysSelector).filter(":contains('22')").trigger("click");
 
-          $("#js-av-start").trigger("focus");
-          selected = $(".js-start-container .picker__day--selected");
+              expect($start).toHaveClass("picker__input--active");
+              expect($(selectedStartDaySelector).text()).toBe("21");
+            });
 
-          expect(selected.text()).toBe("21");
-        });
+            it("and sets its date to the same day if 'allowSameDate' option is set", function() {
+              instance.config.allowSameDate = true;
+              instance.init();
 
-        it("selecting a 'start' date after the selected 'end' date updates the 'end' date to the day after", function() {
+              $start.focus();
+              $(startDaysSelector).filter(":contains('23')").trigger("click");
+              $(endDaysSelector).filter(":contains('22')").trigger("click");
 
-          $("#js-av-end").trigger("focus");
-          $(".js-end-container .picker__day--infocus:not(.picker__day--disabled):contains('23')").trigger("click");
+              expect($start).toHaveClass("picker__input--active");
+              expect($(selectedStartDaySelector).text()).toBe("22");
+            });
+          });
 
-          $("#js-av-start").trigger("focus");
-          $(".js-start-container .picker__day--infocus:not(.picker__day--disabled):contains('24')").trigger("click");
+          describe("selecting 'start' date later than 'end' date opens 'end' picker", function() {
 
-          $("#js-av-end").trigger("focus");
-          selected = $(".js-end-container .picker__day--selected");
+            it("and sets its date to the day after by default", function() {
+              $end.focus();
+              $(endDaysSelector).filter(":contains('23')").trigger("click");
+              $(startDaysSelector).filter(":contains('24')").trigger("click");
 
-          expect(selected.text()).toBe("25");
+              expect($end).toHaveClass("picker__input--active");
+              expect($(selectedEndDaySelector).text()).toBe("25");
+            });
+
+            it("and sets its date to the same day if 'allowSameDate' option is set", function() {
+              instance.config.allowSameDate = true;
+              instance.init();
+
+              $end.focus();
+              $(endDaysSelector).filter(":contains('23')").trigger("click");
+              $(startDaysSelector).filter(":contains('24')").trigger("click");
+
+              expect($end).toHaveClass("picker__input--active");
+              expect($(selectedEndDaySelector).text()).toBe("24");
+            });
+          });
         });
       });
-
     });
-
   });
 });
