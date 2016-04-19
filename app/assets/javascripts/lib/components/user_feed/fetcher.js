@@ -4,7 +4,7 @@
 //
 //-----------------------------------------------------------------------------
 
-define([ "jquery" ], function($) {
+define([ "jquery", "lib/utils/local_store" ], function($, LocalStore) {
 
   "use strict";
 
@@ -16,6 +16,7 @@ define([ "jquery" ], function($) {
   function Fetcher(args) {
     this.config = $.extend({}, defaults, args);
 
+    this.localStore = new LocalStore();
     this._isPaused = false;
 
     this.init();
@@ -47,8 +48,15 @@ define([ "jquery" ], function($) {
   };
 
   Fetcher.prototype._fetch = function() {
+    var feedUrl = this.config.feedUrl.concat(
+      "?activities_timestamp=",
+      this.localStore.get("lastActivityTimestamp.read"),
+      "&messages_timestamp=",
+      this.localStore.get("lastMessageTimestamp.read")
+    );
+
     $.ajax({
-      url:           this.config.feedUrl,
+      url:           feedUrl,
       dataType:      "json",
       cache:         false,
       success:       this.config.onSuccess

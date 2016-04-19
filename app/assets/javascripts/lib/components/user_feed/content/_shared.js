@@ -10,22 +10,26 @@ define([], function() {
 
   var shared = function() {
 
-    this._handleUpdate = function(itemsArray, onRender) {
-      var newHtml = this._getHtml(itemsArray);
+    this._handleUpdate = function(data, globalTimestamp, onRender) {
+      var newHtml = this._getHtml(data);
 
-      this.latestCount = this._getLatestCount(itemsArray);
-      this.unreadCount = this._getUnreadCount(itemsArray);
+      if (globalTimestamp > this._getLastReadTimestamp()) {
+        this._storeLastReadTimestamp(globalTimestamp);
+      }
+
+      this.latestCount = this._getLatestCount(data);
+      this.unreadCount = this._getUnreadCount(data);
 
       this._renderItems(newHtml);
       onRender();
     };
 
-    this._getUnreadCount = function(itemsArray) {
+    this._getUnreadCount = function(data) {
       var unreadCount = 0,
           lastReadTimestamp = this._getLastReadTimestamp();
 
       if (lastReadTimestamp) {
-        var newTimestamps = this._getTimestamps(itemsArray),
+        var newTimestamps = this._getTimestamps(data),
             i, l = newTimestamps.length;
 
         for (i = 0; i < l; i++) {
@@ -35,7 +39,7 @@ define([], function() {
         this._storeLastTimestamp(newTimestamps[0]);
 
       } else {
-        lastReadTimestamp = new Date(itemsArray[0].timestamp).getTime();
+        lastReadTimestamp = new Date(data[0].timestamp).getTime();
         this._storeLastReadTimestamp(lastReadTimestamp);
       }
 
@@ -48,11 +52,11 @@ define([], function() {
       $items.slice(0, this.unreadCount).addClass("is-unread");
     };
 
-    this._getHtml = function(itemsArray) {
-      var html = "", i, l = itemsArray.length;
+    this._getHtml = function(data) {
+      var html = "", i, l = data.length;
 
       for (i = 0; i < l; i++) {
-        html += itemsArray[i].text;
+        html += data[i].text;
       }
 
       return html;
@@ -70,21 +74,21 @@ define([], function() {
       this.$container.html(html);
     };
 
-    this._getTimestamps = function(itemsArray) {
-      var timestamps = [], i = 0, l = itemsArray.length;
+    this._getTimestamps = function(data) {
+      var timestamps = [], i = 0, l = data.length;
 
       for (i = 0; i < l; i++) {
-        timestamps.push(new Date(itemsArray[i].timestamp).getTime());
+        timestamps.push(new Date(data[i].timestamp).getTime());
       }
 
       return timestamps;
     };
 
-    this._getLatestCount = function(itemsArray) {
+    this._getLatestCount = function(data) {
       var latestCount = 0;
 
       if (this._lastTimestamp) {
-        var newTimestamps = this._getTimestamps(itemsArray),
+        var newTimestamps = this._getTimestamps(data),
             i = 0;
 
         while (newTimestamps[i] > this._lastTimestamp) {
@@ -94,7 +98,7 @@ define([], function() {
         this._lastTimestamp = newTimestamps[0];
 
       } else {
-        this._lastTimestamp = new Date(itemsArray[0].timestamp).getTime();
+        this._lastTimestamp = new Date(data[0].timestamp).getTime();
       }
 
       return latestCount;

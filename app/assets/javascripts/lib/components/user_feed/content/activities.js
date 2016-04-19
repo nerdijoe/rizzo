@@ -13,18 +13,15 @@ define([
   "use strict";
 
   var defaults = {
-    container:     ".js-user-feed__activities",
-    unreadCounter: ".js-user-feed__activities__unread-counter"
+    container: ".js-user-feed__activities",
   };
 
   function Activities(args) {
     this.config = $.extend({}, defaults, args);
 
-    this.$container = $(this.config.container);
-    this.$unreadCounters = $(this.config.unreadCounter);
-
     this.localStore = new LocalStore();
 
+    this.$container = $(this.config.container);
     this.unreadCount = 0;
   }
 
@@ -39,11 +36,12 @@ define([
   //---------------------------------------------------------------------------
 
   Activities.prototype.update = function(data) {
-    var itemsArray = data.activities || [];
+    var activities = data.activities || [],
+        globalTimestamp = data.activitiesTimestamp;
 
-    if (itemsArray.length) {
-      this._handleUpdate(itemsArray, this._markUnread.bind(this));
-    }
+    activities.length && this._handleUpdate(
+      activities, globalTimestamp, this._markUnread.bind(this)
+    );
   };
 
   //---------------------------------------------------------------------------
