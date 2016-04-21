@@ -13,7 +13,7 @@ define([
   "use strict";
 
   var defaults = {
-    container:     ".js-user-feed__messages",
+    container: ".js-user-feed__messages",
     footer:
       "<li class='user-feed__footer js-user-feed__messages__footer'>" +
         "<a class='btn btn--linkblue btn--full-width'" +
@@ -26,11 +26,10 @@ define([
   function Messages(args) {
     this.config = $.extend({}, defaults, args);
 
-    this.$container = $(this.config.container);
-    this.$footer = $(this.config.footer);
-
     this.localStore = new LocalStore();
 
+    this.$container = $(this.config.container);
+    this.$footer = $(this.config.footer);
     this.unreadCount = 0;
   }
 
@@ -45,14 +44,12 @@ define([
   //---------------------------------------------------------------------------
 
   Messages.prototype.update = function(data) {
-    var itemsArray = data.messages || [];
+    var messages = data.messages || [],
+        globalTimestamp = data.messagesTimestamp;
 
-    if (itemsArray.length) {
-      this._handleUpdate(
-        itemsArray,
-        this._onRender.bind(this, !!itemsArray.length)
-      );
-    }
+    messages.length && this._handleUpdate(
+      messages, globalTimestamp, this._onRender.bind(this, !!messages.length)
+    );
   };
 
   //---------------------------------------------------------------------------
