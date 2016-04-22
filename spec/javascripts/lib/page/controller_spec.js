@@ -248,17 +248,12 @@ define([
         window.controller = new Controller();
         spyEvent = spyOnEvent(controller.$el, ":cards/received");
         spyOn(controller, "_updateOffset");
-        spyOn(controller, "_updateGoogleAnalytics");
         spyOn(controller, "_updateAdConfig");
         controller.replace(newParams);
       });
 
       it("updates the page offset", function() {
         expect(controller._updateOffset).toHaveBeenCalledWith(newParams.pagination);
-      });
-
-      it("updates the analytics datalayer", function() {
-        expect(controller._updateGoogleAnalytics).toHaveBeenCalled();
       });
 
       it("updates the ad config", function() {

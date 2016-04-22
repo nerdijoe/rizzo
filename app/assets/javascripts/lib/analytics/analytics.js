@@ -52,6 +52,13 @@ define([ "jquery", "sCode" ], function($) {
       }, true);
     }.bind(this));
 
+    $listener.on(":lightbox/contentReady", function() {
+      window.lp.analytics.api.trackPageView({
+        category: "Page View",
+        action: "Modal Location Override",
+        label: document.location.pathname
+      });
+    });
   };
 
   // -------------------------------------------------------------------------
