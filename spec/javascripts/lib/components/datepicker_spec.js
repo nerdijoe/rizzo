@@ -112,13 +112,17 @@ define([
         var instance, stubDate, $start, $end;
 
         beforeEach(function() {
-          stubDate = new Date();
-          stubDate.setMonth(stubDate.getMonth() + 1);
-          stubDate.setDate("20");
+          stubDate = new Date(2016, 4, 20);
+          jasmine.clock().install()
+          jasmine.clock().mockDate(stubDate);
 
           instance = new Datepicker({ target: ".js-standard" });
           $start = $("#js-av-start"),
           $end = $("#js-av-end");
+        });
+
+        afterEach(function() {
+          jasmine.clock().uninstall();
         });
 
         it("selecting 'start' date opens 'end' picker", function() {
