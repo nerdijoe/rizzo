@@ -53,7 +53,7 @@ define([ "jquery", "sCode" ], function($) {
     }.bind(this));
 
     $listener.on(":lightbox/contentReady", function() {
-      window.lp.analytics.api.trackPageView({
+      window.lp.analytics.api.trackEvent({
         category: "Page View",
         action: "Modal Location Override",
         label: document.location.pathname
