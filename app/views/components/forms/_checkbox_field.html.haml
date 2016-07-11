@@ -1,7 +1,7 @@
 - tooltip = properties[:tooltip]
-.field.js-field{class:"#{properties[:extra_class]}"}
+.field.js-field{ class:"#{properties[:extra_class]}" }
   .field__content.field__content--checkbox{ class: (tooltip and !tooltip.nil?) ? 'tooltip--container' : '' }
-    .input__container.js-input{ class: properties[:error] ? 'field__input--error' : nil }
+    .input__container.js-input{ class: properties[:error] ? 'field__input--error' : nil, class: properties[:disabled] ? 'input--checkbox--disabled' : '' }
       %input.input--hidden{ id: properties[:id] ? "#{properties[:id]}--hidden" : nil,
         name: properties[:name],
         type: "hidden",
