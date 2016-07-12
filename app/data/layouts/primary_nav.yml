@@ -14,8 +14,8 @@
     :button_url: "/places"
     :submenu:
       -
-        :title: "Best in Europe"
-        :slug: "http://www.lonelyplanet.com/best-in-europe"
+        :title: "Best in Asia"
+        :slug: "http://www.lonelyplanet.com/best-in-asia"
         :badge: "Featured"
       -
         :title: "Africa"
