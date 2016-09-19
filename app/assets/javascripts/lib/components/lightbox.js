@@ -71,7 +71,7 @@ define([
 
     this.$lightbox.on("click", ".js-lightbox-close", function(event) {
       event.preventDefault();
-      this.$el.trigger(":lightbox/close");
+      this.trigger(":lightbox/close");
       this._closeFlyout(this.$el);
     }.bind(this));
 
@@ -90,7 +90,7 @@ define([
     this.$previous.add(this.$next).on("click", this._navigateTo.bind(this));
 
     this.$el.on(":lightbox/navigate", function(event, data) {
-      this.$el.trigger(":lightbox/fetchContent", data.url);
+      this.trigger(":lightbox/fetchContent", data.url);
       this.$lightboxControls.find(".js-lightbox-arrow").addClass("is-hidden");
     }.bind(this));
 
@@ -116,11 +116,14 @@ define([
       setTimeout(function() {
         this.listenToFlyout(event, data);
       }.bind(this), 20);
+
+      event.stopPropagation();
     }.bind(this));
 
     this.$el.on(":lightbox/fetchContent", function(event, url) {
       this.requestMade = true;
       this._fetchContent(url);
+      event.stopPropagation();
     }.bind(this));
 
     this.$el.on(":flyout/close", function() {
@@ -152,6 +155,7 @@ define([
 
     this.$el.on(":lightbox/renderContent", function(event, content) {
       this._renderContent(content);
+      event.stopPropagation();
     }.bind(this));
 
     this.$controllerEl.on(":layer/received", function(event, data) {
