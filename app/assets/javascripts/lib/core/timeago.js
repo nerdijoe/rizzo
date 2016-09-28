@@ -22,8 +22,7 @@ define([
       responsive: ".js-timeago",
       full: ".js-timeago-full"
     },
-    context: "#js-row--content",
-    listener: "#js-row--content",
+    context: "body",
     breakpoint: 600,
     refreshMillis: 10000,
   };
@@ -84,16 +83,17 @@ define([
 
   Timeago.prototype.listen = function() {
     $(window).on("resize", debounce(this._updateResponsives.bind(this), 300));
-    $(this.config.listener).on(":timeago/refresh", this.refresh.bind(this));
+    $(this.config.context)
+      .on(":timeago/refresh", this.refresh.bind(this))
+      .on(":timeago/update", this.update.bind(this))
+      .on(":timeago/dispose", this.dispose.bind(this));
   };
 
   //---------------------------------------------------------------------------
   // Functionality
   //---------------------------------------------------------------------------
 
-  Timeago.prototype.refresh = function(event) {
-    event && event.stopImmediatePropagation();
-
+  Timeago.prototype.refresh = function() {
     this.dispose();
 
     if (this._findEls()) {
