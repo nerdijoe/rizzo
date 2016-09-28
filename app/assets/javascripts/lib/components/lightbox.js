@@ -76,15 +76,16 @@ define([
     }.bind(this));
 
     this.$el.on("click", this.opener, function(event) {
-      if (this._isAboveBreakpoint(event.currentTarget)) {
-        event.preventDefault();
+      if (!this._isAboveBreakpoint(event.currentTarget) ||
+          "preventLightboxToggle" in $(event.target).data()) return;
 
-        this.trigger(":lightbox/open", {
-          listener: this.$el,
-          opener: event.currentTarget,
-          target: this.$lightboxContent
-        });
-      }
+      this.trigger(":lightbox/open", {
+        listener: this.$el,
+        opener: event.currentTarget,
+        target: this.$lightboxContent
+      });
+
+      event.preventDefault();
     }.bind(this));
 
     this.$previous.add(this.$next).on("click", this._navigateTo.bind(this));
