@@ -85,6 +85,7 @@ define([
         target: this.$lightboxContent
       });
 
+      event.stopPropagation();
       event.preventDefault();
     }.bind(this));
 
@@ -216,7 +217,7 @@ define([
     setTimeout(function() {
       this.$lightboxContent.html(this.customRenderer ? this.customRenderer(content) : content);
       this.$lightbox.addClass("content-ready");
-      this.trigger(":lightbox/contentReady");
+      this.trigger(":lightbox/contentReady", this);
 
       this.$lightbox.find(".js-lightbox-navigation").on("click", this._navigateTo.bind(this));
 
