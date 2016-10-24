@@ -4,6 +4,7 @@
   = render 'layouts/custom/head', tynt: (defined?(tynt) ? tynt : true), include_js: true, responsive: true, third_party: false, legacy_lp: false, app_core: false, default_title: true
 
 %body.responsive
+  = render 'layouts/partials/snippets/gtm'
   = ui_component('lightbox')
   %script#tmpl-preloader{ type: 'text/html' }
     = ui_component('preloader')
