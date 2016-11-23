@@ -87,6 +87,9 @@
 .icon--lp-reviewed--before:before, .icon--lp-reviewed--after:after,
 .icon--lp-reviewed { background-image: url('png/lp-reviewed.png'); background-repeat: no-repeat; }
 
+.icon--magazine--line--before:before, .icon--magazine--line--after:after,
+.icon--magazine--line { background-image: url('png/magazine--line.png'); background-repeat: no-repeat; }
+
 .icon--nd--before:before, .icon--nd--after:after,
 .icon--nd { background-image: url('png/nd.png'); background-repeat: no-repeat; }
 
