@@ -1,13 +1,6 @@
-require([ "jquery", "lib/analytics/analytics" ], function($, Analytics) {
+require([ "jquery" ], function($) {
 
   "use strict";
-
-  var analytics = new Analytics();
-  if (window.lp.hasOwnProperty("tracking") && window.lp.tracking.hasOwnProperty("eVar12") && window.lp.tracking.eVar12 !== "dest essential information") {
-    analytics.trackView();
-  }
-
-  // Set up Omniture event handlers
 
   var windowUnloadedFromSubmitClick = false;
 
@@ -41,13 +34,4 @@ require([ "jquery", "lib/analytics/analytics" ], function($, Analytics) {
       }
     }
   });
-
-  // Before redirection (which the WN widget does, it's not a form submit)
-  // if the user clicked on the submit button, track click with Omniture and GA
-  window.onbeforeunload = function() {
-    if (windowUnloadedFromSubmitClick) {
-      window.s.events = "event42";
-      window.s.t();
-    }
-  };
 });
