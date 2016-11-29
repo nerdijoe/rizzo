@@ -34,7 +34,7 @@ define([
   FlightsWidgetAutocomplete.prototype.getCountryCode = function() {
     return $.ajax({
       type: "GET",
-      url: "http://www.lonelyplanet.com",
+      url: "https://www.lonelyplanet.com",
       success: function(data, textStatus, request) {
           this.countryCode = request.getResponseHeader("X-GeoIP-CountryCode") || "US";
         }.bind(this)
